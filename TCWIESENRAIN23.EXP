@@ -1,0 +1,1464 @@
+
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK FB_ANALYSE_VOLTAGE
+VAR_INPUT
+	uliStartTimeNextLatch : ARRAY [0..1] OF UDINT;
+	bWcState		: BOOL;
+END_VAR
+VAR_IN_OUT
+	iVoltage : ARRAY [0..9] OF INT;
+END_VAR
+VAR
+	iBufferV : ARRAY [0..209] OF INT;
+	iBufferT : ARRAY [0..209] OF T_DCTIME;
+	i: INT;
+	dctActSample: T_DCTIME;
+	multiplier: T_DCTIME;
+	dctSampleDelay: T_DCTIME;
+	fbGETCURTASKINDEX: GETCURTASKINDEX;
+	tCylceTime: T_DCTIME;
+	tSampleTime: T_DCTIME;
+	dctElSampleDelta: T_DCTIME;
+	n: INT;
+	m: INT;
+	dctZeroPoint: ARRAY [1..2] OF T_DCTIME;
+	bZeroPoint: ARRAY [1..2] OF BOOL;
+	ui64Sub: T_ULARGE_INTEGER;
+	ui64a: T_ULARGE_INTEGER;
+	ui64b: T_ULARGE_INTEGER;
+	dctZeroPointDelta: T_DCTIME;
+	dctNextSample: T_DCTIME;
+	uliStartTimeNextLatchLastCycle: ARRAY [0..1] OF UDINT;
+	iBufferZeroSumV: INT;
+	dctSampleTimePerV: T_DCTIME;
+	dctSampleTimeOffset: T_DCTIME;
+	ui64Add: T_ULARGE_INTEGER;
+	diResultAdd: DINT;
+	diResultSub: DINT;
+	ui64Add1: T_ULARGE_INTEGER;
+	ui64Sub1: T_ULARGE_INTEGER;
+	ui64Cmp1: T_ULARGE_INTEGER;
+	iActVoltage: INT;
+	tHalfCylceTime: T_DCTIME;
+	multi: T_ULARGE_INTEGER;
+END_VAR
+VAR_OUTPUT
+	lrFrequency: LREAL;
+	tNextZeroVoltage: T_DCTIME;
+	bError: BOOL;
+	bZeroFound: BOOL;
+	bZeroNow: BOOL;
+END_VAR
+VAR CONSTANT
+	uiOversampling: UINT := 10;
+END_VAR
+(* @END_DECLARATION := '0' *)
+MEMCPY(ADR(dctNextSample), ADR(uliStartTimeNextLatch), SIZEOF(dctActsample));
+MEMCPY(ADR(ui64a), ADR(dctNextSample), SIZEOF(ui64a));
+MEMCPY(ADR(ui64b), ADR(dctActSample), SIZEOF(ui64b));
+ui64Sub := UInt64Sub64(ui64a, ui64b);
+MEMCPY(ADR(dctElSampleDelta), ADR(ui64Sub), SIZEOF(dctElSampleDelta));
+
+fbGETCURTASKINDEX(index=> );
+tCylceTime.dwLowPart := SYSTEMTASKINFOARR[fbGETCURTASKINDEX.index].cycleTime*100;
+tCylceTime.dwHighPart := 0;
+
+
+IF (dctElSampleDelta.dwLowPart <> tCylceTime.dwLowPart) OR (dctElSampleDelta.dwHighPart <> tCylceTime.dwHighPart) THEN
+	bError := TRUE;
+ELSE
+	bError := FALSE;
+END_IF
+
+
+IF NOT bWcState AND NOT bError THEN
+	(* Samplezeit *)
+	IF uiOversampling > 0 THEN
+		tSampleTime.dwLowPart := (SYSTEMTASKINFOARR[fbGETCURTASKINDEX.index].cycleTime*100)/uiOversampling;
+		tSampleTime.dwHighPart := 0;
+	END_IF
+
+	(* Spannungsspeicher befüllen *)
+	FOR i := 10 TO 209 DO
+		iBufferV[i-10] := iBufferV[i];
+		iBufferT[i-10] := iBufferT[i];
+	END_FOR
+
+	FOR i := 200 TO 209 DO
+		multiplier := LREAL_TO_UINT64(INT_TO_LREAL(i-200));
+		dctSampleDelay := UInt64Mul64(tSampleTime, multiplier);
+		iBufferT[i] := UInt64Add64(dctActSample, dctSampleDelay);
+		iBufferV[i] := iVoltage[i-200];
+	END_FOR
+
+	(* Zeit der Nulldurchgänge bestimmen *)
+	m := 208;
+	bZeroPoint[1] := FALSE;
+	bZeroPoint[2] := FALSE;
+	bZeroNow := FALSE;
+	iActVoltage := iBufferV[200];
+	FOR n := 1 TO 2 DO
+		FOR i := m TO 0 BY -1 DO
+			IF (iBufferV[i].15 AND NOT iBufferV[i+1].15) OR (NOT iBufferV[i].15 AND iBufferV[i+1].15) THEN
+
+				iBufferZeroSumV := ABS(iBufferV[i]) + ABS(iBufferV[i+1]);
+				IF iBufferZeroSumV > 0 THEN
+					dctSampleTimePerV.dwLowPart := LREAL_TO_DWORD(DWORD_TO_LREAL(tSampleTime.dwLowPart) / INT_TO_LREAL(iBufferZeroSumV));
+					dctSampleTimePerV.dwHighPart := 0;
+					dctSampleTimeOffset := UInt64Mul64(dctSampleTimePerV, LREAL_TO_UINT64(INT_TO_LREAL(ABS(iBufferV[i]))));
+					dctZeroPoint[n] := UInt64Add64(iBufferT[i], dctSampleTimeOffset);
+				ELSE
+					dctZeroPoint[n] := iBufferT[i];
+				END_IF
+
+
+				m := i-1;
+
+				bZeroPoint[n] := TRUE;
+				IF n = 1 THEN
+					multi.dwLowPart := 1;
+					tHalfCylceTime.dwLowPart := tCylceTime.dwLowPart/2;
+					ui64Add1 := UInt64Add64(UInt64Add64(dctZeroPoint[n],UInt64Mul64(dctZeroPointDelta, multi)), tHalfCylceTime);
+					ui64Sub1 := UInt64Sub64(UInt64Add64(dctZeroPoint[n],UInt64Mul64(dctZeroPointDelta, multi)), tHalfCylceTime);
+					ui64Cmp1 := F_GetActualDcTime();
+					diResultAdd := UInt64Cmp64(ui64Cmp1, ui64Add1);
+					diResultSub := UInt64Cmp64(ui64Cmp1, ui64Sub1);
+					IF (diResultSub >= 0) AND (diResultAdd <= 0)THEN
+						bZeroNow := TRUE;
+					END_IF
+
+				END_IF
+				EXIT;
+			END_IF
+		END_FOR
+	END_FOR
+	IF bZeroPoint[1] AND bZeroPoint[2] THEN
+
+		(* Berechnung des nächsten Nullpunkts *)
+		MEMCPY(ADR(ui64a), ADR(dctZeroPoint[1]), SIZEOF(ui64a));
+		MEMCPY(ADR(ui64b), ADR(dctZeroPoint[2]), SIZEOF(ui64b));
+		ui64Sub := UInt64Sub64(ui64a, ui64b);
+		MEMCPY(ADR(dctZeroPointDelta), ADR(ui64Sub), SIZEOF(dctZeroPointDelta));
+
+		MEMCPY(ADR(ui64a), ADR(dctZeroPointDelta), SIZEOF(ui64a));
+		MEMCPY(ADR(ui64b), ADR(dctZeroPoint), SIZEOF(ui64b));
+		ui64Add := UInt64Add64(ui64a, ui64b);
+		MEMCPY(ADR(tNextZeroVoltage), ADR(ui64Add), SIZEOF(tNextZeroVoltage));
+
+
+		lrFrequency := 1/(2*DWORD_TO_LREAL(dctZeroPointDelta.dwLowPart)/1000000000);
+	END_IF
+
+
+
+END_IF
+MEMCPY(ADR(dctActSample), ADR(uliStartTimeNextLatch), SIZEOF(dctActsample));
+
+uliStartTimeNextLatchLastCycle := uliStartTimeNextLatch;
+
+
+
+END_FUNCTION_BLOCK
+
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK FB_SYNC_RELAIS
+VAR_INPUT
+	bValue : BOOL;
+	udiDelayNanoSek : UDINT;
+	tNextZeroVoltage: T_DCTIME;
+END_VAR
+VAR_OUTPUT
+	bRelay AT %Q* : BOOL;
+END_VAR
+VAR
+	fbGETCURTASKINDEX: GETCURTASKINDEX;
+	tNextZeroVoltageLast: T_DCTIME;
+	TON_FAILURE: TON;
+	TOF_WAIT: TOF;
+	udiLastOnlineChangeCount: UDINT;
+	multi: T_DCTIME;
+	ui64Add1: T_ULARGE_INTEGER;
+	tHalfCylceTime: T_DCTIME;
+	ui64Sub1: T_ULARGE_INTEGER;
+	ui64Cmp1: T_ULARGE_INTEGER;
+	diResultAdd: DINT;
+	diResultSub: DINT;
+	tCylceTime: T_DCTIME;
+END_VAR
+(* @END_DECLARATION := '0' *)
+(*fTvalue(CLK:=bValue AND bRelay);
+IF fTvalue.Q OR bReset THEN
+	bRelay := FALSE;
+	bReset := FALSE;
+END_IF
+*)
+TON_FAILURE(IN:=tNextZeroVoltage.dwLowPart = tNextZeroVoltageLast.dwLowPart, PT:=t#100ms);
+tNextZeroVoltageLast.dwLowPart := tNextZeroVoltage.dwLowPart;
+
+TOF_WAIT(IN:=SYSTEMINFO.onlineChangeCount <> udiLastOnlineChangeCount, PT:= t#0.5s);
+udiLastOnlineChangeCount := SYSTEMINFO.onlineChangeCount;
+
+
+
+IF bValue AND NOT bRelay AND NOT TON_FAILURE.Q THEN
+	fbGETCURTASKINDEX(index=> );
+	tCylceTime.dwLowPart := SYSTEMTASKINFOARR[fbGETCURTASKINDEX.index].cycleTime*100;
+	tCylceTime.dwHighPart := 0;
+
+	multi.dwLowPart := udiDelayNanoSek;
+	tHalfCylceTime.dwLowPart := tCylceTime.dwLowPart/2;
+	ui64Add1 := UInt64Add64(UInt64Sub64(tNextZeroVoltage,multi), tHalfCylceTime);
+	ui64Sub1 := UInt64Sub64(UInt64Sub64(tNextZeroVoltage,multi), tHalfCylceTime);
+	ui64Cmp1 := F_GetActualDcTime();
+	diResultAdd := UInt64Cmp64(ui64Cmp1, ui64Add1);
+	diResultSub := UInt64Cmp64(ui64Cmp1, ui64Sub1);
+
+	IF (diResultSub >= 0) AND (diResultAdd <= 0)THEN
+		bRelay := TRUE;
+	END_IF
+END_IF
+
+IF NOT bValue AND bRelay AND NOT TON_FAILURE.Q THEN
+	fbGETCURTASKINDEX(index=> );
+	tCylceTime.dwLowPart := SYSTEMTASKINFOARR[fbGETCURTASKINDEX.index].cycleTime*100;
+	tCylceTime.dwHighPart := 0;
+
+	multi.dwLowPart := udiDelayNanoSek/2;
+	tHalfCylceTime.dwLowPart := tCylceTime.dwLowPart/2;
+	ui64Add1 := UInt64Add64(UInt64Sub64(tNextZeroVoltage,multi), tHalfCylceTime);
+	ui64Sub1 := UInt64Sub64(UInt64Sub64(tNextZeroVoltage,multi), tHalfCylceTime);
+	ui64Cmp1 := F_GetActualDcTime();
+	diResultAdd := UInt64Cmp64(ui64Cmp1, ui64Add1);
+	diResultSub := UInt64Cmp64(ui64Cmp1, ui64Sub1);
+
+	IF (diResultSub >= 0) AND (diResultAdd <= 0)THEN
+		bRelay := FALSE;
+	END_IF
+END_IF
+
+
+
+
+
+
+
+
+
+END_FUNCTION_BLOCK
+
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK fbButton
+VAR_INPUT
+	IN: BOOL;
+	CLICK: TIME := t#250ms;
+	RESET: TIME := t#500ms;
+END_VAR
+VAR_OUTPUT
+	releasePulse: BOOL;
+	pressPulse: BOOL;
+	clickPulse: BOOL;
+	longclickPulse: BOOL;
+END_VAR
+VAR_OUTPUT RETAIN PERSISTENT
+	pressLatch: BOOL;
+	pressToggle: BOOL;
+	releaseLatch: BOOL;
+	releaseToggle: BOOL;
+END_VAR
+VAR
+	pTrig: R_TRIG;
+	pStor: RS;
+	rTrig: F_TRIG;
+	rStor: SR;
+	clickTimer: TP;
+	releaseCounter: USINT;
+END_VAR
+VAR RETAIN PERSISTENT
+	usage AT %M*: UDINT; (*number of pressEvents*)
+END_VAR
+(* @END_DECLARATION := '0' *)
+(*
+	longClick:        press longer then CLICK
+	click:            press/release within CLICK
+	longDoubleclick:  press/release press
+	doubleclick:      press/release press/release
+	longTrippleclick: press/release press/release press
+	trippleclick:     press/release press/release press/release
+*)
+
+pTrig(CLK := IN);
+rTrig(CLK := IN);
+
+pressPulse := pTrig.Q;
+releasePulse := rTrig.Q;
+
+IF pressPulse THEN
+	usage := usage + 1;
+	pressToggle := fToggle(pressToggle);
+END_IF
+IF releasePulse THEN
+	releaseToggle := fToggle(releaseToggle);
+END_IF
+
+pStor(SET := pressPulse, RESET1 := releasePulse);
+rStor(SET1 := releasePulse, RESET := pressPulse);
+
+pressLatch := pStor.Q1;
+releaseLatch := rStor.Q1;
+
+clickTimer(IN := pressPulse, PT := CLICK);
+IF (clickTimer.ET = t#0s) THEN
+	releaseCounter := 0;
+END_IF
+IF releasePulse THEN
+	releaseCounter := releaseCounter + 1;
+END_IF
+IF clickTimer.ET = click THEN
+	IF IN THEN (* longclick *)
+		;
+	ELSE
+		;
+	END_IF
+END_IF
+END_FUNCTION_BLOCK
+
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK fbHeizkreis
+VAR_INPUT
+	soll:REAL;
+	vorlauf: REAL;
+	ruecklauf: REAL;
+END_VAR
+VAR_OUTPUT
+	mischer AT %Q*: INT;   (* 0x7FFF = 100% = 10V; 0x0000 = 0% = 0V*)
+	pumpe AT %Q*: INT;   (* 0x7FFF = 100% = 10V; 0x0000 = 0% = 0V*)
+END_VAR
+VAR
+END_VAR
+(* @END_DECLARATION := '0' *)
+mischer := 6000;
+pumpe := 0;
+END_FUNCTION_BLOCK
+
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK fbToggle
+VAR_INPUT
+	onTime: TIME :=  t#0.5s;
+	offTime: TIME := t#1s;
+END_VAR
+VAR_OUTPUT
+	Q: BOOL;
+END_VAR
+VAR
+	t1: TON;
+	t2: TOF;
+END_VAR
+(* @END_DECLARATION := '0' *)
+t1(IN := NOT t2.Q, pt := offTime);
+t2(IN := t1.Q, pt := onTime);
+Q := t2.Q;
+END_FUNCTION_BLOCK
+
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Fs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION fToggle : BOOL
+VAR_INPUT
+	IN: BOOL;
+END_VAR
+(* @END_DECLARATION := '0' *)
+IF IN THEN
+	fToggle := FALSE;
+ELSE
+	fToggle := TRUE;
+END_IF
+END_FUNCTION
+
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM IO_FAST
+VAR
+	uiStateCX5000 AT %I*: UINT;
+	uiControlCX5000 AT %Q* : UINT;
+	iVoltagePhase1 AT %I* : ARRAY [0..9] OF INT;
+	iVoltagePhase2 AT %I* : ARRAY [0..9] OF INT;
+	iVoltagePhase3 AT %I* : ARRAY [0..9] OF INT;
+	uliStartTimeNextLatch AT %I* : ARRAY [0..1] OF UDINT;
+	bWcState AT %I* : BOOL;
+
+	fbAnalyseVoltagePhase1 : FB_ANALYSE_VOLTAGE;
+	fbAnalyseVoltagePhase2 : FB_ANALYSE_VOLTAGE;
+	fbAnalyseVoltagePhase3 : FB_ANALYSE_VOLTAGE;
+	fbA28CH1: FB_SYNC_RELAIS;
+	fbA28CH2: FB_SYNC_RELAIS;
+	fbA29CH1: FB_SYNC_RELAIS;
+	fbA29CH2: FB_SYNC_RELAIS;
+	fbA30CH1: FB_SYNC_RELAIS;
+	fbA30CH2: FB_SYNC_RELAIS;
+	fbA31CH1: FB_SYNC_RELAIS;
+	fbA31CH2: FB_SYNC_RELAIS;
+	fbA32CH1: FB_SYNC_RELAIS;
+	fbA32CH2: FB_SYNC_RELAIS;
+	fbA20CH1: FB_SYNC_RELAIS;
+	fbA20CH2: FB_SYNC_RELAIS;
+	fbA21CH1: FB_SYNC_RELAIS;
+	fbA21CH2: FB_SYNC_RELAIS;
+	fbA23CH1: FB_SYNC_RELAIS;
+	fbA23CH2: FB_SYNC_RELAIS;
+	fbA24CH1: FB_SYNC_RELAIS;
+	fbA24CH2: FB_SYNC_RELAIS;
+	fbA25CH1: FB_SYNC_RELAIS;
+	fbA25CH2: FB_SYNC_RELAIS;
+	fbA26CH1: FB_SYNC_RELAIS;
+	fbA26CH2: FB_SYNC_RELAIS;
+	fbA38OGCH1: FB_SYNC_RELAIS;
+	fbA38OGCH2: FB_SYNC_RELAIS;
+	fbA41OGCH1: FB_SYNC_RELAIS;
+	fbA41OGCH2: FB_SYNC_RELAIS;
+	fbA43OGCH1: FB_SYNC_RELAIS;
+	fbA43OGCH2: FB_SYNC_RELAIS;
+	fbA44OGCH1: FB_SYNC_RELAIS;
+	fbA44OGCH2: FB_SYNC_RELAIS;
+	fbA45OGCH1: FB_SYNC_RELAIS;
+	fbA45OGCH2: FB_SYNC_RELAIS;
+	fbA48OGCH1: FB_SYNC_RELAIS;
+	fbA48OGCH2: FB_SYNC_RELAIS;
+	fbA49OGCH1: FB_SYNC_RELAIS;
+	fbA49OGCH2: FB_SYNC_RELAIS;
+	fbA50OGCH1: FB_SYNC_RELAIS;
+	fbA50OGCH2: FB_SYNC_RELAIS;
+	fbA52OGCH1: FB_SYNC_RELAIS;
+	fbA52OGCH2: FB_SYNC_RELAIS;
+	fbA53OGCH1: FB_SYNC_RELAIS;
+	fbA53OGCH2: FB_SYNC_RELAIS;
+	fbA55OGCH1: FB_SYNC_RELAIS;
+	fbA55OGCH2: FB_SYNC_RELAIS;
+	fbA56OGCH1: FB_SYNC_RELAIS;
+	fbA56OGCH2: FB_SYNC_RELAIS;
+	fbA57OGCH1: FB_SYNC_RELAIS;
+	fbA57OGCH2: FB_SYNC_RELAIS;
+	fbA15OGCH1: FB_SYNC_RELAIS;
+	fbA15OGCH2: FB_SYNC_RELAIS;
+	fbA17OGCH1: FB_SYNC_RELAIS;
+	fbA17OGCH2: FB_SYNC_RELAIS;
+	fbA18OGCH1: FB_SYNC_RELAIS;
+	fbA18OGCH2: FB_SYNC_RELAIS;
+	fbA19OGCH1: FB_SYNC_RELAIS;
+	fbA19OGCH2: FB_SYNC_RELAIS;
+	fbA21OGCH1: FB_SYNC_RELAIS;
+	fbA21OGCH2: FB_SYNC_RELAIS;
+	fbA23OGCH1: FB_SYNC_RELAIS;
+	fbA23OGCH2: FB_SYNC_RELAIS;
+	fbA25OGCH1: FB_SYNC_RELAIS;
+	fbA25OGCH2: FB_SYNC_RELAIS;
+	fbA26OGCH1: FB_SYNC_RELAIS;
+	fbA26OGCH2: FB_SYNC_RELAIS;
+	fbA33OGCH1: FB_SYNC_RELAIS;
+	fbA33OGCH2: FB_SYNC_RELAIS;
+	fbA35OGCH1: FB_SYNC_RELAIS;
+	fbA35OGCH2: FB_SYNC_RELAIS;
+	fbA36OGCH1: FB_SYNC_RELAIS;
+	fbA36OGCH2: FB_SYNC_RELAIS;
+	fbA78OGCH1: FB_SYNC_RELAIS;
+	fbA78OGCH2: FB_SYNC_RELAIS;
+	fbA80OGCH1: FB_SYNC_RELAIS;
+	fbA80OGCH2: FB_SYNC_RELAIS;
+
+
+	lrFrequencyPhase1: LREAL;
+	lrFrequencyPhase2: LREAL;
+	lrFrequencyPhase3: LREAL;
+	bErrorL1: BOOL;
+	bErrorL2: BOOL;
+	bErrorL3: BOOL;
+	TON1: TON;
+	bStart: BOOL;
+	bRelayPLC:BOOL;
+END_VAR
+(* @END_DECLARATION := '0' *)
+(* Spannungsanalyse *)
+fbAnalyseVoltagePhase1(
+	uliStartTimeNextLatch:=uliStartTimeNextLatch ,
+	bWcState:=bWcState ,
+	iVoltage:=iVoltagePhase1 ,
+	lrFrequency=>lrFrequencyPhase1 ,
+	bError=>bErrorL1);
+
+fbAnalyseVoltagePhase2(
+	uliStartTimeNextLatch:=uliStartTimeNextLatch ,
+	bWcState:=bWcState ,
+	iVoltage:=iVoltagePhase2 ,
+	lrFrequency=>lrFrequencyPhase2 ,
+	bError=>bErrorL2);
+
+fbAnalyseVoltagePhase3(
+	uliStartTimeNextLatch:=uliStartTimeNextLatch ,
+	bWcState:=bWcState ,
+	iVoltage:=iVoltagePhase3 ,
+	lrFrequency=>lrFrequencyPhase3 ,
+	bError=>bErrorL3);
+
+(* Relais *)
+fbA28CH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA28CH2(bValue:= , udiDelayNanoSek:= 7100000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA29CH1(bValue:= , udiDelayNanoSek:= 6800000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA29CH2(bValue:= , udiDelayNanoSek:= 7000000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA30CH1(bValue:= , udiDelayNanoSek:= 7000000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA30CH2(bValue:= , udiDelayNanoSek:= 6200000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA31CH1(bValue:= , udiDelayNanoSek:= 6200000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA31CH2(bValue:= , udiDelayNanoSek:= 6200000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA32CH1(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA32CH2(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA20CH1(bValue:= MAIN.lichtKgGang.Q , udiDelayNanoSek:= 7200000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA20CH2(bValue:= MAIN.lichtKgEgStiege.Q , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA21CH1(bValue:= MAIN.lichtLager.Q , udiDelayNanoSek:= 6900000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA21CH2(bValue:= , udiDelayNanoSek:= 7000000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA23CH1(bValue:= MAIN.lichtHeizen.Q , udiDelayNanoSek:= 7000000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA23CH2(bValue:= MAIN.lichtWaschenS.Q , udiDelayNanoSek:= 6800000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA24CH1(bValue:= MAIN.lichtWaschenN.Q , udiDelayNanoSek:= 6800000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA24CH2(bValue:= MAIN.lichtHobbyN.Q, udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA25CH1(bValue:= MAIN.lichtVorrat.Q, udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA25CH2(bValue:= MAIN.lichtHobbyS.Q, udiDelayNanoSek:= 6800000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA26CH1(bValue:= , udiDelayNanoSek:= 6800000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA26CH2(bValue:= , udiDelayNanoSek:= 6650000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA38OGCH1(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA38OGCH2(bValue:= , udiDelayNanoSek:= 6700000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA41OGCH1(bValue:= , udiDelayNanoSek:= 6700000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA41OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA43OGCH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA43OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA44OGCH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA44OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA45OGCH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA45OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA48OGCH1(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA48OGCH2(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA49OGCH1(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA49OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA50OGCH1(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA50OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA52OGCH1(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA52OGCH2(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA53OGCH1(bValue:= , udiDelayNanoSek:= 6400000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA53OGCH2(bValue:= , udiDelayNanoSek:= 6400000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA55OGCH1(bValue:= , udiDelayNanoSek:= 6400000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA55OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA56OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA56OGCH2(bValue:= , udiDelayNanoSek:= 6200000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA57OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA57OGCH2(bValue:= , udiDelayNanoSek:= 6400000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA15OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA15OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA17OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA17OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA18OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA18OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA19OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA19OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA21OGCH1(bValue:= , udiDelayNanoSek:= 6000000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA21OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA23OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA23OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA25OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA25OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA26OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA26OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA33OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA33OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA35OGCH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA35OGCH2(bValue:= , udiDelayNanoSek:= 6200000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA36OGCH1(bValue:= , udiDelayNanoSek:= 6400000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA36OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA78OGCH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA78OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA80OGCH1(bValue:= , udiDelayNanoSek:= 6000000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA80OGCH2(bValue:= , udiDelayNanoSek:= 6000000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+END_PROGRAM
+
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM MAIN
+VAR
+	bwmKgGang AT %I*: BOOL;
+	tasterHeizen AT %I*:  BOOL;
+	tasterHobbyL AT %I*: BOOL;
+	tasterHobbyR AT %I*: BOOL;
+	tasterWaschenL AT %I*: BOOL;
+	tasterWaschenR AT %I*: BOOL;
+	tasterLagerNO AT %I*: BOOL;
+	tasterLagerS AT %I*: BOOL;
+	tasterEgGangStiege AT %I*: BOOL;
+	lichtKgGang: TOF;
+	lichtHeizen: TOF;
+	lichtHobbyN: TOF;
+	lichtHobbyS: TOF;
+	lichtWaschenN: TOF;
+	lichtWaschenS: TOF;
+	lichtLager: TOF;
+	lichtVorrat: TOF;
+	lichtKgEgStiege: TOF;
+	heizenHk1: fbHeizkreis;
+	heizenHk2: fbHeizkreis;
+	heizenTaster : fbButton;
+	toggle: fbToggle;
+END_VAR
+(* @END_DECLARATION := '0' *)
+lichtKgGang(IN:=bwmKgGang, PT:=t#2m);
+lichtHeizen(IN:=tasterHeizen, PT:=t#15m);
+lichtHobbyN(IN:=tasterHobbyL , PT:=t#10m);
+lichtHobbyS(IN:=tasterHobbyR, PT:=t#10m);
+lichtWaschenN(IN:=tasterWaschenR , PT:=t#15m);
+lichtWaschenS(IN:=tasterWaschenL , PT:=t#15m);
+lichtLager(IN:=tasterLagerNO OR lichtVorrat.Q , PT:=t#3m);
+lichtVorrat(IN:=tasterLagerS , PT:=t#3m);
+lichtKgEgStiege(IN:=tasterEgGangStiege, PT:=t#1m);
+
+heizenHk1(soll:=24.0, vorlauf:=, ruecklauf:=);
+heizenHk2(soll:=24.0, vorlauf:=, ruecklauf:=);
+
+toggle(onTime := t#0.1s, offTime := t#5s);
+heizenTaster(IN := toggle.Q);
+
+END_PROGRAM
+
+(* @PATH := '' *)
+
+VISUALISATION TEST _VISU_TYPES : 1,1
+_BG_BMP : ''
+_TEXT : 5
+_PAINTZOOM : 100
+
+_BUTTON : ''
+_POS : 10,10,111,101,60,55
+_THRESH : '','','','MAIN.tasterHeizen'
+_INPUT : 131072
+_DSP : 'MAIN.heizenTaster.usage','Taster$R$NHeizen$R$N%d',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,0,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_TREND : ''
+_POS : 80,260,471,391,275,325
+_DSP : ''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_COLORS : 16777215,0,16777215,0
+_TRENDBASICS : 0,1,0
+_HAXIS : 50,2000,1000,500,2000,2000
+_DATETIME : 'HH$':$'mm$':$'ss','dd$'-$'MM$'-$'yyyy'
+_USEDATETIME : 0,0
+_TEXT : 0,15,700,0,0,0,0
+_FONT : 'Arial'
+_HASSYMBOLBAR : 0
+_VARIABLES : '',''
+_TRENDLINE : 2,1,8421631
+_VAXIS : '-1.000000;2.000000;1.000000;0.500000;1.000000;1.000000;'
+_DIRECTION : 0
+_TEXT : 0,15,700,0,0,0,0
+_FONT : 'Arial'
+_HASSYMBOLBAR : 0
+_VARIABLES : '',''
+_TRENDLINE : 2,1,8421504
+_TRENDCURVE : 0,0,1,3
+_BITMAP : ''
+_TOLERANCE : 255,7
+_TOLERANCE : 16711680,2
+_VARINFOLIST : 1
+_LINE : 0,16744448
+_VARIABLES : 'MAIN.heizenTaster.pressPulse.Q',''
+_TRENDDATABASE : 0
+(* @TREND_COLOR_FLAGS := '_NOCOLORS : 1,1' *)
+(* @TREND_FONT_FLAGS_VAXIS := '_FONT : 2,0,0,1,49,2,8' *)
+(* @TREND_FONT_FLAGS_HAXIS := '_FONT : 2,0,0,1,49,2,8' *)
+_KEYINFOLIST : 0
+END_VISUALISATION
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @GLOBAL_VARIABLE_LIST := 'Globale_Variablen' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+VAR_GLOBAL
+END_VAR
+
+(* @OBJECT_END := 'Globale_Variablen' *)
+(* @CONNECTIONS := Globale_Variablen
+FILENAME : ''
+FILETIME : 0
+EXPORT : 0
+NUMOFCONNECTIONS : 0
+*)
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @GLOBAL_VARIABLE_LIST := 'TwinCAT_Configuration' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+(* Generated automatically by TwinCAT - (read only) *)
+VAR_CONFIG
+	IO_FAST.uiStateCX5000 AT %IB0 : UINT;
+	IO_FAST.uiControlCX5000 AT %QB0 : UINT;
+	IO_FAST.iVoltagePhase1 AT %IB2 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^L1 Voltage Samples^U1 SAMPLES} *)
+	IO_FAST.iVoltagePhase2 AT %IB22 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^L2 Voltage Samples^U2 SAMPLES} *)
+	IO_FAST.iVoltagePhase3 AT %IB42 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^L3 Voltage Samples^U3 SAMPLES} *)
+	IO_FAST.uliStartTimeNextLatch AT %IB62 : ARRAY [0..1] OF UDINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^AI Timestamp NextSync1Time^StartTimeNextLatch} *)
+	IO_FAST.bWcState AT %IX72.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^WcState^WcState} *)
+	IO_FAST.fbA28CH1.bRelay AT %QX2.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A28^Kanal 1^Ausgang} *)
+	IO_FAST.fbA28CH2.bRelay AT %QX2.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A28^Kanal 2^Ausgang} *)
+	IO_FAST.fbA29CH1.bRelay AT %QX2.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A29^Kanal 1^Ausgang} *)
+	IO_FAST.fbA29CH2.bRelay AT %QX2.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A29^Kanal 2^Ausgang} *)
+	IO_FAST.fbA30CH1.bRelay AT %QX2.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A30^Kanal 1^Ausgang} *)
+	IO_FAST.fbA30CH2.bRelay AT %QX2.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A30^Kanal 2^Ausgang} *)
+	IO_FAST.fbA31CH1.bRelay AT %QX2.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A31^Kanal 1^Ausgang} *)
+	IO_FAST.fbA31CH2.bRelay AT %QX2.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A31^Kanal 2^Ausgang} *)
+	IO_FAST.fbA32CH1.bRelay AT %QX3.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A32^Kanal 1^Ausgang} *)
+	IO_FAST.fbA32CH2.bRelay AT %QX3.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A32^Kanal 2^Ausgang} *)
+	IO_FAST.fbA20CH1.bRelay AT %QX3.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A20^Kanal 1^KG-Gang Lampe} *)
+	IO_FAST.fbA20CH2.bRelay AT %QX3.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A20^Kanal 2^KG-EG-Stiege Lampe} *)
+	IO_FAST.fbA21CH1.bRelay AT %QX3.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A21^Kanal 1^Lager Lampe} *)
+	IO_FAST.fbA21CH2.bRelay AT %QX3.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A21^Kanal 2^Ausgang} *)
+	IO_FAST.fbA23CH1.bRelay AT %QX3.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A23^Kanal 1^Heizen Lampe} *)
+	IO_FAST.fbA23CH2.bRelay AT %QX3.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A23^Kanal 2^WaschenS Lampe} *)
+	IO_FAST.fbA24CH1.bRelay AT %QX4.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A24^Kanal 1^WaschenN Lampe} *)
+	IO_FAST.fbA24CH2.bRelay AT %QX4.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A24^Kanal 2^HobbyN Lampe} *)
+	IO_FAST.fbA25CH1.bRelay AT %QX4.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A25^Kanal 1^Vorrat Lampe} *)
+	IO_FAST.fbA25CH2.bRelay AT %QX4.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A25^Kanal 2^HobbyS Lampe} *)
+	IO_FAST.fbA26CH1.bRelay AT %QX4.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A26^Kanal 1^Ausgang} *)
+	IO_FAST.fbA26CH2.bRelay AT %QX4.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A26^Kanal 2^Ausgang} *)
+	IO_FAST.fbA38OGCH1.bRelay AT %QX4.6 : BOOL;
+	IO_FAST.fbA38OGCH2.bRelay AT %QX4.7 : BOOL;
+	IO_FAST.fbA41OGCH1.bRelay AT %QX5.0 : BOOL;
+	IO_FAST.fbA41OGCH2.bRelay AT %QX5.1 : BOOL;
+	IO_FAST.fbA43OGCH1.bRelay AT %QX5.2 : BOOL;
+	IO_FAST.fbA43OGCH2.bRelay AT %QX5.3 : BOOL;
+	IO_FAST.fbA44OGCH1.bRelay AT %QX5.4 : BOOL;
+	IO_FAST.fbA44OGCH2.bRelay AT %QX5.5 : BOOL;
+	IO_FAST.fbA45OGCH1.bRelay AT %QX5.6 : BOOL;
+	IO_FAST.fbA45OGCH2.bRelay AT %QX5.7 : BOOL;
+	IO_FAST.fbA48OGCH1.bRelay AT %QX6.0 : BOOL;
+	IO_FAST.fbA48OGCH2.bRelay AT %QX6.1 : BOOL;
+	IO_FAST.fbA49OGCH1.bRelay AT %QX6.2 : BOOL;
+	IO_FAST.fbA49OGCH2.bRelay AT %QX6.3 : BOOL;
+	IO_FAST.fbA50OGCH1.bRelay AT %QX6.4 : BOOL;
+	IO_FAST.fbA50OGCH2.bRelay AT %QX6.5 : BOOL;
+	IO_FAST.fbA52OGCH1.bRelay AT %QX6.6 : BOOL;
+	IO_FAST.fbA52OGCH2.bRelay AT %QX6.7 : BOOL;
+	IO_FAST.fbA53OGCH1.bRelay AT %QX7.0 : BOOL;
+	IO_FAST.fbA53OGCH2.bRelay AT %QX7.1 : BOOL;
+	IO_FAST.fbA55OGCH1.bRelay AT %QX7.2 : BOOL;
+	IO_FAST.fbA55OGCH2.bRelay AT %QX7.3 : BOOL;
+	IO_FAST.fbA56OGCH1.bRelay AT %QX7.4 : BOOL;
+	IO_FAST.fbA56OGCH2.bRelay AT %QX7.5 : BOOL;
+	IO_FAST.fbA57OGCH1.bRelay AT %QX7.6 : BOOL;
+	IO_FAST.fbA57OGCH2.bRelay AT %QX7.7 : BOOL;
+	IO_FAST.fbA15OGCH1.bRelay AT %QX8.0 : BOOL;
+	IO_FAST.fbA15OGCH2.bRelay AT %QX8.1 : BOOL;
+	IO_FAST.fbA17OGCH1.bRelay AT %QX8.2 : BOOL;
+	IO_FAST.fbA17OGCH2.bRelay AT %QX8.3 : BOOL;
+	IO_FAST.fbA18OGCH1.bRelay AT %QX8.4 : BOOL;
+	IO_FAST.fbA18OGCH2.bRelay AT %QX8.5 : BOOL;
+	IO_FAST.fbA19OGCH1.bRelay AT %QX8.6 : BOOL;
+	IO_FAST.fbA19OGCH2.bRelay AT %QX8.7 : BOOL;
+	IO_FAST.fbA21OGCH1.bRelay AT %QX9.0 : BOOL;
+	IO_FAST.fbA21OGCH2.bRelay AT %QX9.1 : BOOL;
+	IO_FAST.fbA23OGCH1.bRelay AT %QX9.2 : BOOL;
+	IO_FAST.fbA23OGCH2.bRelay AT %QX9.3 : BOOL;
+	IO_FAST.fbA25OGCH1.bRelay AT %QX9.4 : BOOL;
+	IO_FAST.fbA25OGCH2.bRelay AT %QX9.5 : BOOL;
+	IO_FAST.fbA26OGCH1.bRelay AT %QX9.6 : BOOL;
+	IO_FAST.fbA26OGCH2.bRelay AT %QX9.7 : BOOL;
+	IO_FAST.fbA33OGCH1.bRelay AT %QX10.0 : BOOL;
+	IO_FAST.fbA33OGCH2.bRelay AT %QX10.1 : BOOL;
+	IO_FAST.fbA35OGCH1.bRelay AT %QX10.2 : BOOL;
+	IO_FAST.fbA35OGCH2.bRelay AT %QX10.3 : BOOL;
+	IO_FAST.fbA36OGCH1.bRelay AT %QX10.4 : BOOL;
+	IO_FAST.fbA36OGCH2.bRelay AT %QX10.5 : BOOL;
+	IO_FAST.fbA78OGCH1.bRelay AT %QX10.6 : BOOL;
+	IO_FAST.fbA78OGCH2.bRelay AT %QX10.7 : BOOL;
+	IO_FAST.fbA80OGCH1.bRelay AT %QX11.0 : BOOL;
+	IO_FAST.fbA80OGCH2.bRelay AT %QX11.1 : BOOL;
+	MAIN.bwmKgGang AT %IX80.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A33^Kanal 2^KG-Gang BWM} *)
+	MAIN.tasterHeizen AT %IX76.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 7^Heizen Taster} *)
+	MAIN.tasterHobbyL AT %IX84.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 5^Hobby TasterL} *)
+	MAIN.tasterHobbyR AT %IX84.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 6^Hobby TasterR} *)
+	MAIN.tasterWaschenL AT %IX88.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 3^Waschen TasterL} *)
+	MAIN.tasterWaschenR AT %IX88.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 4^Waschen TasterR} *)
+	MAIN.tasterLagerNO AT %IX92.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 9^LagerNO Taster} *)
+	MAIN.tasterLagerS AT %IX92.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 8^LagerS Taster} *)
+	MAIN.tasterEgGangStiege AT %IX96.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 10^EG-Gang Stiege Taster} *)
+	MAIN.heizenHk1.mischer AT %QB12 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A?????^KG-HV A16a^Heizen HK1 Mischer^Data Out} *)
+	MAIN.heizenHk1.pumpe AT %QB16 : INT;
+	MAIN.heizenHk2.mischer AT %QB14 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A?????^KG-HV A16a^Heizen HK2 Mischer^Data Out} *)
+	MAIN.heizenHk2.pumpe AT %QB18 : INT;
+END_VAR
+(* @OBJECT_END := 'TwinCAT_Configuration' *)
+(* @CONNECTIONS := TwinCAT_Configuration
+FILENAME : ''
+FILETIME : 0
+EXPORT : 0
+NUMOFCONNECTIONS : 0
+*)
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @GLOBAL_VARIABLE_LIST := 'Variablen_Konfiguration' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+VAR_CONFIG
+END_VAR
+
+(* @OBJECT_END := 'Variablen_Konfiguration' *)
+(* @CONNECTIONS := Variablen_Konfiguration
+FILENAME : ''
+FILETIME : 0
+EXPORT : 0
+NUMOFCONNECTIONS : 0
+*)
+
+
+_ALARMCONFIG
+_ALARMCONFIGNEXTTEXTID : 10002
+_ALARMCONFIGFORMATS : 'HH$':$'mm$':$'ss','dd$'-$'MM$'-$'yyyy'
+_ALARMCLASSLIST : 1
+_ALARMCLASSID : 0
+_ALARMCLASSACKTYPE : 0
+_ALARMCLASSNAME : 'DEFAULT'
+_ALARMCLASSDESCRIPTION : ''
+_ALARMCLASSBGCOLORS : 16777215,16777215,16777215
+_ALARMCLASSTEXTCOLORS : 3394560,255,16711680
+_ALARMCLASSBITMAPS : '','',''
+_ALARMACTIONLIST : 0
+(* @ALARMCLASSRESETCOLORS := '_ALARMCLASSRESETCOLORS: 33023,16777215' *)
+(* @ALARMCLASSRESETBITMAP := '_ALARMCLASSRESETBITMAP: $'$'' *)
+_ALARMGROUPLISTNAME : 'System'
+_ALARMGROUPPATH : 'System'
+_ALARMGROUPLIST : 0
+_VISUALSETTINGSFLAGS : 0,0,0,0
+_VISUALSETTINGSFLAGS : '','',''
+_VISUALSETTINGSDYNTEXTFILECOUNT : 0
+
+(* @ALARMCONFIGFLAGS := '_ALARMCONFIGFLAGS: 4' *)
+(* @ALARMCONFIGGLOBALDB_STR := '_ALARMCONFIGGLOBALDB_STRINGS: $'$',$'$',$'$',$'$'' *)
+(* @ALARMCONFIGGLOBALDB_NUM := '_ALARMCONFIGGLOBALDB_NUMBERS: 0,0' *)
+_END_ALARMCONFIG
+
+
+LIBRARY
+STANDARD.LIB 5.6.98 12:03:02
+(* @LIBRARYSYMFILEINFO := '0' *)
+NumOfPOUs: 20
+CONCAT: 0
+CTD: 0
+CTU: 0
+CTUD: 0
+DELETE: 0
+F_TRIG: 0
+FIND: 0
+INSERT: 0
+LEFT: 0
+LEN: 0
+MID: 0
+R_TRIG: 0
+REPLACE: 0
+RIGHT: 0
+RS: 0
+SEMA: 0
+SR: 0
+TOF: 0
+TON: 0
+TP: 0
+NumOfGVLs: 1
+'Global Variables 0': 0
+END_LIBRARY
+
+LIBRARY
+TcBase.lib 14.5.09 12:14:08
+(* @LIBRARYSYMFILEINFO := '0' *)
+NumOfPOUs: 30
+FW_AdsClearEvents: 0
+FW_AdsLogDINT: 0
+FW_AdsLogEvent: 0
+FW_AdsLogLREAL: 0
+FW_AdsLogSTR: 0
+FW_AdsRdWrt: 0
+FW_AdsRdWrtInd: 0
+FW_AdsRdWrtRes: 0
+FW_AdsRead: 0
+FW_AdsReadDeviceInfo: 0
+FW_AdsReadInd: 0
+FW_AdsReadRes: 0
+FW_AdsReadState: 0
+FW_AdsWrite: 0
+FW_AdsWriteControl: 0
+FW_AdsWriteInd: 0
+FW_AdsWriteRes: 0
+FW_DRand: 0
+FW_GetCpuAccount: 0
+FW_GetCpuCounter: 0
+FW_GetCurTaskIndex: 0
+FW_GetSystemTime: 0
+FW_GetVersionTcBase: 0
+FW_LptSignal: 0
+FW_MemCmp: 0
+FW_MemCpy: 0
+FW_MemMove: 0
+FW_MemSet: 0
+FW_PortRead: 2048
+FW_PortWrite: 2048
+NumOfGVLs: 0
+END_LIBRARY
+
+LIBRARY
+TcEtherCAT.lib 8.3.12 17:06:42
+(* @LIBRARYSYMFILEINFO := '0' *)
+NumOfPOUs: 77
+ConvertDcTimeToPathPos: 2048
+ConvertDcTimeToPos: 2048
+ConvertPathPosToDcTime: 2048
+ConvertPosToDcTime: 2048
+DCTIME_TO_DCTIMESTRUCT: 2048
+DCTIME_TO_FILETIME: 2048
+DCTIME_TO_STRING: 2048
+DCTIME_TO_SYSTEMTIME: 2048
+DCTIMESTRUCT_TO_DCTIME: 2048
+F_CheckVendorId: 2048
+F_ConvBK1120CouplerStateToString: 2048
+F_ConvExtTimeToDcTime: 2048
+F_ConvMasterDevStateToString: 2048
+F_ConvProductCodeToString: 2048
+F_ConvSlaveStateToBits: 2048
+F_ConvSlaveStateToString: 2048
+F_ConvStateToString: 2048
+F_ConvTcTimeToDcTime: 2048
+F_ConvTcTimeToExtTime: 2048
+F_GetActualDcTime: 2048
+F_GetCurDcTaskTime: 2048
+F_GetCurDcTickTime: 2048
+F_GetCurExtTime: 2048
+F_GetVersionTcEtherCAT: 2048
+FB_EcCoESdoRead: 2048
+FB_EcCoESdoReadEx: 2048
+FB_EcCoESdoWrite: 2048
+FB_EcCoESdoWriteEx: 2048
+FB_EcDcTickTimeBaseCalc: 2048
+FB_EcDcTimeCtrl: 2048
+FB_EcDcTimeCtrl.A_GetDay: 2048
+FB_EcDcTimeCtrl.A_GetDayOfWeek: 2048
+FB_EcDcTimeCtrl.A_GetHour: 2048
+FB_EcDcTimeCtrl.A_GetMicro: 2048
+FB_EcDcTimeCtrl.A_GetMilli: 2048
+FB_EcDcTimeCtrl.A_GetMinute: 2048
+FB_EcDcTimeCtrl.A_GetMonth: 2048
+FB_EcDcTimeCtrl.A_GetNano: 2048
+FB_EcDcTimeCtrl.A_GetSecond: 2048
+FB_EcDcTimeCtrl.A_GetYear: 2048
+FB_EcExtSyncCalcTimeDiff: 2048
+FB_EcExtSyncCheck: 2048
+FB_EcFoeAccess: 2048
+FB_EcFoeClose: 2048
+FB_EcFoeLoad: 2048
+FB_EcFoeOpen: 2048
+FB_EcGetAllSlaveAddr: 2048
+FB_EcGetAllSlaveCrcErrors: 2048
+FB_EcGetAllSlaveStates: 2048
+FB_EcGetConfSlaves: 2048
+FB_EcGetLastProtErrInfo: 2048
+FB_EcGetMasterState: 2048
+FB_EcGetScannedSlaves: 2048
+FB_EcGetSlaveCount: 2048
+FB_EcGetSlaveCrcError: 2048
+FB_EcGetSlaveCrcErrorEx: 2048
+FB_EcGetSlaveIdentity: 2048
+FB_EcGetSlaveState: 2048
+FB_EcLogicalReadCmd: 2048
+FB_EcLogicalWriteCmd: 2048
+FB_EcMasterFrameStatistic: 2048
+FB_EcMasterFrameStatisticClearCRC: 2048
+FB_EcMasterFrameStatisticClearFrames: 2048
+FB_EcMasterFrameStatisticClearTxRxErr: 2048
+FB_EcPhysicalReadCmd: 2048
+FB_EcPhysicalWriteCmd: 2048
+FB_EcReqMasterState: 2048
+FB_EcReqSlaveState: 2048
+FB_EcSetMasterState: 2048
+FB_EcSetSlaveState: 2048
+FB_EcSoERead: 2048
+FB_EcSoEWrite: 2048
+FB_SoERead_ByDriveRef: 2048
+FB_SoEWrite_ByDriveRef: 2048
+FILETIME_TO_DCTIME: 2048
+STRING_TO_DCTIME: 2048
+SYSTEMTIME_TO_DCTIME: 2048
+NumOfGVLs: 1
+Globale_Variablen: 2048
+END_LIBRARY
+
+LIBRARY
+TcSystem.lib 27.2.12 15:08:36
+(* @LIBRARYSYMFILEINFO := '0' *)
+NumOfPOUs: 80
+ADSCLEAREVENTS: 0
+ADSLOGDINT: 0
+ADSLOGEVENT: 0
+ADSLOGLREAL: 0
+ADSLOGSTR: 0
+ADSRDDEVINFO: 0
+ADSRDSTATE: 0
+ADSRDWRT: 0
+ADSRDWRTEX: 0
+ADSRDWRTIND: 0
+ADSRDWRTRES: 0
+ADSREAD: 0
+ADSREADEX: 0
+ADSREADIND: 0
+ADSREADRES: 0
+ADSWRITE: 0
+ADSWRITEIND: 0
+ADSWRITERES: 0
+ADSWRTCTL: 0
+AnalyzeExpression: 2048
+AnalyzeExpressionCombined: 2048
+AnalyzeExpressionTable: 2048
+AppendErrorString: 2048
+BAVERSION_TO_DWORD: 2048
+CLEARBIT32: 0
+CSETBIT32: 0
+DRAND: 0
+F_CompareFwVersion: 2048
+F_CreateAmsNetId: 0
+F_CreateIPv4Addr: 2048
+F_GetStructMemberAlignment: 2048
+F_GetVersionTcSystem: 0
+F_IOPortRead: 2048
+F_IOPortWrite: 2048
+F_ScanAmsNetIds: 2048
+F_ScanIPv4AddrIds: 2048
+F_SplitPathName: 2048
+F_ToASC: 2048
+F_ToCHR: 2048
+FB_BaDeviceIoControl: 2048
+FB_BaGenGetVersion: 2048
+FB_CreateDir: 2048
+FB_EOF: 0
+FB_FileClose: 0
+FB_FileDelete: 0
+FB_FileGets: 0
+FB_FileOpen: 0
+FB_FilePuts: 0
+FB_FileRead: 0
+FB_FileRename: 0
+FB_FileSeek: 0
+FB_FileTell: 0
+FB_FileWrite: 0
+FB_PcWatchdog: 2048
+FB_RemoveDir: 2048
+FB_SimpleAdsLogEvent: 2048
+FILECLOSE: 0
+FILEOPEN: 0
+FILEREAD: 0
+FILESEEK: 0
+FILEWRITE: 0
+FW_CallGenericFb: 2048
+FW_CallGenericFun: 2048
+GETBIT32: 0
+GETCPUACCOUNT: 0
+GETCPUCOUNTER: 0
+GETCURTASKINDEX: 0
+GETSYSTEMTIME: 0
+GETTASKTIME: 2048
+LPTSIGNAL: 0
+MEMCMP: 0
+MEMCPY: 0
+MEMMOVE: 0
+MEMSET: 0
+ROL32: 0
+ROR32: 0
+SETBIT32: 0
+SFCActionControl: 0
+SHL32: 0
+SHR32: 0
+NumOfGVLs: 1
+Global_Variables: 0
+END_LIBRARY
+
+LIBRARY
+TcUtilities.lib 10.1.13 20:12:12
+(* @LIBRARYSYMFILEINFO := '0' *)
+NumOfPOUs: 303
+ARG_TO_CSVFIELD: 2048
+BCD_TO_DEC: 0
+BE128_TO_HOST: 2048
+BE16_TO_HOST: 2048
+BE32_TO_HOST: 2048
+BE64_TO_HOST: 2048
+BYTEARR_TO_MAXSTRING: 2048
+CSVFIELD_TO_ARG: 2048
+CSVFIELD_TO_STRING: 2048
+DATA_TO_HEXSTR: 2048
+DCF77_TIME: 2048
+DCF77_TIME_EX: 2048
+DEC_TO_BCD: 0
+DEG_TO_RAD: 0
+DINT_TO_DECSTR: 2048
+DT_TO_FILETIME: 2048
+DT_TO_SYSTEMTIME: 0
+DWORD_TO_BINSTR: 2048
+DWORD_TO_DECSTR: 2048
+DWORD_TO_HEXSTR: 2048
+DWORD_TO_LREALEX: 2048
+DWORD_TO_OCTSTR: 2048
+F_ARGCMP: 2048
+F_ARGCPY: 2048
+F_ARGIsZero: 2048
+F_BIGTYPE: 2048
+F_BOOL: 2048
+F_BYTE: 0
+F_BYTE_TO_CRC16_CCITT: 2048
+F_CheckSum16: 0
+F_CRC16_CCITT: 0
+F_CreateHashTableHnd: 2048
+F_CreateLinkedListHnd: 2048
+F_DATA_TO_CRC16_CCITT: 2048
+F_DINT: 0
+F_DWORD: 0
+F_FormatArgToStr: 2048
+F_GetDayOfMonthEx: 2048
+F_GetDayOfWeek: 2048
+F_GetDOYOfYearMonthDay: 2048
+F_GetFloatRec: 2048
+F_GetMaxMonthDays: 2048
+F_GetMonthOfDOY: 2048
+F_GetVersionTcUtilities: 0
+F_GetWeekOfTheYear: 2048
+F_HUGE: 2048
+F_INT: 0
+F_LARGE: 2048
+F_LREAL: 0
+F_LTrim: 2048
+F_REAL: 0
+F_RTrim: 2048
+F_SINT: 0
+F_STRING: 0
+F_SwapReal: 0
+F_SwapRealEx: 2048
+F_ToLCase: 2048
+F_ToUCase: 2048
+F_TranslateFileTimeBias: 2048
+F_UDINT: 0
+F_UHUGE: 2048
+F_UINT: 0
+F_ULARGE: 2048
+F_USINT: 0
+F_WORD: 0
+F_YearIsLeapYear: 2048
+FB_AddRouteEntry: 2048
+FB_AmsLogger: 2048
+FB_BasicPID: 0
+FB_BufferedTextFileWriter: 2048
+FB_BufferedTextFileWriter.A_Reset: 2048
+FB_ConnectScopeServer: 2048
+FB_CSVMemBufferReader: 2048
+FB_CSVMemBufferWriter: 2048
+FB_DbgOutputCtrl: 2048
+FB_DbgOutputCtrl.A_Log: 2048
+FB_DbgOutputCtrl.A_LogHex: 2048
+FB_DbgOutputCtrl.A_Reset: 2048
+FB_DisconnectScopeServer: 2048
+FB_EnumFindFileEntry: 2048
+FB_EnumFindFileList: 2048
+FB_EnumRouteEntry: 2048
+FB_EnumStringNumbers: 2048
+FB_FileRingBuffer: 2048
+FB_FileRingBuffer.A_AddTail: 2048
+FB_FileRingBuffer.A_Close: 2048
+FB_FileRingBuffer.A_Create: 2048
+FB_FileRingBuffer.A_GetHead: 2048
+FB_FileRingBuffer.A_Open: 2048
+FB_FileRingBuffer.A_RemoveHead: 2048
+FB_FileRingBuffer.A_Reset: 2048
+FB_FileTimeToTzSpecificLocalTime: 2048
+FB_FileTimeToTzSpecificLocalTime.A_Reset: 2048
+FB_FormatString: 0
+FB_GetAdaptersInfo: 2048
+FB_GetDeviceIdentification: 2048
+FB_GetDeviceIdentificationEx: 2048
+FB_GetHostAddrByName: 2048
+FB_GetHostName: 2048
+FB_GetLocalAmsNetId: 2048
+FB_GetRouterStatusInfo: 2048
+FB_GetTimeZoneInformation: 2048
+FB_HashTableCtrl: 2048
+FB_HashTableCtrl.A_Add: 2048
+FB_HashTableCtrl.A_GetFirst: 2048
+FB_HashTableCtrl.A_GetIndexAtPosPtr: 2048
+FB_HashTableCtrl.A_GetNext: 2048
+FB_HashTableCtrl.A_Lookup: 2048
+FB_HashTableCtrl.A_Remove: 2048
+FB_HashTableCtrl.A_RemoveAll: 2048
+FB_HashTableCtrl.A_RemoveFirst: 2048
+FB_HashTableCtrl.A_Reset: 2048
+FB_LinkedListCtrl: 2048
+FB_LinkedListCtrl.A_AddHeadValue: 2048
+FB_LinkedListCtrl.A_AddTailValue: 2048
+FB_LinkedListCtrl.A_FindNext: 2048
+FB_LinkedListCtrl.A_FindPrev: 2048
+FB_LinkedListCtrl.A_GetHead: 2048
+FB_LinkedListCtrl.A_GetIndexAtPosPtr: 2048
+FB_LinkedListCtrl.A_GetNext: 2048
+FB_LinkedListCtrl.A_GetPrev: 2048
+FB_LinkedListCtrl.A_GetTail: 2048
+FB_LinkedListCtrl.A_RemoveHeadValue: 2048
+FB_LinkedListCtrl.A_RemoveTailValue: 2048
+FB_LinkedListCtrl.A_RemoveValueAtPosPtr: 2048
+FB_LinkedListCtrl.A_Reset: 2048
+FB_LinkedListCtrl.A_SetValueAtPosPtr: 2048
+FB_LocalSystemTime: 2048
+FB_MemBufferMerge: 2048
+FB_MemBufferSplit: 2048
+FB_MemRingBuffer: 2048
+FB_MemRingBuffer.A_AddTail: 2048
+FB_MemRingBuffer.A_GetHead: 2048
+FB_MemRingBuffer.A_RemoveHead: 2048
+FB_MemRingBuffer.A_Reset: 2048
+FB_MemRingBufferEx: 2048
+FB_MemRingBufferEx.A_AddTail: 2048
+FB_MemRingBufferEx.A_FreeHead: 2048
+FB_MemRingBufferEx.A_GetFreeSize: 2048
+FB_MemRingBufferEx.A_GetHead: 2048
+FB_MemRingBufferEx.A_Reset: 2048
+FB_MemStackBuffer: 2048
+FB_MemStackBuffer.A_Pop: 2048
+FB_MemStackBuffer.A_Push: 2048
+FB_MemStackBuffer.A_Reset: 2048
+FB_MemStackBuffer.A_Top: 2048
+FB_RegQueryValue: 0
+FB_RegSetValue: 0
+FB_RemoveRouteEntry: 2048
+FB_ResetScopeServerControl: 2048
+FB_SaveScopeServerData: 2048
+FB_ScopeServerControl: 2048
+FB_SetTimeZoneInformation: 2048
+FB_StartScopeServer: 2048
+FB_StopScopeServer: 2048
+FB_StringRingBuffer: 2048
+FB_StringRingBuffer.A_AddTail: 2048
+FB_StringRingBuffer.A_GetHead: 2048
+FB_StringRingBuffer.A_RemoveHead: 2048
+FB_StringRingBuffer.A_Reset: 2048
+FB_SystemTimeToTzSpecificLocalTime: 2048
+FB_SystemTimeToTzSpecificLocalTime.A_Reset: 2048
+FB_TextFileRingBuffer: 2048
+FB_TextFileRingBuffer.A_AddTail: 2048
+FB_TextFileRingBuffer.A_Close: 2048
+FB_TextFileRingBuffer.A_Open: 2048
+FB_TextFileRingBuffer.A_Reset: 2048
+FB_TranslateLocalTimeToUtcByZoneID: 2048
+FB_TranslateLocalTimeToUtcByZoneID.A_Reset: 2048
+FB_TranslateUtcToLocalTimeByZoneID: 2048
+FB_TranslateUtcToLocalTimeByZoneID.A_Reset: 2048
+FB_TzSpecificLocalTimeToFileTime: 2048
+FB_TzSpecificLocalTimeToFileTime.A_Reset: 2048
+FB_TzSpecificLocalTimeToSystemTime: 2048
+FB_TzSpecificLocalTimeToSystemTime.A_Reset: 2048
+FB_WritePersistentData: 2048
+FILETIME_TO_DT: 2048
+FILETIME_TO_SYSTEMTIME: 2048
+FIX16_TO_LREAL: 2048
+FIX16_TO_WORD: 2048
+FIX16Add: 2048
+FIX16Align: 2048
+FIX16Div: 2048
+FIX16Mul: 2048
+FIX16Sub: 2048
+GetRemotePCInfo: 0
+HEXSTR_TO_DATA: 2048
+HOST_TO_BE128: 2048
+HOST_TO_BE16: 2048
+HOST_TO_BE32: 2048
+HOST_TO_BE64: 2048
+INT64_TO_LREAL: 2048
+Int64Add64: 2048
+Int64Add64Ex: 2048
+Int64Cmp64: 2048
+Int64Div64Ex: 2048
+Int64IsZero: 2048
+Int64Negate: 2048
+Int64Not: 2048
+Int64Sub64: 2048
+IsFinite: 2048
+LARGE_INTEGER: 2048
+LARGE_TO_ULARGE: 2048
+LREAL_TO_FIX16: 2048
+LREAL_TO_FMTSTR: 2048
+LREAL_TO_INT64: 2048
+LREAL_TO_UINT64: 2048
+MAXSTRING_TO_BYTEARR: 2048
+NT_AbortShutdown: 0
+NT_GetTime: 0
+NT_Reboot: 0
+NT_SetLocalTime: 2048
+NT_SetTimeToRTCTime: 0
+NT_Shutdown: 0
+NT_StartProcess: 0
+OTSTRUCT_TO_TIME: 0
+PBOOL_TO_BOOL: 2048
+PBYTE_TO_BYTE: 2048
+PDATE_TO_DATE: 2048
+PDINT_TO_DINT: 2048
+PDT_TO_DT: 2048
+PDWORD_TO_DWORD: 2048
+PHUGE_TO_HUGE: 2048
+PINT_TO_INT: 2048
+PLARGE_TO_LARGE: 2048
+PLC_ReadSymInfo: 0
+PLC_ReadSymInfoByName: 0
+PLC_ReadSymInfoByNameEx: 0
+PLC_Reset: 0
+PLC_Start: 0
+PLC_Stop: 0
+PLREAL_TO_LREAL: 2048
+PMAXSTRING_TO_MAXSTRING: 2048
+PREAL_TO_REAL: 2048
+Profiler: 0
+PSINT_TO_SINT: 2048
+PSTRING_TO_STRING: 2048
+PTIME_TO_TIME: 2048
+PTOD_TO_TOD: 2048
+PUDINT_TO_UDINT: 2048
+PUHUGE_TO_UHUGE: 2048
+PUINT64_TO_UINT64: 2048
+PUINT_TO_UINT: 2048
+PULARGE_TO_ULARGE: 2048
+PUSINT_TO_USINT: 2048
+PWORD_TO_WORD: 2048
+RAD_TO_DEG: 0
+ROUTETRANSPORT_TO_STRING: 2048
+RTC: 2048
+RTC_EX: 2048
+RTC_EX2: 2048
+ScopeASCIIExport: 0
+ScopeExit: 2048
+ScopeGetRecordLen: 0
+ScopeGetState: 0
+ScopeLoadFile: 0
+ScopeManualTrigger: 0
+ScopeSaveAs: 2048
+ScopeSetOffline: 0
+ScopeSetOnline: 0
+ScopeSetRecordLen: 0
+ScopeViewExport: 0
+STRING_TO_CSVFIELD: 2048
+STRING_TO_SYSTEMTIME: 2048
+STRING_TO_UINT64: 2048
+SYSTEMTIME_TO_DT: 0
+SYSTEMTIME_TO_FILETIME: 2048
+SYSTEMTIME_TO_STRING: 2048
+TC_Config: 2048
+TC_CpuUsage: 0
+TC_Restart: 0
+TC_Stop: 0
+TC_SysLatency: 0
+TIME_TO_OTSTRUCT: 0
+UInt32x32To64: 2048
+UINT64_TO_LREAL: 2048
+UINT64_TO_STRING: 2048
+UInt64Add64: 2048
+UInt64Add64Ex: 2048
+UInt64And: 2048
+UInt64Cmp64: 2048
+UInt64Div16Ex: 2048
+UInt64Div64: 2048
+UInt64Div64Ex: 2048
+UInt64isZero: 2048
+UInt64Limit: 2048
+UInt64Max: 2048
+UInt64Min: 2048
+UInt64Mod64: 2048
+UInt64Mul64: 2048
+UInt64Mul64Ex: 2048
+UInt64Not: 2048
+UInt64Or: 2048
+UInt64Rol: 2048
+UInt64Ror: 2048
+UInt64Shl: 2048
+UInt64Shr: 2048
+UInt64Sub64: 2048
+UInt64Xor: 2048
+ULARGE_INTEGER: 2048
+ULARGE_TO_LARGE: 2048
+WORD_TO_FIX16: 2048
+WritePersistentData: 0
+NumOfGVLs: 1
+Global_Variables: 0
+END_LIBRARY
+
+PLC_CONFIGURATION
+_ELEMENT 15700
+_ELEMENT_END
+PLC_END
+
+
+RESOURCE
+
+TASK Standard (PRIORITY := 1, INTERVAL := T#10ms);
+MAIN
+{Additional_info : 1,0,0,0,1,4294967295}
+END_TASK
+
+TASK Fast (PRIORITY := 0, INTERVAL := T#1ms);
+IO_FAST
+{Additional_info : 1,0,0,0,1,4294967295}
+END_TASK
+
+END_RESOURCE
+
+
+_WORKSPACE
+_GLOBALVISUALSETTINGS
+_VISUALSETTINGSFLAGS : 0,0,0,0
+_VISUALSETTINGSFLAGS : '','',''
+_VISUALSETTINGSDYNTEXTFILECOUNT : 0
+_VISUALBITMAPLISTCOUNT : 0
+_END_GLOBALVISUALSETTINGS
+_END_WORKSPACE
