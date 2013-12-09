@@ -159,9 +159,6 @@ END_IF
 MEMCPY(ADR(dctActSample), ADR(uliStartTimeNextLatch), SIZEOF(dctActsample));
 
 uliStartTimeNextLatchLastCycle := uliStartTimeNextLatch;
-
-
-
 END_FUNCTION_BLOCK
 
 
@@ -243,15 +240,6 @@ IF NOT bValue AND bRelay AND NOT TON_FAILURE.Q THEN
 		bRelay := FALSE;
 	END_IF
 END_IF
-
-
-
-
-
-
-
-
-
 END_FUNCTION_BLOCK
 
 
@@ -262,76 +250,76 @@ END_FUNCTION_BLOCK
 FUNCTION_BLOCK fbButton
 VAR_INPUT
 	IN: BOOL;
-	CLICK: TIME := t#250ms;
-	RESET: TIME := t#500ms;
-END_VAR
-VAR_OUTPUT
-	releasePulse: BOOL;
-	pressPulse: BOOL;
-	clickPulse: BOOL;
-	longclickPulse: BOOL;
+	LONGPRESS: TIME := t#250ms;
 END_VAR
 VAR_OUTPUT RETAIN PERSISTENT
-	pressLatch: BOOL;
-	pressToggle: BOOL;
-	releaseLatch: BOOL;
-	releaseToggle: BOOL;
+	isPressed: BOOL := FALSE;
+	isLongpressed: BOOL := FALSE;
+	isClicked: BOOL := FALSE;
+	toggleOnPress: BOOL;
+	toggleOnRelease: BOOL;
+	toggleOnLongpress: BOOL;
+	toggleOnClick: BOOL;
+	usageCounterPress AT %M*: UDINT; (*overall number of press events*)
+	usageCounterRelease AT %M*: UDINT; (*overall number of release events*)
+	usageCounterLongpress AT %M*: UDINT; (*overall number longpress events*)
+	usageCounterClick AT %M*: UDINT; (*overall number of click events*)
+END_VAR
+VAR_OUTPUT
+	isReleased: BOOL; (*NOT isPressed*)
+	pulseOnPress: BOOL;
+	pulseOnRelease: BOOL;
+	pulseOnLongpress: BOOL;
+	pulseOnClick: BOOL;
 END_VAR
 VAR
 	pTrig: R_TRIG;
-	pStor: RS;
 	rTrig: F_TRIG;
-	rStor: SR;
-	clickTimer: TP;
-	releaseCounter: USINT;
-END_VAR
-VAR RETAIN PERSISTENT
-	usage AT %M*: UDINT; (*number of pressEvents*)
+	longpressTimer: TON;
+	lTrig: R_TRIG;
+	cTrig: R_TRIG;
+	t1: TOF;
+	t2: TOF;
 END_VAR
 (* @END_DECLARATION := '0' *)
-(*
-	longClick:        press longer then CLICK
-	click:            press/release within CLICK
-	longDoubleclick:  press/release press
-	doubleclick:      press/release press/release
-	longTrippleclick: press/release press/release press
-	trippleclick:     press/release press/release press/release
-*)
-
 pTrig(CLK := IN);
 rTrig(CLK := IN);
+pulseOnPress := pTrig.Q;
+pulseOnRelease := rTrig.Q;
 
-pressPulse := pTrig.Q;
-releasePulse := rTrig.Q;
-
-IF pressPulse THEN
-	usage := usage + 1;
-	pressToggle := fToggle(pressToggle);
+longpressTimer(IN := IN, PT := LONGPRESS);
+lTrig(CLK := longpressTimer.Q);
+pulseOnLongpress := ltrig.Q;
+IF pulseOnLongpress AND NOT pulseOnRelease THEN
+	isLongpressed := TRUE;
+	usageCounterLongpress := usageCounterLongpress + 1;
+	toggleOnLongpress := fToggle(toggleOnLongpress);
+ELSIF pulseOnLongpress THEN
+	pulseOnLongpress := FALSE;
 END_IF
-IF releasePulse THEN
-	releaseToggle := fToggle(releaseToggle);
-END_IF
 
-pStor(SET := pressPulse, RESET1 := releasePulse);
-rStor(SET1 := releasePulse, RESET := pressPulse);
-
-pressLatch := pStor.Q1;
-releaseLatch := rStor.Q1;
-
-clickTimer(IN := pressPulse, PT := CLICK);
-IF (clickTimer.ET = t#0s) THEN
-	releaseCounter := 0;
-END_IF
-IF releasePulse THEN
-	releaseCounter := releaseCounter + 1;
-END_IF
-IF clickTimer.ET = click THEN
-	IF IN THEN (* longclick *)
-		;
+IF pulseOnPress THEN
+	isPressed := TRUE;
+	isClicked := FALSE;
+	isLongpressed := FALSE;
+	usageCounterPress := usageCounterPress + 1;
+	toggleOnPress := fToggle(toggleOnPress);
+ELSIF pulseOnRelease THEN
+	isPressed := FALSE;
+	IF isLongpressed THEN
+		isLongpressed := FALSE;
 	ELSE
-		;
+		isClicked := TRUE;
+		usageCounterClick := usageCounterClick + 1;
+		toggleOnClick := fToggle(toggleOnClick);
 	END_IF
+	usageCounterRelease := usageCounterRelease + 1;
+	toggleOnRelease := fToggle(toggleOnRelease);
 END_IF
+isReleased := NOT isPressed;
+
+cTrig(CLK := isClicked);
+pulseOnClick := cTrig.Q;
 END_FUNCTION_BLOCK
 
 
@@ -354,6 +342,82 @@ END_VAR
 (* @END_DECLARATION := '0' *)
 mischer := 6000;
 pumpe := 0;
+END_FUNCTION_BLOCK
+
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK fbLight
+VAR_INPUT
+	IN: BOOL;   (* on/off pulse *)
+	PT: TIME;   (* auto-off aka on-time *)
+	REACTION: TIME := t#1s;   (* TODO: do not change state right after statechange*)
+	FORCE: BOOL;   (* if true, force output on/off, depending on FORCE_ON *)
+	FORCE_ON: BOOL;   (* if false and FORCE, then force off *)
+END_VAR
+VAR_OUTPUT RETAIN PERSISTENT
+	OPERATION: TIME;
+	OPERATION_DAYS: UINT;
+END_VAR
+VAR_OUTPUT
+	Q: BOOL;
+END_VAR
+VAR
+	t: TOF;
+	startOpTrigger: R_TRIG;
+	stopOpTrigger: F_TRIG;
+	opTimetracker: TIME;
+	now: TIME;
+END_VAR
+VAR CONSTANT
+	MAX_TIME: TIME := T#71582m47s295ms;
+END_VAR
+(* @END_DECLARATION := '0' *)
+IF FORCE THEN
+	IF FORCE_ON THEN
+		Q := TRUE;
+	ELSE
+		Q := FALSE;
+	END_IF
+ELSE (* NOT FORCE *)
+	IF IN AND t.Q THEN   (* light on and a signal *)
+		(* turn off *)
+		t(IN := FALSE, PT := t#0s);
+	ELSIF IN AND NOT t.Q THEN   (* light off and a signal *)
+		(* turn on *);
+		t(IN := IN, PT := PT);
+	ELSE (* timer *)
+		t(IN := IN, PT := PT);
+	END_IF
+	Q := t.Q;
+END_IF
+
+(* record the operation time *)
+startOpTrigger(CLK := Q);
+stopOpTrigger(CLK := Q);
+IF Q THEN
+	now := TIME();
+END_IF
+IF startOpTrigger.Q THEN
+	opTimetracker := now;
+END_IF
+IF Q AND (now < opTimetracker) THEN   (* overflow *)
+	OPERATION := OPERATION + (MAX_TIME - opTimetracker);
+	opTimetracker := t#0ms;
+END_IF
+IF stopOpTrigger.Q THEN
+	OPERATION := OPERATION + (now - opTimetracker);
+END_IF
+IF Q AND ((now - opTimetracker) > t#1s) THEN
+	OPERATION := OPERATION + (now - opTimetracker);
+	opTimetracker := now;
+END_IF
+IF (Q OR stopOpTrigger.Q) AND (OPERATION > t#1d) THEN
+	OPERATION_DAYS := OPERATION_DAYS + 1;
+	OPERATION := OPERATION - t#1d;
+END_IF
 END_FUNCTION_BLOCK
 
 
@@ -607,8 +671,9 @@ END_PROGRAM
 (* @SYMFILEFLAGS := '2048' *)
 PROGRAM MAIN
 VAR
+	ups: FB_S_UPS;
 	bwmKgGang AT %I*: BOOL;
-	tasterHeizen AT %I*:  BOOL;
+	tasterHeizen AT %I*: BOOL;
 	tasterHobbyL AT %I*: BOOL;
 	tasterHobbyR AT %I*: BOOL;
 	tasterWaschenL AT %I*: BOOL;
@@ -616,51 +681,52 @@ VAR
 	tasterLagerNO AT %I*: BOOL;
 	tasterLagerS AT %I*: BOOL;
 	tasterEgGangStiege AT %I*: BOOL;
-	lichtKgGang: TOF;
-	lichtHeizen: TOF;
-	lichtHobbyN: TOF;
-	lichtHobbyS: TOF;
-	lichtWaschenN: TOF;
-	lichtWaschenS: TOF;
-	lichtLager: TOF;
-	lichtVorrat: TOF;
-	lichtKgEgStiege: TOF;
+	lichtKgGang: fbLight;
+	lichtHeizen: fbLight;
+	lichtHobbyN: fbLight;
+	lichtHobbyS: fbLight;
+	lichtWaschenN: fbLight;
+	lichtWaschenS: fbLight;
+	lichtLager: fbLight;
+	lichtVorrat: fbLight;
+	lichtKgEgStiege: fbLight;
 	heizenHk1: fbHeizkreis;
 	heizenHk2: fbHeizkreis;
 	heizenTaster : fbButton;
 	toggle: fbToggle;
 END_VAR
 (* @END_DECLARATION := '0' *)
-lichtKgGang(IN:=bwmKgGang, PT:=t#2m);
-lichtHeizen(IN:=tasterHeizen, PT:=t#15m);
-lichtHobbyN(IN:=tasterHobbyL , PT:=t#10m);
-lichtHobbyS(IN:=tasterHobbyR, PT:=t#10m);
-lichtWaschenN(IN:=tasterWaschenR , PT:=t#15m);
-lichtWaschenS(IN:=tasterWaschenL , PT:=t#15m);
-lichtLager(IN:=tasterLagerNO OR lichtVorrat.Q , PT:=t#3m);
-lichtVorrat(IN:=tasterLagerS , PT:=t#3m);
-lichtKgEgStiege(IN:=tasterEgGangStiege, PT:=t#1m);
+ups();
 
-heizenHk1(soll:=24.0, vorlauf:=, ruecklauf:=);
-heizenHk2(soll:=24.0, vorlauf:=, ruecklauf:=);
+heizenTaster(IN := tasterHeizen);
 
-toggle(onTime := t#0.1s, offTime := t#5s);
-heizenTaster(IN := toggle.Q);
+lichtKgGang(IN := bwmKgGang, PT := t#2m);
+lichtHeizen(IN := heizenTaster.pulseOnClick, PT := t#15s);
+lichtHobbyS(IN := tasterHobbyR, PT := t#10m);
+lichtWaschenN(IN := tasterWaschenR , PT := t#15m);
+lichtWaschenS(IN := tasterWaschenL , PT := t#15m);
+lichtLager(IN := tasterLagerNO OR lichtVorrat.Q , PT := t#3m);
+lichtVorrat(IN := tasterLagerS , PT := t#3m);
+lichtKgEgStiege(IN:=tasterEgGangStiege, PT := t#1m);
 
+heizenHk1(soll := 24.0, vorlauf :=, ruecklauf :=);
+heizenHk2(soll := 24.0, vorlauf :=, ruecklauf :=);
+
+toggle(onTime := t#200ms, offTime := t#3s);
 END_PROGRAM
 
 (* @PATH := '' *)
 
 VISUALISATION TEST _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 5
+_TEXT : 7
 _PAINTZOOM : 100
 
 _BUTTON : ''
 _POS : 10,10,111,101,60,55
 _THRESH : '','','','MAIN.tasterHeizen'
 _INPUT : 131072
-_DSP : 'MAIN.heizenTaster.usage','Taster$R$NHeizen$R$N%d',''
+_DSP : 'MAIN.heizenTaster.usageCounterPress','Taster$R$NHeizen$R$N%d',''
 _ZOOM : ''
 _TEXT : 5,4294967285,400,0,0,0,0,0
 _FONT : ''
@@ -706,13 +772,29 @@ _TOLERANCE : 255,7
 _TOLERANCE : 16711680,2
 _VARINFOLIST : 1
 _LINE : 0,16744448
-_VARIABLES : 'MAIN.heizenTaster.pressPulse.Q',''
+_VARIABLES : 'MAIN.heizenTaster.pulseOnClick',''
 _TRENDDATABASE : 0
 (* @TREND_COLOR_FLAGS := '_NOCOLORS : 1,1' *)
 (* @TREND_FONT_FLAGS_VAXIS := '_FONT : 2,0,0,1,49,2,8' *)
 (* @TREND_FONT_FLAGS_HAXIS := '_FONT : 2,0,0,1,49,2,8' *)
 _KEYINFOLIST : 0
 END_VISUALISATION
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @GLOBAL_VARIABLE_LIST := 'Global_Variables' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+VAR_GLOBAL
+END_VAR
+
+(* @OBJECT_END := 'Global_Variables' *)
+(* @CONNECTIONS := Global_Variables
+FILENAME : ''
+FILETIME : 0
+EXPORT : 0
+NUMOFCONNECTIONS : 0
+*)
 
 (* @NESTEDCOMMENTS := 'Yes' *)
 (* @GLOBAL_VARIABLE_LIST := 'Globale_Variablen' *)
@@ -834,6 +916,22 @@ VAR_CONFIG
 END_VAR
 (* @OBJECT_END := 'TwinCAT_Configuration' *)
 (* @CONNECTIONS := TwinCAT_Configuration
+FILENAME : ''
+FILETIME : 0
+EXPORT : 0
+NUMOFCONNECTIONS : 0
+*)
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @GLOBAL_VARIABLE_LIST := 'Variable_Configuration' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+VAR_CONFIG
+END_VAR
+
+(* @OBJECT_END := 'Variable_Configuration' *)
+(* @CONNECTIONS := Variable_Configuration
 FILENAME : ''
 FILETIME : 0
 EXPORT : 0
@@ -1032,6 +1130,17 @@ STRING_TO_DCTIME: 2048
 SYSTEMTIME_TO_DCTIME: 2048
 NumOfGVLs: 1
 Globale_Variablen: 2048
+END_LIBRARY
+
+LIBRARY
+TcSUPS.lib 22.3.10 13:59:22
+(* @LIBRARYSYMFILEINFO := '0' *)
+NumOfPOUs: 3
+F_GetVersionTcSUPS: 2048
+FB_NT_QuickShutdown: 2048
+FB_S_UPS: 2048
+NumOfGVLs: 1
+Global_Variables: 2048
 END_LIBRARY
 
 LIBRARY
