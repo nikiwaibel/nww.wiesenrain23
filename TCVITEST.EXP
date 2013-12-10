@@ -34,16 +34,39 @@ END_PROGRAM
 
 VISUALISATION viTest _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 1
+_TEXT : 2
 _PAINTZOOM : 100
 
 _BUTTON : ''
-_POS : 100,20,241,151,170,85
+_POS : 160,10,301,141,230,70
 _THRESH : '','','','MAIN.fbLichtHeizen.IN'
 _INPUT : 131072
-_DSP : '','viTest',''
+_DSP : '','fbLichtHeizen.IN',''
 _ZOOM : ''
 _TEXT : 5,4294967285,400,0,0,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_BUTTON : ''
+_POS : 10,10,151,141,80,75
+_THRESH : '','','','MAIN.tasterHeizen'
+_INPUT : 131072
+_DSP : '','tasterHeizen',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,1,0,0,0
 _FONT : ''
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
