@@ -1,0 +1,111 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK FB_Light
+VAR_INPUT
+	IN: BOOL;   (* on/off pulse, ignored if FORCE = TRUE *)
+	PT: TIME;   (* auto-off aka on-time; see also: expandPT *)
+	FORCE: BOOL;   (* if true, force output on/off, depending on FORCE_ON;
+			  during FORCE, IN is ignored
+			  during FORCE, PT is expanded if Q = TRUE *)
+	FORCE_ON: BOOL;   (* if false and FORCE, then force off *)
+	REACTION: TIME := t#600ms;   (* TODO: do not change state right after statechange *)
+	ROOM: STRING;
+	LOCATION: STRING;
+END_VAR
+VAR_OUTPUT RETAIN PERSISTENT
+	usageTime: TIME := t#0ms;
+	usageDays: UINT := 0;
+	usageCounterSwitchOn: UDINT := 0;
+END_VAR
+VAR_OUTPUT
+	Q: BOOL;   (* light on / off *)
+END_VAR
+VAR
+	viText: STRING;
+	viTimer: TIME;
+	onTimer: TOF;
+	forceOnTrigger: R_TRIG;
+	forceOffTrigger: F_TRIG;
+	forceOnTime: TIME;
+	startOpTrigger: R_TRIG;
+	stopOpTrigger: F_TRIG;
+	opTimetracker: TIME;
+	now: TIME;
+	extendPT: TIME;   (* added to onTimer.PT *)
+END_VAR
+VAR CONSTANT
+	MAX_TIME: TIME := T#71582m47s295ms;
+END_VAR
+(* @END_DECLARATION := '0' *)
+viText := CONCAT(ROOM, '$N');
+viText := CONCAT(viText, LOCATION);
+(* viTimer is set later *)
+
+now := TIME();
+
+forceOnTrigger(CLK := FORCE);
+forceOffTrigger(CLK := FORCE);
+IF forceOnTrigger.Q AND onTimer.Q THEN
+	forceOnTime := now;
+ELSIF forceOffTrigger.Q AND onTimer.Q THEN
+	IF (now < forceOnTime) THEN
+		(* overflow *)
+		extendPT := MAX_TIME - forceOnTime + now;
+	ELSE
+		extendPT := now - forceOnTime;
+	END_IF
+	onTimer.PT := onTimer.PT + extendPT;
+END_IF
+
+IF FORCE THEN
+	Q := FORCE_ON;
+ELSE (* NOT FORCE *)
+	IF IN AND NOT onTimer.Q THEN   (* on/off pulse and onTimer = off *)
+		(* turn on timer / light *);
+		onTimer(IN := IN, PT := PT);
+	ELSIF IN AND onTimer.Q THEN   (* on/off pulse and onTimer = on *)
+		(* turn off timer / light *)
+		onTimer(IN := FALSE, PT := t#0s);
+		extendPT := t#0ms;
+	ELSIF onTimer.Q THEN (* no on/off pulse but timer is on *)
+		onTimer(IN := IN);
+	END_IF
+	Q := onTimer.Q;
+END_IF (* NOT FORCE *)
+
+IF onTimer.ET = ontimer.PT THEN
+	(* we do not want to see 0, when the onTimer is finished *)
+	(* instead, display PT *)
+	viTimer := PT;
+ELSE
+	viTimer := onTimer.PT - onTimer.ET;
+END_IF
+
+(*****************************)
+(* record the operation time *)
+
+startOpTrigger(CLK := Q);
+stopOpTrigger(CLK := Q);
+IF startOpTrigger.Q THEN
+	usageCounterSwitchOn := usageCounterSwitchOn + 1;
+	opTimetracker := now;
+END_IF
+IF Q AND (now < opTimetracker) THEN   (* overflow *)
+	usageTime := usageTime + (MAX_TIME - opTimetracker);
+	opTimetracker := t#0ms;
+END_IF
+IF stopOpTrigger.Q THEN
+	usageTime := usageTime + (now - opTimetracker);
+END_IF
+IF Q AND ((now - opTimetracker) > t#1s) THEN
+	usageTime := usageTime + (now - opTimetracker);
+	opTimetracker := now;
+END_IF
+IF (Q OR stopOpTrigger.Q) AND (usageTime > t#1d) THEN
+	usageDays := usageDays + 1;
+	usageTime := usageTime - t#1d;
+END_IF
+END_FUNCTION_BLOCK

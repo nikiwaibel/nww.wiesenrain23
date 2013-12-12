@@ -1,0 +1,82 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM MAIN
+VAR
+	ups: FB_S_UPS;
+	toggle: FB_Toggle;
+
+	_bwmKgGang AT %I*: BOOL; (* Ost *)
+	_tasterHeizen AT %I*: BOOL; (* Sued-West *)
+	_tasterHobbyL AT %I*: BOOL; (* Ost *)
+	_tasterHobbyR AT %I*: BOOL; (* Ost *)
+	_tasterLagerNO AT %I*: BOOL; (* Nord-Ost *)
+	_tasterLagerS AT %I*: BOOL; (* Sued *)
+	_tasterWaschenL AT %I*: BOOL; (* West-Sued *)
+	_tasterWaschenR AT %I*: BOOL; (* West-Sued *)
+	_tasterEgGang AT %I*: BOOL; (* Nord-West *)
+
+	heizenTaster: FB_Button;
+	heizenLicht: FB_Light;
+	heizenHK1: FB_Heizkreis;
+	heizenHK2: FB_Heizkreis;
+
+	hobbyTasterL: FB_Button;
+	hobbyTasterR: FB_Button;
+	hobbyLichtN: FB_Light;
+	hobbyLichtS: FB_Light;
+
+	lagerTasterNO: FB_Button;
+	lagerTasterS: FB_Button;
+	lagerLicht: FB_Light;
+
+	vorratLicht: FB_Light;
+
+	waschenTasterL: FB_Button;
+	waschenTasterR: FB_Button;
+	waschenLichtNM: FB_Light;
+	waschenLichtS: FB_Light;
+
+	kgGangBwm: FB_Motiondetector;
+	kgGangLicht: FB_Light;
+
+	kgEgLicht: FB_Light;
+
+	egGangTaster: FB_Button;
+END_VAR
+(* @END_DECLARATION := '0' *)
+ups();
+
+(* input processing *)
+kgGangBwm(IN := _bwmKgGang, ROOM := 'KG-Gang', LOCATION := 'Ost');
+heizenTaster(IN := _tasterHeizen, ROOM := 'Heizen', LOCATION := 'Nord-West');
+hobbyTasterL(IN := _tasterHobbyL, ROOM := 'Hobby', LOCATION := 'Ost');
+hobbyTasterR(IN := _tasterHobbyR, ROOM := 'Hobby', LOCATION := 'Ost');
+lagerTasterNO(IN := _tasterLagerNO, ROOM := 'Lager', LOCATION := 'Nord-Ost');
+lagerTasterS(IN := _tasterLagerS, ROOM := 'Lager', LOCATION := 'Sued');
+waschenTasterL(IN := _tasterWaschenL, ROOM := 'Waschen', LOCATION := 'West-Sued');
+waschenTasterR(IN := _tasterWaschenR, ROOM := 'Waschen', LOCATION := 'West-Sued');
+egGangTaster(IN := _tasterEgGang, ROOM := 'EG-Gang', LOCATION := 'Nord-West');
+
+(* control *)
+toggle(onTime := t#1s, offTime := t#2s);
+
+(* output processing *)
+kgGangLicht(IN := kgGangBwm.Q, PT := t#2m);
+heizenLicht(IN := heizenTaster.pulseOnClick, PT := t#15m, ROOM := 'Heizen', LOCATION := 'West|Ost');
+hobbyLichtS(IN := hobbyTasterR.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Sued');
+hobbyLichtN(IN := hobbyTasterL.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Nord');
+lagerLicht(IN := lagerTasterNO.pulseOnClick, PT := t#15s, ROOM := 'Lager', LOCATION := 'Mitte');
+lagerLicht.FORCE := vorratLicht.Q;
+lagerLicht.FORCE_ON := vorratLicht.Q;
+vorratLicht(IN := lagerTasterS.pulseOnClick, PT := t#2m, ROOM := 'Vorrat', LOCATION := 'Mitte');
+waschenLichtNM(IN := waschenTasterR.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Nord|Mitte');
+waschenLichtS(IN := waschenTasterL.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Sued');
+
+kgGangLicht(IN := kgGangBwm.pulseOnMotion, PT := t#1m, ROOM := 'KG-Gang', LOCATION := 'Mitte');
+kgEgLicht(IN := egGangTaster.pulseOnClick, PT := t#1m, ROOM := 'KG-EG-Stiege', LOCATION := 'Ost');
+heizenHk1(soll := 24.0, vorlauf :=, ruecklauf :=);
+heizenHk2(soll := 24.0, vorlauf :=, ruecklauf :=);
+END_PROGRAM

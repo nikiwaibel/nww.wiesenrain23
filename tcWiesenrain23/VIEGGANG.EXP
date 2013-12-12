@@ -1,0 +1,62 @@
+(* @PATH := '\/EG' *)
+
+VISUALISATION viEgGang _VISU_TYPES : 1,1
+_BG_BMP : ''
+_TEXT : 2
+_PAINTZOOM : 100
+
+_SIMPLE : 1
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 190,10,621,41,405,25
+_COLORS : 8454143,8421504,16777215,0,0
+_VARIABLES : '','','','','','','',''
+_THRESH : '','','',''
+_DSP : '','EG-Gang',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,700,0,0,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'viButtonSingle'
+NUM_STRINGS_IN_LIST: 1
+fbButton
+NUM_STRINGS_IN_LIST: 1
+MAIN.egGangTasterStiege
+_LINEWIDTH : 0
+_NOCOLORS : 1,1
+_POS : 280,150,351,231,315,190
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 1,1,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,1,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+_KEYINFOLIST : 0
+END_VISUALISATION

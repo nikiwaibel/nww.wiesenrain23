@@ -1,0 +1,529 @@
+(* @PATH := '\/templates' *)
+
+VISUALISATION viButtonDouble _VISU_TYPES : 1,1
+_BG_BMP : ''
+_TEXT : 22
+_PAINTZOOM : 400
+
+_BUTTON : ''
+_POS : 0,10,51,111,30,60
+_THRESH : '','','','$$fbButton_L$$.IN'
+_INPUT : 131072
+_DSP : '','$$fbButton_L$$.LONGPRESS',''
+_ZOOM : ''
+_TEXT : 9,4294967288,400,0,0,0,0,0
+_FONT : 'Courier New'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_BUTTON : ''
+_POS : 50,10,101,111,80,70
+_THRESH : '','','','$$fbButton_R$$.IN'
+_INPUT : 131072
+_DSP : '','$$fbButton_R$$.LONGPRESS',''
+_ZOOM : ''
+_TEXT : 9,4294967288,400,0,1,0,0,0
+_FONT : 'Courier New'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_SIMPLE : 0
+_LINEWIDTH : 0
+_NOCOLORS : 0,0
+_POS : 0,0,101,11,50,5
+_COLORS : 16777215,16777215,16777215,16777215,0
+_VARIABLES : '','','','','','','',''
+_THRESH : '','','',''
+_DSP : '','$$fbButton_L$$.ROOM $$fbButton_L$$.LOCATION',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 1,4294967285,400,0,2,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_BUTTON : ''
+_POS : 320,60,371,161,345,110
+_THRESH : '','','','$$fbButton$$.viIN'
+_INPUT : 131072
+_DSP : '$$fbButton$$.LONGPRESS','%ums',''
+_ZOOM : ''
+_TEXT : 9,4294967288,400,0,4,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 320,70,370,60,270,80
+_COLORS : 16777215,0,16777215,0,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '$$fbButton$$.viText','%s',''
+_ZOOM : ''
+_TEXT : 5,4294967288,400,0,5,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 315,145,280,150,350,140
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '$$fbButton$$.usageCounterPress','%u',''
+_ZOOM : ''
+_TEXT : 6,4294967288,400,0,6,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 365,145,365,140,365,150
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.toggleOnPress','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,7,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 365,135,365,130,365,140
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.toggleOnRelease','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,8,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 365,125,365,130,365,120
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.toggleOnLongpress','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,9,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 365,115,365,110,365,120
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.toggleOnClick','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,10,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 315,135,280,140,350,130
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '$$fbButton$$.usageCounterRelease','%u',''
+_ZOOM : ''
+_TEXT : 6,4294967288,400,0,11,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 315,125,280,130,350,120
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '$$fbButton$$.usageCounterLongpress','%u',''
+_ZOOM : ''
+_TEXT : 6,4294967288,400,0,12,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 315,115,350,110,280,120
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '$$fbButton$$.usageCounterClick','%u',''
+_ZOOM : ''
+_TEXT : 6,4294967288,400,0,13,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 355,115,360,110,350,120
+_COLORS : 16777215,0,16777215,0,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '','c',''
+_ZOOM : ''
+_TEXT : 5,4294967288,400,0,14,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 355,125,360,120,350,130
+_COLORS : 16777215,0,16777215,0,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '','l',''
+_ZOOM : ''
+_TEXT : 5,4294967288,400,0,15,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 355,135,360,130,350,140
+_COLORS : 16777215,0,16777215,0,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '','r',''
+_ZOOM : ''
+_TEXT : 5,4294967288,400,0,16,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 355,145,360,140,350,150
+_COLORS : 16777215,0,16777215,0,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '','p',''
+_ZOOM : ''
+_TEXT : 5,4294967288,400,0,17,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 275,145,275,140,275,150
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.isPressed','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,18,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 275,135,275,130,275,140
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.isReleased','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,19,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 282,130,275,130,290,130
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.isLongpressed','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,20,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 297,115,320,110,275,120
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.isClicked','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,21,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+_KEYINFOLIST : 1
+_KEYINFO : 0,65535,4294967295
+_KEYINFOEXPR : ''
+END_VISUALISATION

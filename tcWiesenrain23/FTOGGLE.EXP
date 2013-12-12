@@ -1,0 +1,16 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/Fs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION fToggle : BOOL
+VAR_INPUT
+	IN: BOOL;
+END_VAR
+(* @END_DECLARATION := '0' *)
+IF IN THEN
+	fToggle := FALSE;
+ELSE
+	fToggle := TRUE;
+END_IF
+END_FUNCTION

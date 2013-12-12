@@ -1,0 +1,22 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK FB_Toggle
+VAR_INPUT
+	onTime: TIME :=  t#0.5s;
+	offTime: TIME := t#1s;
+END_VAR
+VAR_OUTPUT
+	Q: BOOL;
+END_VAR
+VAR
+	t1: TON;
+	t2: TOF;
+END_VAR
+(* @END_DECLARATION := '0' *)
+t1(IN := NOT t2.Q, pt := offTime);
+t2(IN := t1.Q, pt := onTime);
+Q := t2.Q;
+END_FUNCTION_BLOCK

@@ -1,0 +1,80 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK FB_SYNC_RELAIS
+VAR_INPUT
+	bValue : BOOL;
+	udiDelayNanoSek : UDINT;
+	tNextZeroVoltage: T_DCTIME;
+END_VAR
+VAR_OUTPUT
+	bRelay AT %Q* : BOOL;
+END_VAR
+VAR
+	fbGETCURTASKINDEX: GETCURTASKINDEX;
+	tNextZeroVoltageLast: T_DCTIME;
+	TON_FAILURE: TON;
+	TOF_WAIT: TOF;
+	udiLastOnlineChangeCount: UDINT;
+	multi: T_DCTIME;
+	ui64Add1: T_ULARGE_INTEGER;
+	tHalfCylceTime: T_DCTIME;
+	ui64Sub1: T_ULARGE_INTEGER;
+	ui64Cmp1: T_ULARGE_INTEGER;
+	diResultAdd: DINT;
+	diResultSub: DINT;
+	tCylceTime: T_DCTIME;
+END_VAR
+(* @END_DECLARATION := '0' *)
+(*fTvalue(CLK:=bValue AND bRelay);
+IF fTvalue.Q OR bReset THEN
+	bRelay := FALSE;
+	bReset := FALSE;
+END_IF
+*)
+TON_FAILURE(IN:=tNextZeroVoltage.dwLowPart = tNextZeroVoltageLast.dwLowPart, PT:=t#100ms);
+tNextZeroVoltageLast.dwLowPart := tNextZeroVoltage.dwLowPart;
+
+TOF_WAIT(IN:=SYSTEMINFO.onlineChangeCount <> udiLastOnlineChangeCount, PT:= t#0.5s);
+udiLastOnlineChangeCount := SYSTEMINFO.onlineChangeCount;
+
+
+
+IF bValue AND NOT bRelay AND NOT TON_FAILURE.Q THEN
+	fbGETCURTASKINDEX(index=> );
+	tCylceTime.dwLowPart := SYSTEMTASKINFOARR[fbGETCURTASKINDEX.index].cycleTime*100;
+	tCylceTime.dwHighPart := 0;
+
+	multi.dwLowPart := udiDelayNanoSek;
+	tHalfCylceTime.dwLowPart := tCylceTime.dwLowPart/2;
+	ui64Add1 := UInt64Add64(UInt64Sub64(tNextZeroVoltage,multi), tHalfCylceTime);
+	ui64Sub1 := UInt64Sub64(UInt64Sub64(tNextZeroVoltage,multi), tHalfCylceTime);
+	ui64Cmp1 := F_GetActualDcTime();
+	diResultAdd := UInt64Cmp64(ui64Cmp1, ui64Add1);
+	diResultSub := UInt64Cmp64(ui64Cmp1, ui64Sub1);
+
+	IF (diResultSub >= 0) AND (diResultAdd <= 0)THEN
+		bRelay := TRUE;
+	END_IF
+END_IF
+
+IF NOT bValue AND bRelay AND NOT TON_FAILURE.Q THEN
+	fbGETCURTASKINDEX(index=> );
+	tCylceTime.dwLowPart := SYSTEMTASKINFOARR[fbGETCURTASKINDEX.index].cycleTime*100;
+	tCylceTime.dwHighPart := 0;
+
+	multi.dwLowPart := udiDelayNanoSek/2;
+	tHalfCylceTime.dwLowPart := tCylceTime.dwLowPart/2;
+	ui64Add1 := UInt64Add64(UInt64Sub64(tNextZeroVoltage,multi), tHalfCylceTime);
+	ui64Sub1 := UInt64Sub64(UInt64Sub64(tNextZeroVoltage,multi), tHalfCylceTime);
+	ui64Cmp1 := F_GetActualDcTime();
+	diResultAdd := UInt64Cmp64(ui64Cmp1, ui64Add1);
+	diResultSub := UInt64Cmp64(ui64Cmp1, ui64Sub1);
+
+	IF (diResultSub >= 0) AND (diResultAdd <= 0)THEN
+		bRelay := FALSE;
+	END_IF
+END_IF
+END_FUNCTION_BLOCK

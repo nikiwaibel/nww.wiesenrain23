@@ -1,0 +1,203 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM IO_FAST
+VAR
+	uiStateCX5000 AT %I*: UINT;
+	uiControlCX5000 AT %Q* : UINT;
+	iVoltagePhase1 AT %I* : ARRAY [0..9] OF INT;
+	iVoltagePhase2 AT %I* : ARRAY [0..9] OF INT;
+	iVoltagePhase3 AT %I* : ARRAY [0..9] OF INT;
+	uliStartTimeNextLatch AT %I* : ARRAY [0..1] OF UDINT;
+	bWcState AT %I* : BOOL;
+
+	fbAnalyseVoltagePhase1 : FB_ANALYSE_VOLTAGE;
+	fbAnalyseVoltagePhase2 : FB_ANALYSE_VOLTAGE;
+	fbAnalyseVoltagePhase3 : FB_ANALYSE_VOLTAGE;
+	fbA28CH1: FB_SYNC_RELAIS;
+	fbA28CH2: FB_SYNC_RELAIS;
+	fbA29CH1: FB_SYNC_RELAIS;
+	fbA29CH2: FB_SYNC_RELAIS;
+	fbA30CH1: FB_SYNC_RELAIS;
+	fbA30CH2: FB_SYNC_RELAIS;
+	fbA31CH1: FB_SYNC_RELAIS;
+	fbA31CH2: FB_SYNC_RELAIS;
+	fbA32CH1: FB_SYNC_RELAIS;
+	fbA32CH2: FB_SYNC_RELAIS;
+	fbA20CH1: FB_SYNC_RELAIS;
+	fbA20CH2: FB_SYNC_RELAIS;
+	fbA21CH1: FB_SYNC_RELAIS;
+	fbA21CH2: FB_SYNC_RELAIS;
+	fbA23CH1: FB_SYNC_RELAIS;
+	fbA23CH2: FB_SYNC_RELAIS;
+	fbA24CH1: FB_SYNC_RELAIS;
+	fbA24CH2: FB_SYNC_RELAIS;
+	fbA25CH1: FB_SYNC_RELAIS;
+	fbA25CH2: FB_SYNC_RELAIS;
+	fbA26CH1: FB_SYNC_RELAIS;
+	fbA26CH2: FB_SYNC_RELAIS;
+	fbA38OGCH1: FB_SYNC_RELAIS;
+	fbA38OGCH2: FB_SYNC_RELAIS;
+	fbA41OGCH1: FB_SYNC_RELAIS;
+	fbA41OGCH2: FB_SYNC_RELAIS;
+	fbA43OGCH1: FB_SYNC_RELAIS;
+	fbA43OGCH2: FB_SYNC_RELAIS;
+	fbA44OGCH1: FB_SYNC_RELAIS;
+	fbA44OGCH2: FB_SYNC_RELAIS;
+	fbA45OGCH1: FB_SYNC_RELAIS;
+	fbA45OGCH2: FB_SYNC_RELAIS;
+	fbA48OGCH1: FB_SYNC_RELAIS;
+	fbA48OGCH2: FB_SYNC_RELAIS;
+	fbA49OGCH1: FB_SYNC_RELAIS;
+	fbA49OGCH2: FB_SYNC_RELAIS;
+	fbA50OGCH1: FB_SYNC_RELAIS;
+	fbA50OGCH2: FB_SYNC_RELAIS;
+	fbA52OGCH1: FB_SYNC_RELAIS;
+	fbA52OGCH2: FB_SYNC_RELAIS;
+	fbA53OGCH1: FB_SYNC_RELAIS;
+	fbA53OGCH2: FB_SYNC_RELAIS;
+	fbA55OGCH1: FB_SYNC_RELAIS;
+	fbA55OGCH2: FB_SYNC_RELAIS;
+	fbA56OGCH1: FB_SYNC_RELAIS;
+	fbA56OGCH2: FB_SYNC_RELAIS;
+	fbA57OGCH1: FB_SYNC_RELAIS;
+	fbA57OGCH2: FB_SYNC_RELAIS;
+	fbA15OGCH1: FB_SYNC_RELAIS;
+	fbA15OGCH2: FB_SYNC_RELAIS;
+	fbA17OGCH1: FB_SYNC_RELAIS;
+	fbA17OGCH2: FB_SYNC_RELAIS;
+	fbA18OGCH1: FB_SYNC_RELAIS;
+	fbA18OGCH2: FB_SYNC_RELAIS;
+	fbA19OGCH1: FB_SYNC_RELAIS;
+	fbA19OGCH2: FB_SYNC_RELAIS;
+	fbA21OGCH1: FB_SYNC_RELAIS;
+	fbA21OGCH2: FB_SYNC_RELAIS;
+	fbA23OGCH1: FB_SYNC_RELAIS;
+	fbA23OGCH2: FB_SYNC_RELAIS;
+	fbA25OGCH1: FB_SYNC_RELAIS;
+	fbA25OGCH2: FB_SYNC_RELAIS;
+	fbA26OGCH1: FB_SYNC_RELAIS;
+	fbA26OGCH2: FB_SYNC_RELAIS;
+	fbA33OGCH1: FB_SYNC_RELAIS;
+	fbA33OGCH2: FB_SYNC_RELAIS;
+	fbA35OGCH1: FB_SYNC_RELAIS;
+	fbA35OGCH2: FB_SYNC_RELAIS;
+	fbA36OGCH1: FB_SYNC_RELAIS;
+	fbA36OGCH2: FB_SYNC_RELAIS;
+	fbA78OGCH1: FB_SYNC_RELAIS;
+	fbA78OGCH2: FB_SYNC_RELAIS;
+	fbA80OGCH1: FB_SYNC_RELAIS;
+	fbA80OGCH2: FB_SYNC_RELAIS;
+
+
+	lrFrequencyPhase1: LREAL;
+	lrFrequencyPhase2: LREAL;
+	lrFrequencyPhase3: LREAL;
+	bErrorL1: BOOL;
+	bErrorL2: BOOL;
+	bErrorL3: BOOL;
+	TON1: TON;
+	bStart: BOOL;
+	bRelayPLC:BOOL;
+END_VAR
+(* @END_DECLARATION := '0' *)
+(* Spannungsanalyse *)
+fbAnalyseVoltagePhase1(
+	uliStartTimeNextLatch:=uliStartTimeNextLatch ,
+	bWcState:=bWcState ,
+	iVoltage:=iVoltagePhase1 ,
+	lrFrequency=>lrFrequencyPhase1 ,
+	bError=>bErrorL1);
+
+fbAnalyseVoltagePhase2(
+	uliStartTimeNextLatch:=uliStartTimeNextLatch ,
+	bWcState:=bWcState ,
+	iVoltage:=iVoltagePhase2 ,
+	lrFrequency=>lrFrequencyPhase2 ,
+	bError=>bErrorL2);
+
+fbAnalyseVoltagePhase3(
+	uliStartTimeNextLatch:=uliStartTimeNextLatch ,
+	bWcState:=bWcState ,
+	iVoltage:=iVoltagePhase3 ,
+	lrFrequency=>lrFrequencyPhase3 ,
+	bError=>bErrorL3);
+
+(* Relais *)
+fbA28CH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA28CH2(bValue:= , udiDelayNanoSek:= 7100000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA29CH1(bValue:= , udiDelayNanoSek:= 6800000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA29CH2(bValue:= , udiDelayNanoSek:= 7000000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA30CH1(bValue:= , udiDelayNanoSek:= 7000000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA30CH2(bValue:= , udiDelayNanoSek:= 6200000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA31CH1(bValue:= , udiDelayNanoSek:= 6200000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA31CH2(bValue:= , udiDelayNanoSek:= 6200000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA32CH1(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA32CH2(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA20CH1(bValue:= MAIN.kgGangLicht.Q , udiDelayNanoSek:= 7200000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA20CH2(bValue:= MAIN.kgEgLicht.Q , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA21CH1(bValue:= MAIN.lagerLicht.Q , udiDelayNanoSek:= 6900000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA21CH2(bValue:= , udiDelayNanoSek:= 7000000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA23CH1(bValue:= MAIN.heizenLicht.Q , udiDelayNanoSek:= 7000000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA23CH2(bValue:= MAIN.waschenLichtS.Q , udiDelayNanoSek:= 6800000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA24CH1(bValue:= MAIN.waschenLichtNM.Q , udiDelayNanoSek:= 6800000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA24CH2(bValue:= MAIN.hobbyLichtN.Q, udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA25CH1(bValue:= MAIN.vorratLicht.Q, udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA25CH2(bValue:= MAIN.hobbyLichtS.Q, udiDelayNanoSek:= 6800000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA26CH1(bValue:= , udiDelayNanoSek:= 6800000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA26CH2(bValue:= , udiDelayNanoSek:= 6650000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA38OGCH1(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA38OGCH2(bValue:= , udiDelayNanoSek:= 6700000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA41OGCH1(bValue:= , udiDelayNanoSek:= 6700000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA41OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA43OGCH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA43OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA44OGCH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA44OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA45OGCH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA45OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA48OGCH1(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA48OGCH2(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA49OGCH1(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA49OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA50OGCH1(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA50OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA52OGCH1(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA52OGCH2(bValue:= , udiDelayNanoSek:= 6500000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA53OGCH1(bValue:= , udiDelayNanoSek:= 6400000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA53OGCH2(bValue:= , udiDelayNanoSek:= 6400000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA55OGCH1(bValue:= , udiDelayNanoSek:= 6400000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA55OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA56OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA56OGCH2(bValue:= , udiDelayNanoSek:= 6200000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA57OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA57OGCH2(bValue:= , udiDelayNanoSek:= 6400000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA15OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA15OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA17OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA17OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA18OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA18OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA19OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA19OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA21OGCH1(bValue:= , udiDelayNanoSek:= 6000000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA21OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA23OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA23OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA25OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA25OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA26OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA26OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA33OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA33OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA35OGCH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA35OGCH2(bValue:= , udiDelayNanoSek:= 6200000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA36OGCH1(bValue:= , udiDelayNanoSek:= 6400000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA36OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA78OGCH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA78OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA80OGCH1(bValue:= , udiDelayNanoSek:= 6000000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA80OGCH2(bValue:= , udiDelayNanoSek:= 6000000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+END_PROGRAM

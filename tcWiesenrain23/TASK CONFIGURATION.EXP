@@ -1,0 +1,14 @@
+
+RESOURCE
+
+TASK Standard (PRIORITY := 1, INTERVAL := T#10ms);
+MAIN
+{Additional_info : 1,0,0,0,1,4294967295}
+END_TASK
+
+TASK Fast (PRIORITY := 0, INTERVAL := T#1ms);
+IO_FAST
+{Additional_info : 1,0,0,0,1,4294967295}
+END_TASK
+
+END_RESOURCE

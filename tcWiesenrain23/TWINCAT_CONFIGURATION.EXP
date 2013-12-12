@@ -1,0 +1,108 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @GLOBAL_VARIABLE_LIST := 'TwinCAT_Configuration' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+(* Generated automatically by TwinCAT - (read only) *)
+VAR_CONFIG
+	IO_FAST.uiStateCX5000 AT %IB0 : UINT;
+	IO_FAST.uiControlCX5000 AT %QB0 : UINT;
+	IO_FAST.iVoltagePhase1 AT %IB2 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^L1 Voltage Samples^U1 SAMPLES} *)
+	IO_FAST.iVoltagePhase2 AT %IB22 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^L2 Voltage Samples^U2 SAMPLES} *)
+	IO_FAST.iVoltagePhase3 AT %IB42 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^L3 Voltage Samples^U3 SAMPLES} *)
+	IO_FAST.uliStartTimeNextLatch AT %IB62 : ARRAY [0..1] OF UDINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^AI Timestamp NextSync1Time^StartTimeNextLatch} *)
+	IO_FAST.bWcState AT %IX72.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^WcState^WcState} *)
+	IO_FAST.fbA28CH1.bRelay AT %QX2.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A28^Kanal 1^Ausgang} *)
+	IO_FAST.fbA28CH2.bRelay AT %QX2.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A28^Kanal 2^Ausgang} *)
+	IO_FAST.fbA29CH1.bRelay AT %QX2.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A29^Kanal 1^Ausgang} *)
+	IO_FAST.fbA29CH2.bRelay AT %QX2.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A29^Kanal 2^Ausgang} *)
+	IO_FAST.fbA30CH1.bRelay AT %QX2.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A30^Kanal 1^Ausgang} *)
+	IO_FAST.fbA30CH2.bRelay AT %QX2.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A30^Kanal 2^Ausgang} *)
+	IO_FAST.fbA31CH1.bRelay AT %QX2.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A31^Kanal 1^Ausgang} *)
+	IO_FAST.fbA31CH2.bRelay AT %QX2.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A31^Kanal 2^Ausgang} *)
+	IO_FAST.fbA32CH1.bRelay AT %QX3.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A32^Kanal 1^Ausgang} *)
+	IO_FAST.fbA32CH2.bRelay AT %QX3.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A32^Kanal 2^Ausgang} *)
+	IO_FAST.fbA20CH1.bRelay AT %QX3.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A20^Kanal 1^KG-Gang Lampe} *)
+	IO_FAST.fbA20CH2.bRelay AT %QX3.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A20^Kanal 2^KG-EG-Stiege Lampe} *)
+	IO_FAST.fbA21CH1.bRelay AT %QX3.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A21^Kanal 1^Lager Lampe} *)
+	IO_FAST.fbA21CH2.bRelay AT %QX3.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A21^Kanal 2^Ausgang} *)
+	IO_FAST.fbA23CH1.bRelay AT %QX3.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A23^Kanal 1^Heizen Lampe} *)
+	IO_FAST.fbA23CH2.bRelay AT %QX3.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A23^Kanal 2^WaschenS Lampe} *)
+	IO_FAST.fbA24CH1.bRelay AT %QX4.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A24^Kanal 1^WaschenN Lampe} *)
+	IO_FAST.fbA24CH2.bRelay AT %QX4.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A24^Kanal 2^HobbyN Lampe} *)
+	IO_FAST.fbA25CH1.bRelay AT %QX4.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A25^Kanal 1^Vorrat Lampe} *)
+	IO_FAST.fbA25CH2.bRelay AT %QX4.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A25^Kanal 2^HobbyS Lampe} *)
+	IO_FAST.fbA26CH1.bRelay AT %QX4.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A26^Kanal 1^Ausgang} *)
+	IO_FAST.fbA26CH2.bRelay AT %QX4.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A26^Kanal 2^Ausgang} *)
+	IO_FAST.fbA38OGCH1.bRelay AT %QX4.6 : BOOL;
+	IO_FAST.fbA38OGCH2.bRelay AT %QX4.7 : BOOL;
+	IO_FAST.fbA41OGCH1.bRelay AT %QX5.0 : BOOL;
+	IO_FAST.fbA41OGCH2.bRelay AT %QX5.1 : BOOL;
+	IO_FAST.fbA43OGCH1.bRelay AT %QX5.2 : BOOL;
+	IO_FAST.fbA43OGCH2.bRelay AT %QX5.3 : BOOL;
+	IO_FAST.fbA44OGCH1.bRelay AT %QX5.4 : BOOL;
+	IO_FAST.fbA44OGCH2.bRelay AT %QX5.5 : BOOL;
+	IO_FAST.fbA45OGCH1.bRelay AT %QX5.6 : BOOL;
+	IO_FAST.fbA45OGCH2.bRelay AT %QX5.7 : BOOL;
+	IO_FAST.fbA48OGCH1.bRelay AT %QX6.0 : BOOL;
+	IO_FAST.fbA48OGCH2.bRelay AT %QX6.1 : BOOL;
+	IO_FAST.fbA49OGCH1.bRelay AT %QX6.2 : BOOL;
+	IO_FAST.fbA49OGCH2.bRelay AT %QX6.3 : BOOL;
+	IO_FAST.fbA50OGCH1.bRelay AT %QX6.4 : BOOL;
+	IO_FAST.fbA50OGCH2.bRelay AT %QX6.5 : BOOL;
+	IO_FAST.fbA52OGCH1.bRelay AT %QX6.6 : BOOL;
+	IO_FAST.fbA52OGCH2.bRelay AT %QX6.7 : BOOL;
+	IO_FAST.fbA53OGCH1.bRelay AT %QX7.0 : BOOL;
+	IO_FAST.fbA53OGCH2.bRelay AT %QX7.1 : BOOL;
+	IO_FAST.fbA55OGCH1.bRelay AT %QX7.2 : BOOL;
+	IO_FAST.fbA55OGCH2.bRelay AT %QX7.3 : BOOL;
+	IO_FAST.fbA56OGCH1.bRelay AT %QX7.4 : BOOL;
+	IO_FAST.fbA56OGCH2.bRelay AT %QX7.5 : BOOL;
+	IO_FAST.fbA57OGCH1.bRelay AT %QX7.6 : BOOL;
+	IO_FAST.fbA57OGCH2.bRelay AT %QX7.7 : BOOL;
+	IO_FAST.fbA15OGCH1.bRelay AT %QX8.0 : BOOL;
+	IO_FAST.fbA15OGCH2.bRelay AT %QX8.1 : BOOL;
+	IO_FAST.fbA17OGCH1.bRelay AT %QX8.2 : BOOL;
+	IO_FAST.fbA17OGCH2.bRelay AT %QX8.3 : BOOL;
+	IO_FAST.fbA18OGCH1.bRelay AT %QX8.4 : BOOL;
+	IO_FAST.fbA18OGCH2.bRelay AT %QX8.5 : BOOL;
+	IO_FAST.fbA19OGCH1.bRelay AT %QX8.6 : BOOL;
+	IO_FAST.fbA19OGCH2.bRelay AT %QX8.7 : BOOL;
+	IO_FAST.fbA21OGCH1.bRelay AT %QX9.0 : BOOL;
+	IO_FAST.fbA21OGCH2.bRelay AT %QX9.1 : BOOL;
+	IO_FAST.fbA23OGCH1.bRelay AT %QX9.2 : BOOL;
+	IO_FAST.fbA23OGCH2.bRelay AT %QX9.3 : BOOL;
+	IO_FAST.fbA25OGCH1.bRelay AT %QX9.4 : BOOL;
+	IO_FAST.fbA25OGCH2.bRelay AT %QX9.5 : BOOL;
+	IO_FAST.fbA26OGCH1.bRelay AT %QX9.6 : BOOL;
+	IO_FAST.fbA26OGCH2.bRelay AT %QX9.7 : BOOL;
+	IO_FAST.fbA33OGCH1.bRelay AT %QX10.0 : BOOL;
+	IO_FAST.fbA33OGCH2.bRelay AT %QX10.1 : BOOL;
+	IO_FAST.fbA35OGCH1.bRelay AT %QX10.2 : BOOL;
+	IO_FAST.fbA35OGCH2.bRelay AT %QX10.3 : BOOL;
+	IO_FAST.fbA36OGCH1.bRelay AT %QX10.4 : BOOL;
+	IO_FAST.fbA36OGCH2.bRelay AT %QX10.5 : BOOL;
+	IO_FAST.fbA78OGCH1.bRelay AT %QX10.6 : BOOL;
+	IO_FAST.fbA78OGCH2.bRelay AT %QX10.7 : BOOL;
+	IO_FAST.fbA80OGCH1.bRelay AT %QX11.0 : BOOL;
+	IO_FAST.fbA80OGCH2.bRelay AT %QX11.1 : BOOL;
+	MAIN._bwmKgGang AT %IX76.0 : BOOL;
+	MAIN._tasterHeizen AT %IX76.1 : BOOL;
+	MAIN._tasterHobbyL AT %IX76.2 : BOOL;
+	MAIN._tasterHobbyR AT %IX76.3 : BOOL;
+	MAIN._tasterLagerNO AT %IX76.6 : BOOL;
+	MAIN._tasterLagerS AT %IX76.7 : BOOL;
+	MAIN._tasterWaschenL AT %IX76.4 : BOOL;
+	MAIN._tasterWaschenR AT %IX76.5 : BOOL;
+	MAIN.heizenHK1.mischer AT %QB12 : INT;
+	MAIN.heizenHK1.pumpe AT %QB14 : INT;
+	MAIN.heizenHK2.mischer AT %QB16 : INT;
+	MAIN.heizenHK2.pumpe AT %QB18 : INT;
+END_VAR
+(* @OBJECT_END := 'TwinCAT_Configuration' *)
+(* @CONNECTIONS := TwinCAT_Configuration
+FILENAME : ''
+FILETIME : 0
+EXPORT : 0
+NUMOFCONNECTIONS : 0
+*)

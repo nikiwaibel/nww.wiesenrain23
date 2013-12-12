@@ -1,0 +1,31 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK FB_Motiondetector
+VAR_INPUT
+	IN: BOOL;
+	ROOM: STRING;
+	LOCATION: STRING;
+END_VAR
+VAR_OUTPUT
+	Q: BOOL;
+	pulseOnMotion: BOOL;
+END_VAR
+VAR
+	viText: STRING;
+	viIN: BOOL;
+	myIn: BOOL;
+	x: R_TRIG;
+END_VAR
+(* @END_DECLARATION := '0' *)
+(* support VIsualisations *)
+viText := CONCAT(ROOM, '$N');
+viText := CONCAT(viText, LOCATION);
+myIN := IN XOR viIN;
+
+Q := myIN;
+x(CLK := myIn);
+pulseOnMotion := x.Q;
+END_FUNCTION_BLOCK
