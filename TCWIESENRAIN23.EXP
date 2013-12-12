@@ -734,10 +734,14 @@ VAR
 	waschenLichtN: FB_Light;
 	waschenLichtS: FB_Light;
 
+	lagerTasterNO: FB_Button;
+	lagerTasterS: FB_Button;
 	lagerLicht: FB_Light;
+
 	vorratLicht: FB_Light;
 
 	kgEgStiegeLicht: FB_Light;
+
 END_VAR
 (* @END_DECLARATION := '0' *)
 ups();
@@ -745,34 +749,815 @@ ups();
 (* input processing *)
 kgGangBwm(IN := _bwmKgGang, ROOM := 'KG-Gang', LOCATION := 'Ost');
 heizenTaster(IN := _tasterHeizen, ROOM := 'Heizen', LOCATION := 'Nord-West');
+lagerTasterNO(IN := _tasterLagerNO, ROOM := 'Lager', LOCATION := 'Nord-Ost');
+lagerTasterS(IN := _tasterLagerS, ROOM := 'Lager', LOCATION := 'Sued');
 
 (* control *)
 toggle(onTime := t#1s, offTime := t#2s);
-heizenLicht.FORCE := toggle.Q;
-heizenLicht.FORCE_ON := NOT toggle.Q;
 
 (* output processing *)
 kgGangLicht(IN := kgGangBwm.Q, PT := t#2m);
 heizenLicht(IN := heizenTaster.pulseOnClick OR heizentaster.pulseOnLongpress,
-	PT := t#15s,
+	PT := t#15m,
 	ROOM := 'Heizen', LOCATION := 'West|Ost');
 hobbyLichtS(IN := _tasterHobbyR, PT := t#10m);
 waschenLichtN(IN := _tasterWaschenR , PT := t#15m);
 waschenLichtS(IN := _tasterWaschenL , PT := t#15m);
-lagerLicht(IN := _tasterLagerNO OR vorratLicht.Q , PT := t#3m);
-vorratLicht(IN := _tasterLagerS , PT := t#2m);
+lagerLicht(IN := lagerTasterNO.pulseOnClick, FORCE := vorratLicht.Q, FORCE_ON := vorratLicht.Q, PT := t#3m);
+vorratLicht(IN := lagerTasterS.pulseOnClick , PT := t#2m);
 kgEgStiegeLicht(IN := _tasterEgGangStiege, PT := t#1m);
 
 heizenHk1(soll := 24.0, vorlauf :=, ruecklauf :=);
 heizenHk2(soll := 24.0, vorlauf :=, ruecklauf :=);
 END_PROGRAM
 
+(* @PATH := '\/KG' *)
+
+VISUALISATION HEIZEN _VISU_TYPES : 1,1
+_BG_BMP : ''
+_TEXT : 19
+_PAINTZOOM : 100
+
+_REF : 'viButtonSingle'
+NUM_STRINGS_IN_LIST: 1
+fbButton
+NUM_STRINGS_IN_LIST: 1
+MAIN.heizenTaster
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 280,50,361,131,320,90
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,9,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'viLight'
+NUM_STRINGS_IN_LIST: 1
+fbLight
+NUM_STRINGS_IN_LIST: 1
+MAIN.heizenLicht
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 290,220,341,271,315,245
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,12,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','','MAIN.viHeizenLicht'
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'viLight'
+NUM_STRINGS_IN_LIST: 1
+fbLight
+NUM_STRINGS_IN_LIST: 1
+MAIN.heizenLicht
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 450,220,501,271,475,245
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,14,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_SIMPLE : 1
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 190,10,621,41,405,25
+_COLORS : 8454143,8421504,16777215,0,0
+_VARIABLES : '','','','','','','',''
+_THRESH : '','','',''
+_DSP : '','Heizen',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,700,0,18,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+_KEYINFOLIST : 0
+END_VISUALISATION
+
+(* @PATH := '\/KG' *)
+
+VISUALISATION Hobby _VISU_TYPES : 1,1
+_BG_BMP : ''
+_TEXT : 20
+_PAINTZOOM : 100
+
+_REF : 'viLight'
+NUM_STRINGS_IN_LIST: 1
+fbLight
+NUM_STRINGS_IN_LIST: 1
+MAIN.hobbyLichtN
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 380,120,431,171,405,145
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,14,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_SIMPLE : 1
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 190,10,621,41,405,25
+_COLORS : 8454143,8421504,16777215,0,0
+_VARIABLES : '','','','','','','',''
+_THRESH : '','','',''
+_DSP : '','Hobby',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,700,0,16,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'viLight'
+NUM_STRINGS_IN_LIST: 1
+fbLight
+NUM_STRINGS_IN_LIST: 1
+MAIN.hobbytLichtS
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 380,280,431,331,405,305
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,18,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'viButtonDouble'
+NUM_STRINGS_IN_LIST: 2
+fbButton_L
+fbButton_R
+NUM_STRINGS_IN_LIST: 2
+hobbyTasterR
+hobbyTasterL
+_LINEWIDTH : 0
+_NOCOLORS : 1,1
+_POS : 530,270,621,361,575,315
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 1,1,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,19,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+_KEYINFOLIST : 0
+END_VISUALISATION
+
+(* @PATH := '\/KG' *)
+
+VISUALISATION KG _VISU_TYPES : 1,1
+_BG_BMP : ''
+_TEXT : 8
+_PAINTZOOM : 100
+
+_BUTTON : ''
+_POS : 330,280,621,471,475,375
+_THRESH : '','','',''
+_INPUT : 262144
+_DSP : '','Heizen',''
+_ZOOM : 'Heizen'
+_TEXT : 5,4294967285,400,0,1,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_BUTTON : ''
+_POS : 190,340,321,471,255,405
+_THRESH : '','','',''
+_INPUT : 262144
+_DSP : '','Vorrat',''
+_ZOOM : 'Vorrat'
+_TEXT : 5,4294967285,400,0,2,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_BUTTON : ''
+_POS : 190,200,321,331,255,265
+_THRESH : '','','',''
+_INPUT : 262144
+_DSP : '','Lager',''
+_ZOOM : 'Lager'
+_TEXT : 5,4294967285,400,0,3,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_BUTTON : ''
+_POS : 190,60,321,191,255,125
+_THRESH : '','','',''
+_INPUT : 262144
+_DSP : '','Hobby',''
+_ZOOM : 'Hobby'
+_TEXT : 5,4294967285,400,0,4,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_BUTTON : ''
+_POS : 460,60,621,271,540,165
+_THRESH : '','','',''
+_INPUT : 262144
+_DSP : '','Waschen',''
+_ZOOM : 'Waschen'
+_TEXT : 5,4294967285,400,0,5,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_SIMPLE : 1
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 190,10,621,41,405,25
+_COLORS : 8454143,8421504,16777215,0,0
+_VARIABLES : '','','','','','','',''
+_THRESH : '','','',''
+_DSP : '','KG',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,700,0,6,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_BUTTON : ''
+_POS : 330,60,451,271,390,165
+_THRESH : '','','',''
+_INPUT : 262144
+_DSP : '','KG-Gang',''
+_ZOOM : 'KG-Gang'
+_TEXT : 5,4294967285,400,0,7,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+_KEYINFOLIST : 0
+END_VISUALISATION
+
+(* @PATH := '\/KG' *)
+
+VISUALISATION LAGER _VISU_TYPES : 1,1
+_BG_BMP : ''
+_TEXT : 18
+_PAINTZOOM : 100
+
+_REF : 'viButtonSingle'
+NUM_STRINGS_IN_LIST: 1
+fbButton
+NUM_STRINGS_IN_LIST: 1
+MAIN.lagerTasterNO
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 510,50,591,131,550,90
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,9,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'viLight'
+NUM_STRINGS_IN_LIST: 1
+fbLight
+NUM_STRINGS_IN_LIST: 1
+MAIN.lagerLicht
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 380,200,431,251,405,225
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,14,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_SIMPLE : 1
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 190,10,621,41,405,25
+_COLORS : 8454143,8421504,16777215,0,0
+_VARIABLES : '','','','','','','',''
+_THRESH : '','','',''
+_DSP : '','Lager',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,700,0,16,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'viButtonSingle'
+NUM_STRINGS_IN_LIST: 1
+fbButton
+NUM_STRINGS_IN_LIST: 1
+MAIN.lagerTasterS
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 430,390,511,471,470,430
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,17,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+_KEYINFOLIST : 0
+END_VISUALISATION
+
+(* @PATH := '\/KG' *)
+
+VISUALISATION VORRAT _VISU_TYPES : 1,1
+_BG_BMP : ''
+_TEXT : 18
+_PAINTZOOM : 100
+
+_REF : 'viLight'
+NUM_STRINGS_IN_LIST: 1
+fbLight
+NUM_STRINGS_IN_LIST: 1
+MAIN.vorratLicht
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 360,200,411,251,385,225
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,14,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_SIMPLE : 1
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 190,10,621,41,405,25
+_COLORS : 8454143,8421504,16777215,0,0
+_VARIABLES : '','','','','','','',''
+_THRESH : '','','',''
+_DSP : '','Vorrat',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,700,0,16,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'viButtonSingle'
+NUM_STRINGS_IN_LIST: 1
+fbButton
+NUM_STRINGS_IN_LIST: 1
+MAIN.lagerTasterS
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 410,50,491,131,450,90
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,17,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+_KEYINFOLIST : 0
+END_VISUALISATION
+
+(* @PATH := '\/KG' *)
+
+VISUALISATION Waschen _VISU_TYPES : 1,1
+_BG_BMP : ''
+_TEXT : 21
+_PAINTZOOM : 100
+
+_REF : 'viLight'
+NUM_STRINGS_IN_LIST: 1
+fbLight
+NUM_STRINGS_IN_LIST: 1
+MAIN.waschenLichtN
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 380,80,431,131,405,105
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,14,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_SIMPLE : 1
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 190,10,621,41,405,25
+_COLORS : 8454143,8421504,16777215,0,0
+_VARIABLES : '','','','','','','',''
+_THRESH : '','','',''
+_DSP : '','Waschen',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,700,0,16,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'viLight'
+NUM_STRINGS_IN_LIST: 1
+fbLight
+NUM_STRINGS_IN_LIST: 1
+MAIN.waschenLichtN
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 380,220,431,271,405,245
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,18,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'viButtonDouble'
+NUM_STRINGS_IN_LIST: 2
+fbButton_L
+fbButton_R
+NUM_STRINGS_IN_LIST: 2
+waschenTasterL
+waschenTasterR
+_LINEWIDTH : 0
+_NOCOLORS : 1,1
+_POS : 530,270,621,361,575,315
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 1,1,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,19,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'viLight'
+NUM_STRINGS_IN_LIST: 1
+fbLight
+NUM_STRINGS_IN_LIST: 1
+MAIN.waschenLichtS
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 380,350,431,401,405,375
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,20,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+_KEYINFOLIST : 0
+END_VISUALISATION
+
 (* @PATH := '\/templates' *)
 
 VISUALISATION viButtonDouble _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 4
-_PAINTZOOM : 100
+_TEXT : 22
+_PAINTZOOM : 400
 
 _BUTTON : ''
 _POS : 0,10,51,111,30,60
@@ -844,6 +1629,454 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_BUTTON : ''
+_POS : 320,60,371,161,345,110
+_THRESH : '','','','$$fbButton$$.viIN'
+_INPUT : 131072
+_DSP : '$$fbButton$$.LONGPRESS','%ums',''
+_ZOOM : ''
+_TEXT : 9,4294967288,400,0,4,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 320,70,370,60,270,80
+_COLORS : 16777215,0,16777215,0,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '$$fbButton$$.viText','%s',''
+_ZOOM : ''
+_TEXT : 5,4294967288,400,0,5,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 315,145,280,150,350,140
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '$$fbButton$$.usageCounterPress','%u',''
+_ZOOM : ''
+_TEXT : 6,4294967288,400,0,6,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 365,145,365,140,365,150
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.toggleOnPress','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,7,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 365,135,365,130,365,140
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.toggleOnRelease','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,8,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 365,125,365,130,365,120
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.toggleOnLongpress','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,9,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 365,115,365,110,365,120
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.toggleOnClick','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,10,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 315,135,280,140,350,130
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '$$fbButton$$.usageCounterRelease','%u',''
+_ZOOM : ''
+_TEXT : 6,4294967288,400,0,11,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 315,125,280,130,350,120
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '$$fbButton$$.usageCounterLongpress','%u',''
+_ZOOM : ''
+_TEXT : 6,4294967288,400,0,12,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 315,115,350,110,280,120
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '$$fbButton$$.usageCounterClick','%u',''
+_ZOOM : ''
+_TEXT : 6,4294967288,400,0,13,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 355,115,360,110,350,120
+_COLORS : 16777215,0,16777215,0,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '','c',''
+_ZOOM : ''
+_TEXT : 5,4294967288,400,0,14,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 355,125,360,120,350,130
+_COLORS : 16777215,0,16777215,0,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '','l',''
+_ZOOM : ''
+_TEXT : 5,4294967288,400,0,15,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 355,135,360,130,350,140
+_COLORS : 16777215,0,16777215,0,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '','r',''
+_ZOOM : ''
+_TEXT : 5,4294967288,400,0,16,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 355,145,360,140,350,150
+_COLORS : 16777215,0,16777215,0,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '','p',''
+_ZOOM : ''
+_TEXT : 5,4294967288,400,0,17,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 275,145,275,140,275,150
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.isPressed','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,18,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 275,135,275,130,275,140
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.isReleased','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,19,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 282,130,275,130,290,130
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.isLongpressed','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,20,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 3
+_NOCOLORS : 1,1
+_POLYSORT : 2
+_POS : 297,115,320,110,275,120
+_COLORS : 16777215,0,16777215,16777215,0
+_VARIABLES : '','','',''
+_THRESH : '','$$fbButton$$.isClicked','',''
+_INPUT : 0
+_DSP : '','',''
+_ZOOM : ''
+_TEXT : 5,4294967285,400,0,21,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 _KEYINFOLIST : 1
 _KEYINFO : 0,65535,4294967295
 _KEYINFOEXPR : ''
@@ -854,7 +2087,7 @@ END_VISUALISATION
 VISUALISATION viButtonSingle _VISU_TYPES : 1,1
 _BG_BMP : ''
 _TEXT : 37
-_PAINTZOOM : 400
+_PAINTZOOM : 100
 
 _BUTTON : ''
 _POS : 0,0,101,101,55,50
@@ -1817,7 +3050,7 @@ END_VISUALISATION
 
 VISUALISATION viLight _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 6
+_TEXT : 7
 _PAINTZOOM : 400
 
 _SIMPLE : 2
@@ -1924,14 +3157,39 @@ _POLY : 2
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POLYSORT : 2
-_POS : 30,10,60,0,0,20
+_POS : 10,0,30,0,0,10
 _COLORS : 16777215,0,16777215,0,0
 _VARIABLES : '','','',''
 _THRESH : '','','',''
 _INPUT : 0
-_DSP : '$$fbLight$$.usageCounterSwitchOn','%u',''
+_DSP : '$$fbLight$$.usageCounterSwitchOn','%u×',''
 _ZOOM : ''
-_TEXT : 1,4294967288,400,0,4,0,0,0
+_TEXT : 0,4294967288,400,0,4,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_POLY : 2
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POLYSORT : 2
+_POS : 45,5,60,10,30,0
+_COLORS : 16777215,0,16777215,0,0
+_VARIABLES : '','','',''
+_THRESH : '','','',''
+_INPUT : 0
+_DSP : '($$fbLight$$.PT - $$fbLight$$.t.ET) / 1000','%us',''
+_ZOOM : ''
+_TEXT : 2,4294967288,400,0,6,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -1949,97 +3207,125 @@ END_VISUALISATION
 
 (* @PATH := '' *)
 
-VISUALISATION heizen _VISU_TYPES : 1,1
+VISUALISATION MAIN _VISU_TYPES : 1,7
 _BG_BMP : ''
-_TEXT : 16
+_TEXT : 5
 _PAINTZOOM : 100
 
-_REF : 'viButtonSingle'
-NUM_STRINGS_IN_LIST: 1
-fbButton
-NUM_STRINGS_IN_LIST: 1
-MAIN.heizenTaster
-_LINEWIDTH : 0
-_NOCOLORS : 0,1
-_POS : 90,10,171,91,130,50
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 0,0,0
+_BUTTON : ''
+_POS : 70,370,171,471,120,420
 _THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,9,0,0,0
-_FONT : ''
+_INPUT : 262144
+_DSP : '','KG',''
+_ZOOM : 'KG'
+_TEXT : 5,4294967285,400,0,0,0,0,0
+_FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
 _COLORVARIABLES : '','','','','',''
 _ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
+_OBJECT : 0,0,157
 _THRESH2 : '','','',''
 _INPUTTYPE : '','',''
 _HIDDENINPUT : 0
 _END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
 
-_REF : 'viLight'
-NUM_STRINGS_IN_LIST: 1
-fbLight
-NUM_STRINGS_IN_LIST: 1
-MAIN.heizenLicht
-_LINEWIDTH : 0
-_NOCOLORS : 0,1
-_POS : 180,210,231,261,205,235
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 0,0,0
+_BUTTON : ''
+_POS : 70,190,171,291,120,240
 _THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,12,0,0,0
-_FONT : ''
+_INPUT : 262144
+_DSP : '','EG',''
+_ZOOM : 'EG'
+_TEXT : 5,4294967285,400,0,1,0,0,0
+_FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
 _COLORVARIABLES : '','','','','',''
 _ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
-_THRESH2 : '','','','MAIN.viHeizenLicht'
-_INPUTTYPE : '','',''
-_HIDDENINPUT : 0
-_END_ELEM
-(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
-(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
-
-_REF : 'viLight'
-NUM_STRINGS_IN_LIST: 1
-fbLight
-NUM_STRINGS_IN_LIST: 1
-MAIN.heizenLicht
-_LINEWIDTH : 0
-_NOCOLORS : 0,1
-_POS : 380,210,431,261,405,235
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 0,0,0
-_THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,14,0,0,0
-_FONT : ''
-_EXEC : ''
-_TEXTVARIABLES : '','','','',''
-_COLORVARIABLES : '','','','','',''
-_ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
+_OBJECT : 0,0,157
 _THRESH2 : '','','',''
 _INPUTTYPE : '','',''
 _HIDDENINPUT : 0
 _END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_BUTTON : ''
+_POS : 70,10,171,111,120,60
+_THRESH : '','','',''
+_INPUT : 262144
+_DSP : '','OG',''
+_ZOOM : 'OG'
+_TEXT : 5,4294967285,400,0,2,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_BUTTON : ''
+_POS : 10,250,51,471,30,360
+_THRESH : '','','',''
+_INPUT : 262144
+_DSP : '','EG$R$NKG',''
+_ZOOM : 'KG-EG'
+_TEXT : 5,4294967285,400,0,3,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
+
+_BUTTON : ''
+_POS : 10,10,51,231,30,120
+_THRESH : '','','',''
+_INPUT : 262144
+_DSP : '','OG$R$NEG',''
+_ZOOM : 'EG-OG'
+_TEXT : 5,4294967285,400,0,4,0,0,0
+_FONT : 'Trebuchet MS'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0,157
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @BUTTONCOLORS := '_COLORS : 13158600,0,14474460,0,0' *)
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @GRADIENT_AND_FRAME := '_GRADIENT_AND_FRAME: 0,0,0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+(* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
 _KEYINFOLIST : 0
 END_VISUALISATION
 
