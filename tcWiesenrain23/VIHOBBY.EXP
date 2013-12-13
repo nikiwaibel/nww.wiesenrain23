@@ -114,20 +114,18 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'viButtonDouble'
-NUM_STRINGS_IN_LIST: 3
+NUM_STRINGS_IN_LIST: 2
 fbButton_L
 fbButton_R
-fbButton
-NUM_STRINGS_IN_LIST: 3
-hobbyTasterL
-hobbyTasterR
-
+NUM_STRINGS_IN_LIST: 2
+MAIN.hobbyTasterL
+MAIN.hobbyTasterR
 _LINEWIDTH : 0
-_NOCOLORS : 1,1
+_NOCOLORS : 0,1
 _POS : 470,270,561,361,515,315
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
-_FRAME : 1,1,0
+_FRAME : 0,0,0
 _THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''

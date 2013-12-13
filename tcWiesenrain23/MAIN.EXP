@@ -68,7 +68,7 @@ kgGangLicht(IN := kgGangBwm.Q, PT := t#2m);
 heizenLicht(IN := heizenTaster.pulseOnClick, PT := t#15m, ROOM := 'Heizen', LOCATION := 'West|Ost');
 hobbyLichtS(IN := hobbyTasterR.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Sued');
 hobbyLichtN(IN := hobbyTasterL.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Nord');
-lagerLicht(IN := lagerTasterNO.pulseOnClick, PT := t#15s, ROOM := 'Lager', LOCATION := 'Mitte');
+lagerLicht(IN := lagerTasterNO.pulseOnClick, PT := t#3m, ROOM := 'Lager', LOCATION := 'Mitte');
 lagerLicht.FORCE := vorratLicht.Q;
 lagerLicht.FORCE_ON := vorratLicht.Q;
 vorratLicht(IN := lagerTasterS.pulseOnClick, PT := t#2m, ROOM := 'Vorrat', LOCATION := 'Mitte');
