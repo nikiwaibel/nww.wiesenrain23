@@ -2,7 +2,7 @@
 
 VISUALISATION VILIGHT _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 7
+_TEXT : 9
 _PAINTZOOM : 400
 
 _SIMPLE : 2
@@ -66,7 +66,7 @@ _THRESH : '','','',''
 _INPUT : 0
 _DSP : '$$fbLight$$.usageTime / 1000','%us ',''
 _ZOOM : ''
-_TEXT : 10,4294967288,400,0,4294967295,0,0,0
+_TEXT : 10,4294967288,400,0,7,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -91,7 +91,7 @@ _THRESH : '','','',''
 _INPUT : 0
 _DSP : '$$fbLight$$.usageDays','%ud',''
 _ZOOM : ''
-_TEXT : 8,4294967288,400,0,4294967295,0,0,0
+_TEXT : 8,4294967288,400,0,8,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''

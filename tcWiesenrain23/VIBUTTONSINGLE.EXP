@@ -2,7 +2,7 @@
 
 VISUALISATION viButtonSingle _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 37
+_TEXT : 41
 _PAINTZOOM : 100
 
 _BUTTON : ''
@@ -39,7 +39,7 @@ _THRESH : '','','',''
 _INPUT : 0
 _DSP : '$$fbButton$$.viText','%s',''
 _ZOOM : ''
-_TEXT : 5,4294967288,400,0,4294967295,0,0,0
+_TEXT : 5,4294967288,400,0,37,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -64,7 +64,7 @@ _THRESH : '','','',''
 _INPUT : 0
 _DSP : '$$fbButton$$.usageCounterPress','%u',''
 _ZOOM : ''
-_TEXT : 6,4294967288,400,0,4294967295,0,0,0
+_TEXT : 6,4294967288,400,0,38,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -89,7 +89,7 @@ _THRESH : '','$$fbButton$$.toggleOnPress','',''
 _INPUT : 0
 _DSP : '','',''
 _ZOOM : ''
-_TEXT : 5,4294967285,400,0,4294967295,0,0,0
+_TEXT : 5,4294967285,400,0,39,0,0,0
 _FONT : ''
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -264,7 +264,7 @@ _THRESH : '','','',''
 _INPUT : 0
 _DSP : '','c',''
 _ZOOM : ''
-_TEXT : 5,4294967288,400,0,4294967295,0,0,0
+_TEXT : 5,4294967288,400,0,40,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
