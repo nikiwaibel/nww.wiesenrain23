@@ -1,8 +1,8 @@
 (* @PATH := '\/KG' *)
 
-VISUALISATION VIWASCHEN _VISU_TYPES : 1,1
+VISUALISATION VI_VORRAT _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 22
+_TEXT : 19
 _PAINTZOOM : 100
 
 _SIMPLE : 0
@@ -12,7 +12,7 @@ _POS : 130,0,631,61,380,30
 _COLORS : 13160660,8421504,16777215,0,0
 _VARIABLES : '','','','','','','',''
 _THRESH : '','','',''
-_DSP : '','KG$R$NWaschen',''
+_DSP : '','KG$R$NVorrat',''
 _ZOOM : ''
 _INPUT : 0
 _TEXT : 5,4294967285,700,0,16,0,0,0
@@ -33,70 +33,9 @@ _END_ELEM
 _SIMPLE : 0
 _LINEWIDTH : 0
 _NOCOLORS : 1,1
-_POS : 225,70,536,471,380,270
+_POS : 180,130,581,401,380,265
 _COLORS : 13816530,0,16777215,0,0
 _VARIABLES : '','','','','','','',''
-_THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,21,0,0,0
-_FONT : ''
-_EXEC : ''
-_TEXTVARIABLES : '','','','',''
-_COLORVARIABLES : '','','','','',''
-_ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
-_THRESH2 : '','','',''
-_INPUTTYPE : '','',''
-_HIDDENINPUT : 0
-_END_ELEM
-(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
-(* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
-(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
-
-_REF : 'viButtonDouble'
-NUM_STRINGS_IN_LIST: 2
-fbButton_L
-fbButton_R
-NUM_STRINGS_IN_LIST: 2
-MAIN.waschenTasterL
-MAIN.waschenTasterR
-_LINEWIDTH : 0
-_NOCOLORS : 0,1
-_POS : 225,350,316,441,270,395
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 0,0,0
-_THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,19,0,0,0
-_FONT : ''
-_EXEC : ''
-_TEXTVARIABLES : '','','','',''
-_COLORVARIABLES : '','','','','',''
-_ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
-_THRESH2 : '','','',''
-_INPUTTYPE : '','',''
-_HIDDENINPUT : 0
-_END_ELEM
-(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
-(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
-
-_REF : 'viLight'
-NUM_STRINGS_IN_LIST: 1
-fbLight
-NUM_STRINGS_IN_LIST: 1
-MAIN.waschenLichtNM
-_LINEWIDTH : 0
-_NOCOLORS : 0,1
-_POS : 355,235,406,286,380,260
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 0,0,0
 _THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
@@ -113,16 +52,17 @@ _INPUTTYPE : '','',''
 _HIDDENINPUT : 0
 _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'viLight'
+_REF : 'vi_Light'
 NUM_STRINGS_IN_LIST: 1
 fbLight
 NUM_STRINGS_IN_LIST: 1
-MAIN.waschenLichtS
+MAIN.vorratLicht
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 355,365,406,416,380,390
+_POS : 350,240,401,291,380,260
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -130,7 +70,7 @@ _THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
 _INPUT : 0
-_TEXT : 5,4294967285,400,0,20,0,0,0
+_TEXT : 5,4294967285,400,0,14,0,0,0
 _FONT : ''
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -144,14 +84,14 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'viLight'
+_REF : 'viButtonSingle'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+fbButton
 NUM_STRINGS_IN_LIST: 1
-MAIN.waschenLichtNM
+MAIN.lagerTasterS
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 355,110,406,161,380,135
+_POS : 370,70,451,151,410,110
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -159,7 +99,7 @@ _THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
 _INPUT : 0
-_TEXT : 5,4294967285,400,0,14,0,0,0
+_TEXT : 5,4294967285,400,0,17,0,0,0
 _FONT : ''
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''

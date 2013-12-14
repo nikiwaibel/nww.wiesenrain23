@@ -8,15 +8,15 @@ VAR
 	ups: FB_S_UPS;
 	toggle: FB_Toggle;
 
-	_bwmKgGang AT %I*: BOOL; (* Ost *)
-	_tasterHeizen AT %I*: BOOL; (* Sued-West *)
-	_tasterHobbyL AT %I*: BOOL; (* Ost *)
-	_tasterHobbyR AT %I*: BOOL; (* Ost *)
-	_tasterLagerNO AT %I*: BOOL; (* Nord-Ost *)
-	_tasterLagerS AT %I*: BOOL; (* Sued *)
+	_bwmKgGang      AT %I*: BOOL; (* Ost *)
+	_tasterHeizen   AT %I*: BOOL; (* Sued-West *)
+	_tasterHobbyL   AT %I*: BOOL; (* Ost *)
+	_tasterHobbyR   AT %I*: BOOL; (* Ost *)
+	_tasterLagerNO  AT %I*: BOOL; (* Nord-Ost *)
+	_tasterLagerS   AT %I*: BOOL; (* Sued *)
 	_tasterWaschenL AT %I*: BOOL; (* West-Sued *)
 	_tasterWaschenR AT %I*: BOOL; (* West-Sued *)
-	_tasterEgGang AT %I*: BOOL; (* Nord-West *)
+	_tasterEgGang   AT %I*: BOOL; (* Nord-West *)
 
 	heizenTaster: FB_Button;
 	heizenLicht: FB_Light;

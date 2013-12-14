@@ -1,6 +1,6 @@
 (* @PATH := '' *)
 
-VISUALISATION VIDG _VISU_TYPES : 1,1
+VISUALISATION VI_DG _VISU_TYPES : 1,1
 _BG_BMP : ''
 _TEXT : 9
 _PAINTZOOM : 100
@@ -35,7 +35,7 @@ _POS : 330,70,581,261,455,165
 _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Dachboden',''
-_ZOOM : 'viDachboden'
+_ZOOM : 'vi_Dachboden'
 _TEXT : 5,4294967285,400,0,3,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
@@ -58,7 +58,7 @@ _POS : 330,200,461,321,395,260
 _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','DG-Kind',''
-_ZOOM : 'viDgKind'
+_ZOOM : 'vi_DgKind'
 _TEXT : 5,4294967285,400,0,2,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''

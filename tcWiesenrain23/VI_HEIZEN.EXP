@@ -1,8 +1,8 @@
 (* @PATH := '\/KG' *)
 
-VISUALISATION VIHOBBY _VISU_TYPES : 1,1
+VISUALISATION VI_HEIZEN _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 21
+_TEXT : 20
 _PAINTZOOM : 100
 
 _SIMPLE : 0
@@ -12,10 +12,10 @@ _POS : 130,0,631,61,380,30
 _COLORS : 13160660,8421504,16777215,0,0
 _VARIABLES : '','','','','','','',''
 _THRESH : '','','',''
-_DSP : '','KG$R$NHobby',''
+_DSP : '','KG$R$NHeizen',''
 _ZOOM : ''
 _INPUT : 0
-_TEXT : 5,4294967285,700,0,16,0,0,0
+_TEXT : 5,4294967285,700,0,18,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -33,14 +33,14 @@ _END_ELEM
 _SIMPLE : 0
 _LINEWIDTH : 0
 _NOCOLORS : 1,1
-_POS : 200,70,561,471,380,270
+_POS : 180,130,581,401,380,265
 _COLORS : 13816530,0,16777215,0,0
 _VARIABLES : '','','','','','','',''
 _THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
 _INPUT : 0
-_TEXT : 5,4294967285,400,0,20,0,0,0
+_TEXT : 5,4294967285,400,0,19,0,0,0
 _FONT : ''
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -55,43 +55,14 @@ _END_ELEM
 (* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'viLight'
+_REF : 'VI_LIGHT'
 NUM_STRINGS_IN_LIST: 1
 fbLight
 NUM_STRINGS_IN_LIST: 1
-MAIN.hobbyLichtS
+MAIN.heizenLicht
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 360,330,411,381,385,355
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 0,0,0
-_THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,18,0,0,0
-_FONT : ''
-_EXEC : ''
-_TEXTVARIABLES : '','','','',''
-_COLORVARIABLES : '','','','','',''
-_ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
-_THRESH2 : '','','',''
-_INPUTTYPE : '','',''
-_HIDDENINPUT : 0
-_END_ELEM
-(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
-(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
-
-_REF : 'viLight'
-NUM_STRINGS_IN_LIST: 1
-fbLight
-NUM_STRINGS_IN_LIST: 1
-MAIN.hobbyLichtN
-_LINEWIDTH : 0
-_NOCOLORS : 0,1
-_POS : 360,160,411,211,385,185
+_POS : 430,240,481,291,455,265
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -113,16 +84,14 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'viButtonDouble'
-NUM_STRINGS_IN_LIST: 2
-fbButton_L
-fbButton_R
-NUM_STRINGS_IN_LIST: 2
-MAIN.hobbyTasterL
-MAIN.hobbyTasterR
+_REF : 'VI_LIGHT'
+NUM_STRINGS_IN_LIST: 1
+fbLight
+NUM_STRINGS_IN_LIST: 1
+MAIN.heizenLicht
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 470,270,561,361,515,315
+_POS : 290,240,341,291,315,265
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -130,7 +99,36 @@ _THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
 _INPUT : 0
-_TEXT : 5,4294967285,400,0,19,0,0,0
+_TEXT : 5,4294967285,400,0,12,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','','MAIN.viHeizenLicht'
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'vi_ButtonSingle'
+NUM_STRINGS_IN_LIST: 1
+fbButton
+NUM_STRINGS_IN_LIST: 1
+MAIN.heizenTaster
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 220,130,291,201,255,165
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,9,0,0,0
 _FONT : ''
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -143,5 +141,7 @@ _HIDDENINPUT : 0
 _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
-_KEYINFOLIST : 0
+_KEYINFOLIST : 1
+_KEYINFO : 0,4294967295,4294967295
+_KEYINFOEXPR : ''
 END_VISUALISATION

@@ -1,6 +1,6 @@
 (* @PATH := '' *)
 
-VISUALISATION VIEG _VISU_TYPES : 1,1
+VISUALISATION VI_EG _VISU_TYPES : 1,1
 _BG_BMP : ''
 _TEXT : 11
 _PAINTZOOM : 100
@@ -35,7 +35,7 @@ _POS : 460,260,581,471,520,365
 _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Kochen',''
-_ZOOM : 'viKochen'
+_ZOOM : 'vi_Kochen'
 _TEXT : 5,4294967285,400,0,0,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
@@ -58,7 +58,7 @@ _POS : 460,260,501,311,485,280
 _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Speis',''
-_ZOOM : 'viSpeis'
+_ZOOM : 'vi_Speis'
 _TEXT : 5,4294967285,400,0,9,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
@@ -81,7 +81,7 @@ _POS : 330,260,461,471,395,365
 _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Essen',''
-_ZOOM : 'viEssen'
+_ZOOM : 'vi_Essen'
 _TEXT : 5,4294967285,400,0,2,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
@@ -104,7 +104,7 @@ _POS : 330,190,581,261,455,225
 _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','EG-Gang',''
-_ZOOM : 'viEgGang'
+_ZOOM : 'vi_EgGang'
 _TEXT : 5,4294967285,400,0,7,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
@@ -127,7 +127,7 @@ _POS : 420,70,581,191,500,130
 _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','EG-Bad',''
-_ZOOM : 'viEgBad'
+_ZOOM : 'vi_EgBad'
 _TEXT : 5,4294967285,400,0,3,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
@@ -150,7 +150,7 @@ _POS : 375,70,421,191,398,130
 _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','EG-OG$R$NStiege',''
-_ZOOM : 'viEgOgStiege'
+_ZOOM : 'vi_EgOgStiege'
 _TEXT : 5,4294967285,400,0,5,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
@@ -173,7 +173,7 @@ _POS : 530,110,581,191,555,150
 _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','EG-WC',''
-_ZOOM : 'viEgWC'
+_ZOOM : 'vi_EgWC'
 _TEXT : 5,4294967285,400,0,8,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
@@ -196,7 +196,7 @@ _POS : 330,70,376,191,353,130
 _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','KG-EG$R$NStiege',''
-_ZOOM : 'viKgEgStiege'
+_ZOOM : 'vi_KgEgStiege'
 _TEXT : 5,4294967285,400,0,10,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
@@ -219,7 +219,7 @@ _POS : 180,260,331,471,255,365
 _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Wohnen',''
-_ZOOM : 'viWohnen'
+_ZOOM : 'vi_Wohnen'
 _TEXT : 5,4294967285,400,0,1,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
@@ -242,7 +242,7 @@ _POS : 180,70,331,261,255,165
 _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Schlafen',''
-_ZOOM : 'viSchlafen'
+_ZOOM : 'vi_Schlafen'
 _TEXT : 5,4294967285,400,0,4,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
