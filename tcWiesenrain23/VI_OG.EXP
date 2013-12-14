@@ -126,7 +126,7 @@ _BUTTON : ''
 _POS : 330,70,421,191,375,130
 _THRESH : '','','',''
 _INPUT : 262144
-_DSP : '','EG-OG-Stiege',''
+_DSP : '','EG-OG-$R$NStiege',''
 _ZOOM : 'vi_EgOgStiege'
 _TEXT : 5,4294967285,400,0,5,0,0,0
 _FONT : 'Trebuchet MS'
