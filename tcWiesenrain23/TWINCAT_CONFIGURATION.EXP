@@ -86,14 +86,15 @@ VAR_CONFIG
 	IO_FAST.fbA78OGCH2.bRelay AT %QX10.7 : BOOL;
 	IO_FAST.fbA80OGCH1.bRelay AT %QX11.0 : BOOL;
 	IO_FAST.fbA80OGCH2.bRelay AT %QX11.1 : BOOL;
-	MAIN._bwmKgGang AT %IX76.0 : BOOL;
-	MAIN._tasterHeizen AT %IX76.1 : BOOL;
-	MAIN._tasterHobbyL AT %IX76.2 : BOOL;
-	MAIN._tasterHobbyR AT %IX76.3 : BOOL;
-	MAIN._tasterLagerNO AT %IX76.6 : BOOL;
-	MAIN._tasterLagerS AT %IX76.7 : BOOL;
-	MAIN._tasterWaschenL AT %IX76.4 : BOOL;
-	MAIN._tasterWaschenR AT %IX76.5 : BOOL;
+	MAIN._bwmKgGang AT %IX76.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A33^Kanal 2^KG-Gang BWM} *)
+	MAIN._tasterHeizen AT %IX76.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 7^Heizen Taster} *)
+	MAIN._tasterHobbyL AT %IX76.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 5^Hobby TasterL} *)
+	MAIN._tasterHobbyR AT %IX76.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 6^Hobby TasterR} *)
+	MAIN._tasterLagerNO AT %IX76.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 9^LagerNO Taster} *)
+	MAIN._tasterLagerS AT %IX76.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 8^LagerS Taster} *)
+	MAIN._tasterWaschenL AT %IX76.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 3^Waschen TasterL} *)
+	MAIN._tasterWaschenR AT %IX76.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 4^Waschen TasterR} *)
+	MAIN._tasterEgGang AT %IX80.0 : BOOL;
 	MAIN.heizenHK1.mischer AT %QB12 : INT;
 	MAIN.heizenHK1.pumpe AT %QB14 : INT;
 	MAIN.heizenHK2.mischer AT %QB16 : INT;

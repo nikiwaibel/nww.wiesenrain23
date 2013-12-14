@@ -5,7 +5,8 @@
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK FB_Light
 VAR_INPUT
-	IN: BOOL;   (* on/off pulse, ignored if FORCE = TRUE *)
+	ON_OFF: BOOL;   (* on/off pulse, ignored if FORCE = TRUE *)
+	ON: BOOL;   (* on pulse, ignored if FORCE = TRUE *)
 	PT: TIME;   (* auto-off aka on-time; see also: expandPT *)
 	FORCE: BOOL;   (* if true, force output on/off, depending on FORCE_ON;
 			  during FORCE, IN is ignored
@@ -63,15 +64,18 @@ END_IF
 IF FORCE THEN
 	Q := FORCE_ON;
 ELSE (* NOT FORCE *)
-	IF IN AND NOT onTimer.Q THEN   (* on/off pulse and onTimer = off *)
+	IF (ON OR ON_OFF) AND NOT onTimer.Q THEN   (* on or on/off pulse and onTimer = off *)
 		(* turn on timer / light *);
-		onTimer(IN := IN, PT := PT);
-	ELSIF IN AND onTimer.Q THEN   (* on/off pulse and onTimer = on *)
+		onTimer(IN := TRUE, PT := PT);
+	ELSIF ON_OFF AND onTimer.Q THEN   (* on/off pulse and onTimer = on *)
 		(* turn off timer / light *)
 		onTimer(IN := FALSE, PT := t#0s);
 		extendPT := t#0ms;
-	ELSIF onTimer.Q THEN (* no on/off pulse but timer is on *)
-		onTimer(IN := IN);
+	ELSIF ON AND onTimer.Q THEN   (* on pulse and onTimer = on *)
+		(* reset PT *)
+		onTimer(IN := TRUE, PT := PT);
+ 	ELSIF onTimer.Q THEN   (* no on/off pulse but timer is on *)
+		onTimer(IN := FALSE);
 	END_IF
 	Q := onTimer.Q;
 END_IF (* NOT FORCE *)

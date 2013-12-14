@@ -64,19 +64,20 @@ egGangTaster(IN := _tasterEgGang, ROOM := 'EG-Gang', LOCATION := 'Nord-West');
 toggle(onTime := t#1s, offTime := t#2s);
 
 (* output processing *)
-kgGangLicht(IN := kgGangBwm.Q, PT := t#2m);
-heizenLicht(IN := heizenTaster.pulseOnClick, PT := t#15m, ROOM := 'Heizen', LOCATION := 'West|Ost');
-hobbyLichtS(IN := hobbyTasterR.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Sued');
-hobbyLichtN(IN := hobbyTasterL.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Nord');
-lagerLicht(IN := lagerTasterNO.pulseOnClick, PT := t#3m, ROOM := 'Lager', LOCATION := 'Mitte');
+kgGangLicht(ON := kgGangBwm.Q, PT := t#2m);
+heizenLicht(ON_OFF := heizenTaster.pulseOnClick, PT := t#15m, ROOM := 'Heizen', LOCATION := 'West|Ost');
+hobbyLichtS(ON_OFF := hobbyTasterR.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Sued');
+hobbyLichtN(ON_OFF := hobbyTasterL.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Nord');
+lagerLicht(ON_OFF := lagerTasterNO.pulseOnClick, PT := t#3m, ROOM := 'Lager', LOCATION := 'Mitte');
 lagerLicht.FORCE := vorratLicht.Q;
 lagerLicht.FORCE_ON := vorratLicht.Q;
-vorratLicht(IN := lagerTasterS.pulseOnClick, PT := t#2m, ROOM := 'Vorrat', LOCATION := 'Mitte');
-waschenLichtNM(IN := waschenTasterR.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Nord|Mitte');
-waschenLichtS(IN := waschenTasterL.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Sued');
+vorratLicht(ON_OFF := lagerTasterS.pulseOnClick, PT := t#2m, ROOM := 'Vorrat', LOCATION := 'Mitte');
+waschenLichtNM(ON_OFF := waschenTasterR.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Nord|Mitte');
+waschenLichtS(ON_OFF := waschenTasterL.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Sued');
 
-kgGangLicht(IN := kgGangBwm.pulseOnMotion, PT := t#1m, ROOM := 'KG-Gang', LOCATION := 'Mitte');
-kgEgLicht(IN := egGangTaster.pulseOnClick, PT := t#1m, ROOM := 'KG-EG-Stiege', LOCATION := 'Ost');
+kgGangLicht(ON_OFF := kgGangBwm.pulseOnMotion, PT := t#1m, ROOM := 'KG-Gang', LOCATION := 'Mitte');
+kgEgLicht(ON_OFF := egGangTaster.pulseOnClick, PT := t#1m, ROOM := 'KG-EG-Stiege', LOCATION := 'Ost');
+
 heizenHk1(soll := 24.0, vorlauf :=, ruecklauf :=);
 heizenHk2(soll := 24.0, vorlauf :=, ruecklauf :=);
 END_PROGRAM
