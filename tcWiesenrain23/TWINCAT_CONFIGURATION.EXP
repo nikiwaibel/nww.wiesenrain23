@@ -5,6 +5,8 @@
 (* @SYMFILEFLAGS := '2048' *)
 (* Generated automatically by TwinCAT - (read only) *)
 VAR_CONFIG
+	IO_FAST.froeling.InData AT %IB84 : MB_KL6inData22B;
+	IO_FAST.froeling.OutData AT %QB20 : MB_KL6outData22B;
 	IO_FAST.uiStateCX5000 AT %IB0 : UINT;
 	IO_FAST.uiControlCX5000 AT %QB0 : UINT;
 	IO_FAST.iVoltagePhase1 AT %IB2 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^L1 Voltage Samples^U1 SAMPLES} *)
@@ -87,6 +89,9 @@ VAR_CONFIG
 	IO_FAST.fbA80OGCH1.bRelay AT %QX11.0 : BOOL;
 	IO_FAST.fbA80OGCH2.bRelay AT %QX11.1 : BOOL;
 	MAIN._bwmKgGang AT %IX76.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A33^Kanal 2^KG-Gang BWM} *)
+	MAIN._bwmHobby AT %IX108.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A?????^KG-HV A5^Channel 1^Hobby BWM} *)
+	MAIN._bwmLager AT %IX108.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A?????^KG-HV A5^Channel 5^Lager BWM} *)
+	MAIN._bwmWaschen AT %IX112.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A?????^KG-HV A5^Channel 2^Waschen BWM} *)
 	MAIN._tasterHeizen AT %IX76.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 7^Heizen Taster} *)
 	MAIN._tasterHobbyL AT %IX76.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 5^Hobby TasterL} *)
 	MAIN._tasterHobbyR AT %IX76.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 6^Hobby TasterR} *)
@@ -94,7 +99,7 @@ VAR_CONFIG
 	MAIN._tasterLagerS AT %IX76.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 8^LagerS Taster} *)
 	MAIN._tasterWaschenL AT %IX76.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 3^Waschen TasterL} *)
 	MAIN._tasterWaschenR AT %IX76.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 4^Waschen TasterR} *)
-	MAIN._tasterEgGang AT %IX80.0 : BOOL;
+	MAIN._tasterEgGang AT %IX80.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 10^EG-Gang Stiege Taster} *)
 	MAIN.heizenHK1.mischer AT %QB12 : INT;
 	MAIN.heizenHK1.pumpe AT %QB14 : INT;
 	MAIN.heizenHK2.mischer AT %QB16 : INT;

@@ -2,7 +2,7 @@
 
 VISUALISATION VI_KG _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 29
+_TEXT : 33
 _PAINTZOOM : 150
 
 _SIMPLE : 0
@@ -391,11 +391,11 @@ fbMotiondetector
 NUM_STRINGS_IN_LIST: 1
 MAIN.kgGangBwm
 _LINEWIDTH : 0
-_NOCOLORS : 1,1
+_NOCOLORS : 0,1
 _POS : 410,250,421,261,415,255
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
-_FRAME : 1,1,0
+_FRAME : 0,0,0
 _THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
@@ -698,6 +698,93 @@ _DSP : '','',''
 _ZOOM : ''
 _INPUT : 0
 _TEXT : 5,4294967285,400,0,26,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'vi_Motiondetector'
+NUM_STRINGS_IN_LIST: 1
+fbMotiondetector
+NUM_STRINGS_IN_LIST: 1
+MAIN.hobbyBwm
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 190,220,201,231,180,235
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,29,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'vi_Motiondetector'
+NUM_STRINGS_IN_LIST: 1
+fbMotiondetector
+NUM_STRINGS_IN_LIST: 1
+MAIN.lagerBwm
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 190,330,201,341,160,350
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,31,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'vi_Motiondetector'
+NUM_STRINGS_IN_LIST: 1
+fbMotiondetector
+NUM_STRINGS_IN_LIST: 1
+MAIN.waschenBwm
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 570,165,581,176,600,150
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,32,0,0,0
 _FONT : ''
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''

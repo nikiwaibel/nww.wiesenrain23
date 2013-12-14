@@ -6,9 +6,13 @@
 PROGRAM MAIN
 VAR
 	ups: FB_S_UPS;
+
 	toggle: FB_Toggle;
 
 	_bwmKgGang      AT %I*: BOOL; (* Ost *)
+	_bwmHobby       AT %I*: BOOL; (* Sued-West *)
+	_bwmLager       AT %I*: BOOL; (* Sued-West *)
+	_bwmWaschen     AT %I*: BOOL; (* Ost *)
 	_tasterHeizen   AT %I*: BOOL; (* Sued-West *)
 	_tasterHobbyL   AT %I*: BOOL; (* Ost *)
 	_tasterHobbyR   AT %I*: BOOL; (* Ost *)
@@ -23,17 +27,21 @@ VAR
 	heizenHK1: FB_Heizkreis;
 	heizenHK2: FB_Heizkreis;
 
+
+	hobbyBwm: FB_Motiondetector;
 	hobbyTasterL: FB_Button;
 	hobbyTasterR: FB_Button;
 	hobbyLichtN: FB_Light;
 	hobbyLichtS: FB_Light;
 
+	lagerBwm: FB_Motiondetector;
 	lagerTasterNO: FB_Button;
 	lagerTasterS: FB_Button;
 	lagerLicht: FB_Light;
 
 	vorratLicht: FB_Light;
 
+	waschenBwm: FB_Motiondetector;
 	waschenTasterL: FB_Button;
 	waschenTasterR: FB_Button;
 	waschenLichtNM: FB_Light;
@@ -52,10 +60,13 @@ ups();
 (* input processing *)
 kgGangBwm(IN := _bwmKgGang, ROOM := 'KG-Gang', LOCATION := 'Ost');
 heizenTaster(IN := _tasterHeizen, ROOM := 'Heizen', LOCATION := 'Nord-West');
+hobbyBwm(IN := _bwmHobby, ROOM := 'Hobby', LOCATION := 'Sued-West');
 hobbyTasterL(IN := _tasterHobbyL, ROOM := 'Hobby', LOCATION := 'Ost');
 hobbyTasterR(IN := _tasterHobbyR, ROOM := 'Hobby', LOCATION := 'Ost');
+lagerBwm(IN := _bwmLager, ROOM := 'Lager', LOCATION := 'Sued-West');
 lagerTasterNO(IN := _tasterLagerNO, ROOM := 'Lager', LOCATION := 'Nord-Ost');
 lagerTasterS(IN := _tasterLagerS, ROOM := 'Lager', LOCATION := 'Sued');
+waschenBwm(IN := _bwmWaschen, ROOM := 'Waschen', LOCATION := 'Ost');
 waschenTasterL(IN := _tasterWaschenL, ROOM := 'Waschen', LOCATION := 'West-Sued');
 waschenTasterR(IN := _tasterWaschenR, ROOM := 'Waschen', LOCATION := 'West-Sued');
 egGangTaster(IN := _tasterEgGang, ROOM := 'EG-Gang', LOCATION := 'Nord-West');
@@ -66,14 +77,14 @@ toggle(onTime := t#1s, offTime := t#2s);
 (* output processing *)
 kgGangLicht(ON := kgGangBwm.Q, PT := t#2m);
 heizenLicht(ON_OFF := heizenTaster.pulseOnClick, PT := t#15m, ROOM := 'Heizen', LOCATION := 'West|Ost');
-hobbyLichtS(ON_OFF := hobbyTasterR.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Sued');
-hobbyLichtN(ON_OFF := hobbyTasterL.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Nord');
-lagerLicht(ON_OFF := lagerTasterNO.pulseOnClick, PT := t#3m, ROOM := 'Lager', LOCATION := 'Mitte');
+hobbyLichtS(ON := hobbyBwm.pulseOnMotion, ON_OFF := hobbyTasterR.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Sued');
+hobbyLichtN(ON := hobbyBwm.pulseOnMotion, ON_OFF := hobbyTasterL.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Nord');
+lagerLicht(ON := lagerBwm.pulseOnMotion, ON_OFF := lagerTasterNO.pulseOnClick, PT := t#3m, ROOM := 'Lager', LOCATION := 'Mitte');
 lagerLicht.FORCE := vorratLicht.Q;
 lagerLicht.FORCE_ON := vorratLicht.Q;
 vorratLicht(ON_OFF := lagerTasterS.pulseOnClick, PT := t#2m, ROOM := 'Vorrat', LOCATION := 'Mitte');
-waschenLichtNM(ON_OFF := waschenTasterR.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Nord|Mitte');
-waschenLichtS(ON_OFF := waschenTasterL.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Sued');
+waschenLichtNM(ON := waschenBwm.pulseOnMotion, ON_OFF := waschenTasterR.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Nord|Mitte');
+waschenLichtS(ON := waschenBwm.pulseOnMotion, ON_OFF := waschenTasterL.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Sued');
 
 kgGangLicht(ON_OFF := kgGangBwm.pulseOnMotion, PT := t#1m, ROOM := 'KG-Gang', LOCATION := 'Mitte');
 kgEgLicht(ON_OFF := egGangTaster.pulseOnClick, PT := t#1m, ROOM := 'KG-EG-Stiege', LOCATION := 'Ost');

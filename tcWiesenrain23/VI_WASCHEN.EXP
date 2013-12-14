@@ -2,7 +2,7 @@
 
 VISUALISATION VI_WASCHEN _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 22
+_TEXT : 23
 _PAINTZOOM : 100
 
 _SIMPLE : 0
@@ -160,6 +160,35 @@ _DSP : '','',''
 _ZOOM : ''
 _INPUT : 0
 _TEXT : 5,4294967285,400,0,14,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'vi_Motiondetector'
+NUM_STRINGS_IN_LIST: 1
+fbMotiondetector
+NUM_STRINGS_IN_LIST: 1
+MAIN.waschenBwm
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 500,210,521,231,540,200
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,22,0,0,0
 _FONT : ''
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''

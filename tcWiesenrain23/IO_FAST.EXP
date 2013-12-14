@@ -5,6 +5,11 @@
 (* @SYMFILEFLAGS := '2048' *)
 PROGRAM IO_FAST
 VAR
+	froeling: ModbusRtuMaster_KL6x22B;
+	froelingIn: MB_KL6inData22B;
+	froelingOut: MB_KL6outData22B;
+	froelingData: INT;
+
 	uiStateCX5000 AT %I*: UINT;
 	uiControlCX5000 AT %Q* : UINT;
 	iVoltagePhase1 AT %I* : ARRAY [0..9] OF INT;
@@ -103,6 +108,15 @@ VAR
 	bRelayPLC:BOOL;
 END_VAR
 (* @END_DECLARATION := '0' *)
+	froeling.UnitID := 10;
+	froeling.Quantity := 1;
+	froeling.MBAddr := 30022;
+	froeling.cbLength := SIZEOF(froelingData);
+	froeling.pMemoryAddr := ADR(froelingData);
+	froeling.Timeout := t#8s;
+	froeling.Execute := TRUE;
+
+
 (* Spannungsanalyse *)
 fbAnalyseVoltagePhase1(
 	uliStartTimeNextLatch:=uliStartTimeNextLatch ,
