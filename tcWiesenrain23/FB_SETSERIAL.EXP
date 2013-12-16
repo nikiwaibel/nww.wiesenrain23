@@ -1,0 +1,77 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+(*
+	EL6001 / EL6021:
+		864 bytes receive buffer
+		128 bytes transmit buffer
+		2400 … 115200 baud
+		default: 9600 baud, 8 data bits, no parity, one stop bit
+		22 x 8 bit input, 22 x 8 bit output, 16 bit control, 16 bit status
+		1008:0 Device name STRING RO "EL6001" "EL6021"
+		1009:0 Hardware version STRING RO "04"
+		100A:0 Software version STRING RO "05"
+		4073:0 Baudrate  UINT16 RW 0x0006
+		4074:0 Dataframe UINT16 RW 0x0003
+		4075:01 0: RTS/CTS disabled | Full duplex mode 
+		        1: RTS/CTS  enabled | Half duplex mode BOOLEAN RW 0x00
+		4075:02 0: TX XON/XOFF not supported
+		        1: TX XON/XOFF     supported BOOLEAN RW 0x00
+		4075:03 0: RX XON/XOFF not supported
+		        1: RX XON/XOFF     supported BOOLEAN RW 0x00
+*)
+FUNCTION_BLOCK FB_SetSerial
+VAR_INPUT
+	BAUDRATE: Baudrate := B9600;
+	RTS_CTS: BOOL := FALSE;
+	RX_XON_XOFF: BOOL := FALSE;
+	TX_XON_XOFF: BOOL := FALSE;
+	EXECUTE: BOOL := FALSE;
+END_VAR
+VAR_OUTPUT
+	busy: BOOL;
+END_VAR
+VAR
+	execTrigger: R_TRIG;
+	fbSdoRead 	: FB_EcCoESdoRead;
+(*
+	TYPE T_AmsNetId : STRING(23);
+	END_TYPE
+	Eine SPS-Variable von diesem Typ ist ein STRING, der
+	die AMS-Netzwerkkennung des Zielgerätes enthäLT, an
+	das der ADS-Befehl gerichtet wird. Der STRING besteht
+	aus sechs, durch Punkte getrennten Zahlenfeldern.
+	Jedes Zahlenfeld enthäLT eine Zahl zwischen 0 und
+	254. Gültige AMS-Netzwerkadressen sind z.B.
+	"1.1.1.2.7.1" oder "200.5.7.170.1.7". Wird ein
+	Leerstring übergeben, so wird automatisch die
+	AMS-Netzwerkkennung des lokalen Gerätes angenommen.
+
+*)
+	sNetId 		: T_AmsNetId := '';
+	bExecute 	: BOOL;
+	nSlaveAddr 	: UINT := 1006;
+	nIndex 		: WORD := 16#1018;
+	nSubIndex 	: BYTE := 1;
+	vendorId	: UDINT;
+	bError 		: BOOL;
+	nErrId 		: UDINT;
+END_VAR
+(* @END_DECLARATION := '0' *)
+execTrigger(CLK := EXECUTE);
+IF EXECUTE = FALSE THEN
+	RETURN;
+END_IF
+IF execTrigger.Q = TRUE THEN   (* init *)
+	busy := TRUE;
+END_IF
+
+fbSdoRead(sNetId := sNetId,
+	nSlaveAddr := nSlaveAddr, nIndex := nIndex, nSubIndex := nSubIndex,
+	pDstBuf := ADR(vendorId), cbBufLen := SIZEOF(vendorId),
+	bExecute := bExecute);
+bError := fbSdoRead.bError;
+nErrId := fbSdoRead.nErrId;
+END_FUNCTION_BLOCK

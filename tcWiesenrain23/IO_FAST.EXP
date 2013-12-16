@@ -5,6 +5,7 @@
 (* @SYMFILEFLAGS := '2048' *)
 PROGRAM IO_FAST
 VAR
+	rs232: FB_SetSerial;
 	froeling: ModbusRtuMaster_KL6x22B;
 	froelingIn: MB_KL6inData22B;
 	froelingOut: MB_KL6outData22B;
@@ -108,13 +109,13 @@ VAR
 	bRelayPLC:BOOL;
 END_VAR
 (* @END_DECLARATION := '0' *)
-	froeling.UnitID := 10;
-	froeling.Quantity := 1;
-	froeling.MBAddr := 30022;
-	froeling.cbLength := SIZEOF(froelingData);
-	froeling.pMemoryAddr := ADR(froelingData);
-	froeling.Timeout := t#8s;
-	froeling.Execute := TRUE;
+froeling.UnitID := 10;
+froeling.Quantity := 1;
+froeling.MBAddr := 30022;
+froeling.cbLength := SIZEOF(froelingData);
+froeling.pMemoryAddr := ADR(froelingData);
+froeling.Timeout := t#8s;
+froeling.Execute := TRUE;
 
 
 (* Spannungsanalyse *)

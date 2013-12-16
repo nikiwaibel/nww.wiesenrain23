@@ -3,16 +3,20 @@
 (* @PATH := '\/FBs' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
+(*
+ TODO: REACTION
+*)
 FUNCTION_BLOCK FB_Light
 VAR_INPUT
 	ON_OFF: BOOL;   (* on/off pulse, ignored if FORCE = TRUE *)
+	OFF_BLOCK_ON: TIME := t#15s;   (* after off block ON for the time specified *)
 	ON: BOOL;   (* on pulse, ignored if FORCE = TRUE *)
 	PT: TIME;   (* auto-off aka on-time; see also: expandPT *)
+	REACTION: TIME := t#600ms;   (* TODO: do not change state right after statechange *)
 	FORCE: BOOL;   (* if true, force output on/off, depending on FORCE_ON;
 			  during FORCE, IN is ignored
 			  during FORCE, PT is expanded if Q = TRUE *)
 	FORCE_ON: BOOL;   (* if false and FORCE, then force off *)
-	REACTION: TIME := t#600ms;   (* TODO: do not change state right after statechange *)
 	ROOM: STRING;
 	LOCATION: STRING;
 END_VAR
@@ -26,8 +30,10 @@ VAR_OUTPUT
 END_VAR
 VAR
 	viText: STRING;
-	viTimer: TIME;
+	viOnTimer: TIME;
+	viOffTimer: TIME;
 	onTimer: TOF;
+	offTimer: TOF;
 	forceOnTrigger: R_TRIG;
 	forceOffTrigger: F_TRIG;
 	forceOnTime: TIME;
@@ -43,7 +49,7 @@ END_VAR
 (* @END_DECLARATION := '0' *)
 viText := CONCAT(ROOM, '$N');
 viText := CONCAT(viText, LOCATION);
-(* viTimer is set later *)
+(* viOnTimer and viOffTimer are set later *)
 
 now := TIME();
 
@@ -65,27 +71,43 @@ IF FORCE THEN
 	Q := FORCE_ON;
 ELSE (* NOT FORCE *)
 	IF (ON OR ON_OFF) AND NOT onTimer.Q THEN   (* on or on/off pulse and onTimer = off *)
-		(* turn on timer / light *);
-		onTimer(IN := TRUE, PT := PT);
+		IF ON AND offTimer.Q THEN
+			(* ignore on while offTimer.Q is TRUE *)
+			;
+		ELSE
+			(* turn on light and onTimer, reset offTimer *)
+			onTimer(IN := TRUE, PT := PT);
+			offTimer(IN := FALSE, PT := OFF_BLOCK_ON);
+		END_IF
 	ELSIF ON_OFF AND onTimer.Q THEN   (* on/off pulse and onTimer = on *)
 		(* turn off timer / light *)
 		onTimer(IN := FALSE, PT := t#0s);
 		extendPT := t#0ms;
+		offTimer(IN := TRUE, PT := OFF_BLOCK_ON);
 	ELSIF ON AND onTimer.Q THEN   (* on pulse and onTimer = on *)
 		(* reset PT *)
 		onTimer(IN := TRUE, PT := PT);
  	ELSIF onTimer.Q THEN   (* no on/off pulse but timer is on *)
 		onTimer(IN := FALSE);
+	ELSIF offTimer.Q THEN
+		offTimer(IN := FALSE);
 	END_IF
 	Q := onTimer.Q;
 END_IF (* NOT FORCE *)
 
-IF onTimer.ET = ontimer.PT THEN
+IF onTimer.ET = onTimer.PT THEN
 	(* we do not want to see 0, when the onTimer is finished *)
 	(* instead, display PT *)
-	viTimer := PT;
+	viOnTimer := PT;
 ELSE
-	viTimer := onTimer.PT - onTimer.ET;
+	viOnTimer := onTimer.PT - onTimer.ET;
+END_IF
+IF offTimer.ET = offTimer.PT THEN
+	(* we do not want to see 0, when the offTimer is finished *)
+	(* instead, display PT *)
+	viOffTimer := OFF_BLOCK_ON;
+ELSE
+	viOffTimer := offTimer.PT - offTimer.ET;
 END_IF
 
 (*****************************)

@@ -1,0 +1,18 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE Dataframe : (
+	FMT_7E1 :=  1,   (* EL6001 EL6021 *)
+	FMT_7O1 :=  2,   (* EL6001 EL6021 *)
+	FMT_8N1 :=  3,   (* EL6001 EL6021 *)
+	FMT_8E1 :=  4,   (* EL6001 EL6021 *)
+	FMT_8O1 :=  5,   (* EL6001 EL6021 *)
+	FMT_7N2 :=  8,   (*               EL6002 FW>=03*)
+	FMT_7E2 :=  9,   (* EL6001 EL6021 *)
+	FMT_7O2 := 10,   (* EL6001 EL6021 *)
+	FMT_8N2 := 11,   (* EL6001 EL6021 *)
+	FMT_8E2 := 12,   (* EL6001 EL6021 *)
+	FMT_8O2 := 13    (* EL6001 EL6021 *)
+);
+END_TYPE
+(* @END_DECLARATION := '0' *)
