@@ -9,24 +9,32 @@ VAR
 
 	toggle: FB_Toggle;
 
-	_bwmKgGang      AT %I*: BOOL; (* Ost *)
-	_bwmHobby       AT %I*: BOOL; (* Sued-West *)
-	_bwmLager       AT %I*: BOOL; (* Sued-West *)
-	_bwmWaschen     AT %I*: BOOL; (* Ost *)
-	_tasterHeizen   AT %I*: BOOL; (* Sued-West *)
-	_tasterHobbyL   AT %I*: BOOL; (* Ost *)
-	_tasterHobbyR   AT %I*: BOOL; (* Ost *)
-	_tasterLagerNO  AT %I*: BOOL; (* Nord-Ost *)
-	_tasterLagerS   AT %I*: BOOL; (* Sued *)
-	_tasterWaschenL AT %I*: BOOL; (* West-Sued *)
-	_tasterWaschenR AT %I*: BOOL; (* West-Sued *)
-	_tasterEgGang   AT %I*: BOOL; (* Nord-West *)
+	_bwmKgGang         AT %I*: BOOL; (* Ost *)
+	_bwmHobby          AT %I*: BOOL; (* Sued-West *)
+	_bwmLager          AT %I*: BOOL; (* Sued-West *)
+	_bwmWaschen        AT %I*: BOOL; (* Ost *)
+	_tasterHeizen      AT %I*: BOOL; (* Sued-West *)
+	_tasterHobbyL      AT %I*: BOOL; (* Ost *)
+	_tasterHobbyR      AT %I*: BOOL; (* Ost *)
+	_tasterLagerNO     AT %I*: BOOL; (* Nord-Ost *)
+	_tasterLagerS      AT %I*: BOOL; (* Sued *)
+	_tasterWaschenL    AT %I*: BOOL; (* West-Sued *)
+	_tasterWaschenR    AT %I*: BOOL; (* West-Sued *)
+	_tasterEgGang      AT %I*: BOOL; (* Nord-West *)
+	_tasterSchlafenOO  AT %I*: BOOL; (* Ost *)
+	_tasterSchlafenOL  AT %I*: BOOL; (* Ost *)
+	_tasterSchlafenOR  AT %I*: BOOL; (* Ost *)
+	_tasterSchlafenWML AT %I*: BOOL; (* West-Mitte *)
+	_tasterSchlafenWMR AT %I*: BOOL; (* West-Mitte *)
+	_tasterSchlafenWNL AT %I*: BOOL; (* West-Nord *)
+	_tasterSchlafenWNR AT %I*: BOOL; (* West-Nord *)
+
+(* KG *)
 
 	heizenTaster: FB_Button;
 	heizenLicht: FB_Light;
 	heizenHK1: FB_Heizkreis;
 	heizenHK2: FB_Heizkreis;
-
 
 	hobbyBwm: FB_Motiondetector;
 	hobbyTasterL: FB_Button;
@@ -52,12 +60,28 @@ VAR
 
 	kgEgLicht: FB_Light;
 
+(* EG *)
+
 	egGangTaster: FB_Button;
+
+	schlafenTasterOO:  FB_Button;
+	schlafenTasterOL:  FB_Button;
+	schlafenTasterOR:  FB_Button;
+	schlafenTasterWML: FB_Button;
+	schlafenTasterWMR: FB_Button;
+	schlafenTasterWNL: FB_Button;
+	schlafenTasterWNR: FB_Button;
+	schlafenLichtSO: FB_Light;
+	schlafenLichtSW: FB_Light;
+	schlafenLichtWM: FB_Light;
+	schlafenLichtWN: FB_Light;
+	schlafenLichtO:  FB_Light;
 END_VAR
 (* @END_DECLARATION := '0' *)
 ups();
 
 (* input processing *)
+
 kgGangBwm(IN := _bwmKgGang, ROOM := 'KG-Gang', LOCATION := 'Ost');
 heizenTaster(IN := _tasterHeizen, ROOM := 'Heizen', LOCATION := 'Nord-West');
 hobbyBwm(IN := _bwmHobby, ROOM := 'Hobby', LOCATION := 'Sued-West');
@@ -69,13 +93,24 @@ lagerTasterS(IN := _tasterLagerS, ROOM := 'Lager', LOCATION := 'Sued');
 waschenBwm(IN := _bwmWaschen, ROOM := 'Waschen', LOCATION := 'Ost');
 waschenTasterL(IN := _tasterWaschenL, ROOM := 'Waschen', LOCATION := 'West-Sued');
 waschenTasterR(IN := _tasterWaschenR, ROOM := 'Waschen', LOCATION := 'West-Sued');
+
 egGangTaster(IN := _tasterEgGang, ROOM := 'EG-Gang', LOCATION := 'Nord-West');
+schlafenTasterWML(IN := _tasterSchlafenWML, ROOM := 'Schlafen', LOCATION := 'West-Mitte');
+schlafenTasterWMR(IN := _tasterSchlafenWMR, ROOM := 'Schlafen', LOCATION := 'West-Mitte');
+schlafenTasterWNL(IN := _tasterSchlafenWNL, ROOM := 'Schlafen', LOCATION := 'West-Nord');
+schlafenTasterWNR(IN := _tasterSchlafenWNR, ROOM := 'Schlafen', LOCATION := 'West-Nord');
+schlafenTasterOO(IN := _tasterSchlafenOO, ROOM := 'Schlafen', LOCATION := 'Ost');
+schlafenTasterOL(IN := _tasterSchlafenOL, ROOM := 'Schlafen', LOCATION := 'Ost');
+schlafenTasterOR(IN := _tasterSchlafenOR, ROOM := 'Schlafen', LOCATION := 'Ost');
 
 (* control *)
+
 toggle(onTime := t#1s, offTime := t#2s);
 
 (* output processing *)
-kgGangLicht(ON := kgGangBwm.Q, PT := t#2m);
+
+kgGangLicht(ON := kgGangBwm.pulseOnMotion, PT := t#1m, ROOM := 'KG-Gang', LOCATION := 'Mitte');
+kgEgLicht(ON_OFF := egGangTaster.pulseOnClick, PT := t#1m, ROOM := 'KG-EG-Stiege', LOCATION := 'Ost');
 heizenLicht(ON_OFF := heizenTaster.pulseOnClick, PT := t#15m, ROOM := 'Heizen', LOCATION := 'West|Ost');
 hobbyLichtS(ON := hobbyBwm.pulseOnMotion, ON_OFF := hobbyTasterR.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Sued');
 hobbyLichtN(ON := hobbyBwm.pulseOnMotion, ON_OFF := hobbyTasterL.pulseOnClick, PT := t#10m, ROOM := 'Hobby', LOCATION := 'Nord');
@@ -86,8 +121,26 @@ vorratLicht(ON_OFF := lagerTasterS.pulseOnClick, PT := t#2m, ROOM := 'Vorrat', L
 waschenLichtNM(ON := waschenBwm.pulseOnMotion, ON_OFF := waschenTasterR.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Nord|Mitte');
 waschenLichtS(ON := waschenBwm.pulseOnMotion, ON_OFF := waschenTasterL.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Sued');
 
-kgGangLicht(ON_OFF := kgGangBwm.pulseOnMotion, PT := t#1m, ROOM := 'KG-Gang', LOCATION := 'Mitte');
-kgEgLicht(ON_OFF := egGangTaster.pulseOnClick, PT := t#1m, ROOM := 'KG-EG-Stiege', LOCATION := 'Ost');
+schlafenLichtSO(
+	ON_OFF := schlafenTasterOO.pulseOnClick
+		OR schlafenTasterOR.pulseOnClick
+		OR schlafenTasterWML.pulseOnClick
+		OR schlafenTasterWNR.pulseOnClick,
+	PT := t#30m, ROOM := 'Schlafen', LOCATION := 'Sued-Ost');
+schlafenLichtSW(
+	ON_OFF := schlafenTasterOO.pulseOnClick
+		OR schlafenTasterOR.pulseOnClick,
+	OFF := schlafenTasterWML.pulseOnClick
+		OR schlafenTasterWNR.pulseOnClick,
+	PT := t#30m, ROOM := 'Schlafen', LOCATION := 'Sued-West');
+schlafenLichtWM(ON_OFF := schlafenTasterWMR.pulseOnClick, PT := t#1h, ROOM := 'Schlafen', LOCATION := 'West-Mitte');
+schlafenLichtWN(ON_OFF := schlafenTasterWNL.pulseOnClick, PT := t#1h, ROOM := 'Schlafen', LOCATION := 'West-Nord');
+schlafenLichtO(
+	ON_OFF := schlafenTasterOO.pulseOnClick
+		OR schlafenTasterOL.pulseOnClick,
+	OFF := schlafenTasterWML.pulseOnClick
+		OR schlafenTasterWNR.pulseOnClick,
+	PT := t#30m, ROOM := 'Schlafen', LOCATION := 'Ost');
 
 heizenHk1(soll := 24.0, vorlauf :=, ruecklauf :=);
 heizenHk2(soll := 24.0, vorlauf :=, ruecklauf :=);

@@ -8,10 +8,11 @@
 *)
 FUNCTION_BLOCK FB_Light
 VAR_INPUT
-	ON_OFF: BOOL;   (* on/off pulse, ignored if FORCE = TRUE *)
-	OFF_BLOCK_ON: TIME := t#15s;   (* after off block ON for the time specified *)
-	ON: BOOL;   (* on pulse, ignored if FORCE = TRUE *)
+	ON_OFF: BOOL;   (* on/off on pulse, ignored if FORCE = TRUE *)
+	ON: BOOL;   (* on on pulse, ignored if FORCE = TRUE *)
+	OFF: BOOL;   (* off on pulse, ignored if FORCE = TRUE *)
 	PT: TIME;   (* auto-off aka on-time; see also: expandPT *)
+	OFF_BLOCK_ON: TIME := t#15s;   (* after off block ON for the time specified *)
 	REACTION: TIME := t#600ms;   (* TODO: do not change state right after statechange *)
 	FORCE: BOOL;   (* if true, force output on/off, depending on FORCE_ON;
 			  during FORCE, IN is ignored
@@ -79,7 +80,7 @@ ELSE (* NOT FORCE *)
 			onTimer(IN := TRUE, PT := PT);
 			offTimer(IN := FALSE, PT := OFF_BLOCK_ON);
 		END_IF
-	ELSIF ON_OFF AND onTimer.Q THEN   (* on/off pulse and onTimer = on *)
+	ELSIF (OFF OR ON_OFF) AND onTimer.Q THEN   (* off or on/off pulse and onTimer = on *)
 		(* turn off timer / light *)
 		onTimer(IN := FALSE, PT := t#0s);
 		extendPT := t#0ms;
