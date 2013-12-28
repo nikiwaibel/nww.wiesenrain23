@@ -14,7 +14,7 @@ _VARIABLES : '','','','','','','',''
 _THRESH : '','','',''
 _DSP : '$$fbLightsensor$$.Q','%f',''
 _ZOOM : ''
-_INPUT : 1048576
+_INPUT : 0
 _TEXT : 5,4294967232,400,0,43,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''

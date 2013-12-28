@@ -59,7 +59,7 @@ _REF : 'vi_Light'
 NUM_STRINGS_IN_LIST: 1
 fbLight
 NUM_STRINGS_IN_LIST: 1
-MAIN.schlafenLichtSO
+MAIN.schlafenLichtS
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 440,400,491,451,465,425
@@ -117,7 +117,7 @@ _REF : 'vi_Light'
 NUM_STRINGS_IN_LIST: 1
 fbLight
 NUM_STRINGS_IN_LIST: 1
-MAIN.schlafenLichtSW
+MAIN.schlafenLichtS
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 270,400,321,451,295,425
