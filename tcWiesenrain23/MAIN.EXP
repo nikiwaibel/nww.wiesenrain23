@@ -14,6 +14,7 @@ VAR
 	_bwmEgWc           AT %I*: BOOL; (* Sued-West *)
 	_bwmOgGang         AT %I*: BOOL; (* Sued-West *)
 	_bwmHobby          AT %I*: BOOL; (* Sued-West *)
+	_bwmKochen         AT %I*: BOOL; (* Sued-West *)
 	_bwmLager          AT %I*: BOOL; (* Sued-West *)
 	_bwmWaschen        AT %I*: BOOL; (* Ost *)
 	_temperaturSchlafenStatus AT %I*: USINT;
@@ -28,6 +29,13 @@ VAR
 	_temperaturEgGangDataIn AT %I*: INT;
 	_temperaturVorratStatus AT %I*: USINT;
 	_temperaturVorratDataIn AT %I*: INT;
+	_tasterDgKind      AT %I*: BOOL; (* West-Sued *)
+	_tasterEgWc        AT %I*: BOOL; (* West-Nord *)
+	_tasterEgBadR      AT %I*: BOOL; (* Sued *)
+	_tasterEgBadL      AT %I*: BOOL; (* Sued *)
+	_tasterEssenO      AT %I*: BOOL; (* Nord *)
+	_tasterEssenL      AT %I*: BOOL; (* Nord *)
+	_tasterEssenR      AT %I*: BOOL; (* Nord *)
 	_tasterGaesteO     AT %I*: BOOL; (* Nord *)
 	_tasterGaesteL     AT %I*: BOOL; (* Nord *)
 	_tasterGaesteR     AT %I*: BOOL; (* Nord *)
@@ -41,15 +49,7 @@ VAR
 	_tasterKochenWR    AT %I*: BOOL; (* West *)
 	_tasterLagerNO     AT %I*: BOOL; (* Nord-Ost *)
 	_tasterLagerS      AT %I*: BOOL; (* Sued *)
-	_tasterWaschenL    AT %I*: BOOL; (* West-Sued *)
-	_tasterWaschenR    AT %I*: BOOL; (* West-Sued *)
 	_tasterEgGang      AT %I*: BOOL; (* Nord-West *)
-	_tasterEgWc        AT %I*: BOOL; (* West-Nord *)
-	_tasterEgBadR      AT %I*: BOOL; (* Sued *)
-	_tasterEgBadL      AT %I*: BOOL; (* Sued *)
-	_tasterEssenO      AT %I*: BOOL; (* Nord *)
-	_tasterEssenL      AT %I*: BOOL; (* Nord *)
-	_tasterEssenR      AT %I*: BOOL; (* Nord *)
 	_tasterSchlafenOO  AT %I*: BOOL; (* Ost *)
 	_tasterSchlafenOL  AT %I*: BOOL; (* Ost *)
 	_tasterSchlafenOR  AT %I*: BOOL; (* Ost *)
@@ -57,19 +57,22 @@ VAR
 	_tasterSchlafenWMR AT %I*: BOOL; (* West-Mitte *)
 	_tasterSchlafenWNL AT %I*: BOOL; (* West-Nord *)
 	_tasterSchlafenWNR AT %I*: BOOL; (* West-Nord *)
+	_tasterSpeis       AT %I*: BOOL; (* Tuerkontakt *)
+	_tasterWaschenL    AT %I*: BOOL; (* West-Sued *)
+	_tasterWaschenR    AT %I*: BOOL; (* West-Sued *)
 	_tasterWohnenOO    AT %I*: BOOL; (* Ost *)
 	_tasterWohnenOL    AT %I*: BOOL; (* Ost *)
 	_tasterWohnenOR    AT %I*: BOOL; (* Ost *)
 	_tasterWohnenWO    AT %I*: BOOL; (* West *)
 	_tasterWohnenWL    AT %I*: BOOL; (* West *)
 	_tasterWohnenWR    AT %I*: BOOL; (* West *)
-	_lampeSchlafenS    AT %Q*: BOOL; (* Sued-West | Sued-Ost*)
 	_lampeEgBadOM      AT %Q*: BOOL; (* Ost (Spiegel) *)
 	_lampeEgGang       AT %Q*: BOOL; (* Sued *)
 	_lampeEgWc         AT %Q*: BOOL; (* West *)
 	_lampeEssenM       AT %Q*: BOOL; (* Mitte *)
 	_lampeEssenS       AT %Q*: BOOL; (* Sued *)
 	_lampeOgGang       AT %Q*: BOOL; (* Sued-West *)
+	_lampeSchlafenS    AT %Q*: BOOL; (* Sued-West | Sued-Ost*)
 
 (* KG *)
 
@@ -113,12 +116,15 @@ VAR
 	egBadLichtSM: FB_Lamp;
 
 	egGangBwm: FB_Motiondetector;
-	egGangLicht: FB_Lamp;
 	egGangTaster: FB_Button;
+	egGangTemperaturSM: FB_Temperature;
+	egGangTemperaturSO: FB_Temperature;
+	egGangLicht: FB_Lamp;
 
 	egWcBwm: FB_Motiondetector;
-	egWcLicht: FB_Lamp;
 	egWcTaster: FB_Button;
+	egWcTemperatur: FB_Temperature;
+	egWcLicht: FB_Lamp;
 
 	essenTasterO: FB_Button;
 	essenTasterL: FB_Button;
@@ -128,11 +134,16 @@ VAR
 	essenLichtM:  FB_Lamp;
 	essenLichtNW: FB_Lamp;
 
+	kochenBwm: FB_Motiondetector;
 	kochenTasterOL: FB_Button;
 	kochenTasterOR: FB_Button;
 	kochenTasterWO: FB_Button;
 	kochenTasterWL: FB_Button;
 	kochenTasterWR: FB_Button;
+	kochenTemperatur: FB_Temperature;
+	kochenLampeO: FB_Lamp;
+	kochenLampeN: FB_Lamp;
+	kochenLampeSW: FB_Lamp;
 
 	schlafenTasterOO:  FB_Button;
 	schlafenTasterOL:  FB_Button;
@@ -143,9 +154,12 @@ VAR
 	schlafenTasterWNR: FB_Button;
 	schlafenTemperatur: FB_Temperature;
 	schlafenLichtS: FB_Lamp;
+	schlafenLichtO:  FB_Lamp;
 	schlafenLichtWM: FB_Lamp;
 	schlafenLichtWN: FB_Lamp;
-	schlafenLichtO:  FB_Lamp;
+
+	speisTuer: FB_Button;
+	speisLampe: FB_Lamp;
 
 	wohnenTasterOO: FB_Button;
 	wohnenTasterOR: FB_Button;
@@ -155,20 +169,24 @@ VAR
 	wohnenTasterWL: FB_Button;
 	wohnenTemperatur: FB_Temperature;
 	wohnenLichtM: FB_Lamp;
-	wohnenLichtNW: FB_Lamp;
-	wohnenLichtNO: FB_Lamp;
+	wohnenLichtN: FB_Lamp;
 	wohnenLichtSW: FB_Lamp;
 
 (* OG *)
 
+	ogGangBwm:     FB_Motiondetector;
 	gaesteTasterO: FB_Button;
 	gaesteTasterR: FB_Button;
 	gaesteTasterL: FB_Button;
-	gaesteLichtO: FB_Lamp;
-	gaesteLichtW: FB_Lamp;
-	ogGangBwm: FB_Motiondetector;
-	ogGangLicht: FB_Lamp;
+	gaesteLichtO:  FB_Lamp;
+	gaesteLichtW:  FB_Lamp;
+	ogGangLicht:   FB_Lamp;
 
+(* DG *)
+
+	dgKindTaster:     FB_Button;
+	dachbodenLampe:   FB_Lamp;
+	dgKindLampe:      FB_Lamp;
 END_VAR
 (* @END_DECLARATION := '0' *)
 ups();
@@ -202,6 +220,7 @@ essenTasterL(IN := _tasterEssenL, ROOM := 'Essen', LOCATION := 'Nord');
 essenTasterR(IN := _tasterEssenR, ROOM := 'Essen', LOCATION := 'Nord');
 essenTemperatur(Status := _temperaturEssenStatus, DataIn := _temperaturEssenDataIn,
 	ROOM := 'Essen', LOCATION := 'Sued-West');
+kochenBwm(IN := _bwmKochen, ROOM := 'Kochen', LOCATION := 'Sued-West');
 kochenTasterWO(IN := _tasterKochenWO, ROOM := 'Kochen', Location := 'West');
 kochenTasterWL(IN := _tasterKochenWL, ROOM := 'Kochen', Location := 'West');
 kochenTasterWR(IN := _tasterKochenWR, ROOM := 'Kochen', Location := 'West');
@@ -216,6 +235,7 @@ schlafenTasterOL(IN := _tasterSchlafenOL, ROOM := 'Schlafen', LOCATION := 'Ost')
 schlafenTasterOR(IN := _tasterSchlafenOR, ROOM := 'Schlafen', LOCATION := 'Ost');
 schlafenTemperatur(Status := _temperaturSchlafenStatus, DataIn := _temperaturSchlafenDataIn,
 	ROOM := 'Schlafen', LOCATION := 'Nord-West');
+speisTuer(IN := _tasterSpeis, ROOM := 'Speis', LOCATION := 'Tuerkontakt');
 wohnenTasterOO(IN := _tasterWohnenOO, ROOM := 'Wohnen', LOCATION := 'Ost');
 wohnenTasterOL(IN := _tasterWohnenOR, ROOM := 'Wohnen', LOCATION := 'Ost');
 wohnenTasterOR(IN := _tasterWohnenOL, ROOM := 'Wohnen', LOCATION := 'Ost');
@@ -230,6 +250,7 @@ gaesteTasterO(IN := _tasterGaesteO, ROOM := 'Gaeste', LOCATION := 'Nord');
 gaesteTasterL(IN := _tasterGaesteL, ROOM := 'Gaeste', LOCATION := 'Nord');
 gaesteTasterR(IN := _tasterGaesteR, ROOM := 'Gaeste', LOCATION := 'Nord');
 
+dgKindTaster(IN := _tasterDgKind, Room := 'DG-Kind', LOCATION := 'West-Sued');
 
 (* control *)
 
@@ -251,6 +272,7 @@ waschenLichtS(ON := waschenBwm.pulseOnMotion, ON_OFF := waschenTasterL.pulseOnCl
 
 egGangLicht(ON := egGangBwm.pulseOnMotion,
 	OFF := egGangTaster.pulseOnLongpress,
+	OFF_BLOCK_ON := t#30s,
 	PT := t#1h, ROOM := 'EG-Gang', LOCATION := 'Sued');
 egWcLicht(
 	ON := egWcBwm.pulseOnMotion,
@@ -279,6 +301,26 @@ essenLichtNW(
 		OR essenTasterR.pulseOnLongpress,
 	PT := t#1h, ROOM := 'Essen', LOCATION := 'Sued');
 
+kochenLampeO(
+	ON_OFF := kochenTasterWO.pulseOnClick
+		OR kochenTasterOR.pulseOnClick
+		OR kochenTasterOL.pulseOnClick,
+	ON := kochenBwm.pulseOnMotion,
+	PT := t#1h, ROOM := 'Kochen', LOCATION := 'Ost');
+kochenLampeN(
+	ON_OFF := kochenTasterWR.pulseOnClick
+		OR kochenTasterOL.pulseOnLongpress,
+	PT := t#30m, ROOM := 'Kochen', LOCATION := 'Nord');
+kochenLampeSW(
+	ON_OFF := kochenTasterWL.pulseOnClick
+		OR kochenTasterOR.pulseOnLongpress,
+	PT := t#30m, ROOM := 'Kochen', LOCATION := 'Nord');
+
+speisLampe(
+	ON_OFF := speisTuer.pulseOnPress
+		OR speisTuer.pulseOnRelease,
+	PT := t#5m, ROOM := 'Speis');
+
 schlafenLichtS(
 	ON_OFF := schlafenTasterOO.pulseOnClick
 		OR schlafenTasterOR.pulseOnClick
@@ -295,7 +337,18 @@ schlafenLichtO(
 		OR schlafenTasterWNR.pulseOnClick,
 	PT := t#30m, ROOM := 'Schlafen', LOCATION := 'Ost');
 
-wohnenLichtM(ON := egGangBwm.pulseOnMotion, PT := t#1h, ROOM := 'Wohnen', LOCATION := 'Mitte');
+wohnenLichtM(
+	ON_OFF := wohnenTasterOO.pulseOnClick
+		OR wohnenTasterWO.pulseOnClick,
+	PT := t#1h, ROOM := 'Wohnen', LOCATION := 'Mitte');
+wohnenLichtN(
+	ON_OFF := wohnenTasterOL.pulseOnClick
+		OR wohnenTasterWR.pulseOnClick,
+	PT := t#1h, ROOM := 'Wohnen', LOCATION := 'Nord');
+wohnenLichtSW(
+	ON_OFF := wohnenTasterOR.pulseOnClick
+		OR wohnenTasterWL.pulseOnClick,
+	PT := t#1h, ROOM := 'Wohnen', LOCATION := 'Sued-West');
 
 ogGangLicht(ON := ogGangBwm.pulseOnMotion,
 	PT := t#1h, ROOM := 'OG-Gang', LOCATION := 'Sued-West');
@@ -304,6 +357,11 @@ gaesteLichtO(ON_OFF := gaesteTasterR.pulseOnClick,
 	PT := t#30m, ROOM := 'Gaeste', LOCATION := 'Ost');
 gaesteLichtW(ON_OFF := gaesteTasterL.pulseOnClick,
 	PT := t#30m, ROOM := 'Gaeste', LOCATION := 'Ost');
+
+dgKindLampe(ON_OFF := dgKindTaster.pulseOnClick,
+	PT := t#2h, ROOM := 'DG-Kind', LOCATION := 'West-Sued');
+dachbodenLampe(ON_OFF := dgKindTaster.pulseOnLongpress,
+	PT := t#1h, ROOM := 'Dachboden', LOCATION := 'Ecke');
 
 heizenHk1(soll := 24.0, vorlauf :=, ruecklauf :=);
 heizenHk2(soll := 24.0, vorlauf :=, ruecklauf :=);
@@ -314,5 +372,4 @@ _lampeOgGang := ogGangLicht.Q;
 _lampeSchlafenS := schlafenLichtS.Q;
 _lampeEssenM := essenLichtM.Q;
 _lampeEssenS := essenLichtS.Q;
-
 END_PROGRAM

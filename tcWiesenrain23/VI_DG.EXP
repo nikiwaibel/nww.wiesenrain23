@@ -2,7 +2,7 @@
 
 VISUALISATION VI_DG _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 13
+_TEXT : 14
 _PAINTZOOM : 150
 
 _SIMPLE : 0
@@ -36,7 +36,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Dachboden',''
 _ZOOM : 'vi_Dachboden'
-_TEXT : 5,4294967285,400,0,3,0,0,0
+_TEXT : 1,4294967285,400,0,3,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -59,7 +59,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','DG-Kind',''
 _ZOOM : 'vi_DgKind'
-_TEXT : 5,4294967285,400,0,2,0,0,0
+_TEXT : 9,4294967285,400,0,2,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -76,43 +76,12 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 (* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
 
-_REF : 'vi_ButtonDouble_tiny'
-NUM_STRINGS_IN_LIST: 2
-fbButton_L
-fbButton_R
-NUM_STRINGS_IN_LIST: 2
-MAIN.hobbyTasterL
-MAIN.hobbyTasterR
-_LINEWIDTH : 0
-_NOCOLORS : 0,1
-_POS : 330,290,351,311,330,300
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 0,0,0
-_THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,9,0,0,0
-_FONT : ''
-_EXEC : ''
-_TEXTVARIABLES : '','','','',''
-_COLORVARIABLES : '','','','','',''
-_ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
-_THRESH2 : '','','',''
-_INPUTTYPE : '','',''
-_HIDDENINPUT : 0
-_END_ELEM
-(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
-(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
-
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.dgKindLampe
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -143,7 +112,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.dachbodenLampe
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -176,7 +145,7 @@ NUM_STRINGS_IN_LIST: 1
 MAIN.lagerBwm
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 385,270,406,291,395,280
+_POS : 385,250,406,271,395,260
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -185,6 +154,35 @@ _DSP : '','',''
 _ZOOM : ''
 _INPUT : 0
 _TEXT : 5,4294967285,400,0,12,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'vi_ButtonSingle_tiny'
+NUM_STRINGS_IN_LIST: 1
+fbButton
+NUM_STRINGS_IN_LIST: 1
+MAIN.dgKindTaster
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 330,290,351,311,330,300
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,13,0,0,0
 _FONT : ''
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''

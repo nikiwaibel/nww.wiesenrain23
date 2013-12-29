@@ -2,7 +2,7 @@
 
 VISUALISATION VI_EG _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 75
+_TEXT : 80
 _PAINTZOOM : 150
 
 _SIMPLE : 0
@@ -36,7 +36,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Kochen',''
 _ZOOM : 'vi_Kochen'
-_TEXT : 5,4294967285,400,0,0,0,0,0
+_TEXT : 9,4294967285,400,0,0,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -82,7 +82,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Essen',''
 _ZOOM : 'vi_Essen'
-_TEXT : 5,4294967285,400,0,2,0,0,0
+_TEXT : 9,4294967285,400,0,2,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -128,7 +128,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','EG-Bad',''
 _ZOOM : 'vi_EgBad'
-_TEXT : 5,4294967285,400,0,3,0,0,0
+_TEXT : 1,4294967285,400,0,3,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -151,7 +151,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','EG-OG-$R$NStiege',''
 _ZOOM : 'vi_EgOgStiege'
-_TEXT : 5,4294967285,400,0,5,0,0,0
+_TEXT : 1,4294967285,400,0,5,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -174,7 +174,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','EG-WC',''
 _ZOOM : 'vi_EgWC'
-_TEXT : 5,4294967285,400,0,8,0,0,0
+_TEXT : 1,4294967285,400,0,8,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -197,7 +197,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','KG-EG-$R$NStiege',''
 _ZOOM : 'vi_KgEgStiege'
-_TEXT : 5,4294967285,400,0,10,0,0,0
+_TEXT : 1,4294967285,400,0,10,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -220,7 +220,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Wohnen',''
 _ZOOM : 'vi_Wohnen'
-_TEXT : 5,4294967285,400,0,1,0,0,0
+_TEXT : 9,4294967285,400,0,1,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -243,7 +243,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Schlafen',''
 _ZOOM : 'vi_Schlafen'
-_TEXT : 5,4294967285,400,0,4,0,0,0
+_TEXT : 1,4294967285,400,0,4,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -573,8 +573,8 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
+MAIN.wohnenLichtN
+
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 210,260,231,281,210,240
@@ -604,42 +604,11 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
-_LINEWIDTH : 0
-_NOCOLORS : 0,1
-_POS : 280,260,301,281,280,240
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 0,0,0
-_THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,22,0,0,0
-_FONT : ''
-_EXEC : ''
-_TEXTVARIABLES : '','','','',''
-_COLORVARIABLES : '','','','','',''
-_ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
-_THRESH2 : '','','',''
-_INPUTTYPE : '','',''
-_HIDDENINPUT : 0
-_END_ELEM
-(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
-(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+MAIN.wohnenLichtM
 
-_REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
-fbLight
-fbButton
-NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 240,370,261,391,240,350
+_POS : 240,350,261,371,240,330
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -670,7 +639,7 @@ MAIN.essenLichtM
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 380,340,401,361,380,320
+_POS : 380,350,401,371,380,330
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -728,11 +697,11 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
+MAIN.kochenLampeSW
+
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 480,410,501,431,480,390
+_POS : 480,400,501,421,480,380
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -759,70 +728,8 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
-_LINEWIDTH : 0
-_NOCOLORS : 0,1
-_POS : 550,320,571,341,550,300
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 0,0,0
-_THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,27,0,0,0
-_FONT : ''
-_EXEC : ''
-_TEXTVARIABLES : '','','','',''
-_COLORVARIABLES : '','','','','',''
-_ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
-_THRESH2 : '','','',''
-_INPUTTYPE : '','',''
-_HIDDENINPUT : 0
-_END_ELEM
-(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
-(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+MAIN.kochenLampeO
 
-_REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
-fbLight
-fbButton
-NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
-_LINEWIDTH : 0
-_NOCOLORS : 0,1
-_POS : 550,370,571,391,550,350
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 0,0,0
-_THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,28,0,0,0
-_FONT : ''
-_EXEC : ''
-_TEXTVARIABLES : '','','','',''
-_COLORVARIABLES : '','','','','',''
-_ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
-_THRESH2 : '','','',''
-_INPUTTYPE : '','',''
-_HIDDENINPUT : 0
-_END_ELEM
-(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
-(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
-
-_REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
-fbLight
-fbButton
-NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 550,420,571,441,550,400
@@ -852,11 +759,11 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
+MAIN.kochenLampeN
+
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 520,300,541,321,520,280
+_POS : 520,280,541,301,520,260
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -883,11 +790,11 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
+MAIN.speisLampe
+
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 480,280,501,301,480,260
+_POS : 480,260,501,281,480,240
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -914,8 +821,8 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
+MAIN.wohnenLichtSW
+
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 190,450,211,471,190,430
@@ -1232,7 +1139,7 @@ MAIN.wohnenTasterOL
 MAIN.wohnenTasterOR
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 310,340,331,381,320,360
+_POS : 310,330,331,371,320,350
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -1265,7 +1172,7 @@ MAIN.wohnenTasterWL
 MAIN.wohnenTasterWR
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 180,340,201,381,190,360
+_POS : 180,330,201,371,190,350
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -1298,7 +1205,7 @@ MAIN.kochenTasterWL
 MAIN.kochenTasterWR
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 460,340,481,381,470,360
+_POS : 460,330,481,371,470,350
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -1591,7 +1498,7 @@ _REF : 'vi_Temperaturesensor'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.essenTemperatur
+MAIN.egGangTemperaturSM
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 420,240,441,261,430,250
@@ -1649,10 +1556,10 @@ _REF : 'vi_Motiondetector'
 NUM_STRINGS_IN_LIST: 1
 fbMotiondetector
 NUM_STRINGS_IN_LIST: 1
-MAIN.egGangBwm
+MAIN.kochenBwm
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 470,450,481,461,500,435
+_POS : 480,440,491,451,510,425
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -1678,10 +1585,10 @@ _REF : 'vi_Temperaturesensor'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.essenTemperatur
+MAIN.kochenTemperatur
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 480,440,501,461,490,450
+_POS : 490,430,511,451,500,440
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -1710,7 +1617,7 @@ NUM_STRINGS_IN_LIST: 1
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 470,440,481,451,460,480
+_POS : 480,430,491,441,470,470
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -1765,7 +1672,7 @@ _REF : 'vi_Temperaturesensor'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.essenTemperatur
+MAIN.egWcTemperatur
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 560,170,581,191,570,180
@@ -1794,7 +1701,7 @@ _REF : 'vi_Motiondetector'
 NUM_STRINGS_IN_LIST: 1
 fbMotiondetector
 NUM_STRINGS_IN_LIST: 1
-MAIN.egGangBwm
+
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 580,470,591,481,610,455
@@ -1823,7 +1730,7 @@ _REF : 'vi_Motiondetector'
 NUM_STRINGS_IN_LIST: 1
 fbMotiondetector
 NUM_STRINGS_IN_LIST: 1
-MAIN.egGangBwm
+
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 170,320,181,331,200,305
@@ -1853,70 +1760,8 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
-_LINEWIDTH : 0
-_NOCOLORS : 0,1
-_POS : 520,240,541,261,520,220
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 0,0,0
-_THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,64,0,0,0
-_FONT : ''
-_EXEC : ''
-_TEXTVARIABLES : '','','','',''
-_COLORVARIABLES : '','','','','',''
-_ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
-_THRESH2 : '','','',''
-_INPUTTYPE : '','',''
-_HIDDENINPUT : 0
-_END_ELEM
-(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
-(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
-fbLight
-fbButton
-NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
-_LINEWIDTH : 0
-_NOCOLORS : 0,1
-_POS : 240,390,261,411,240,370
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 0,0,0
-_THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,65,0,0,0
-_FONT : ''
-_EXEC : ''
-_TEXTVARIABLES : '','','','',''
-_COLORVARIABLES : '','','','','',''
-_ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
-_THRESH2 : '','','',''
-_INPUTTYPE : '','',''
-_HIDDENINPUT : 0
-_END_ELEM
-(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
-(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
-fbLight
-fbButton
-NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 580,260,601,281,580,240
@@ -1946,8 +1791,8 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
+
+
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 580,450,601,471,580,430
@@ -1977,8 +1822,8 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
+
+
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 160,420,181,441,160,400
@@ -2008,8 +1853,8 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
+
+
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 160,290,181,311,160,270
@@ -2039,8 +1884,8 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.schlafenLichtS
-VI_MAIN.schlafenTasterOR
+
+
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 180,50,201,71,180,30
@@ -2070,7 +1915,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.egGangLicht
+MAIN.kgEgLicht
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -2129,7 +1974,7 @@ _REF : 'vi_Temperaturesensor'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.vorratTemperatur
+MAIN.egGangTemperaturSO
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 540,240,561,261,550,250
@@ -2161,7 +2006,7 @@ NUM_STRINGS_IN_LIST: 1
 MAIN.lagerBwm
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 500,450,521,471,510,460
+_POS : 460,450,481,471,470,460
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -2170,6 +2015,128 @@ _DSP : '','',''
 _ZOOM : ''
 _INPUT : 0
 _TEXT : 5,4294967285,400,0,74,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'vi_Lamp_tiny'
+NUM_STRINGS_IN_LIST: 2
+fbLight
+fbButton
+NUM_STRINGS_IN_LIST: 2
+MAIN.wohnenLichtN
+
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 280,260,301,281,280,240
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,75,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'vi_Lamp_tiny'
+NUM_STRINGS_IN_LIST: 2
+fbLight
+fbButton
+NUM_STRINGS_IN_LIST: 2
+MAIN.kochenLampeO
+
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 550,370,571,391,550,350
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,77,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'vi_Lamp_tiny'
+NUM_STRINGS_IN_LIST: 2
+fbLight
+fbButton
+NUM_STRINGS_IN_LIST: 2
+MAIN.kochenLampeO
+
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 550,320,571,341,550,300
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,78,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'vi_ButtonSingle_tiny'
+NUM_STRINGS_IN_LIST: 1
+fbButton
+NUM_STRINGS_IN_LIST: 1
+MAIN.speisTuer
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 480,290,501,311,480,300
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,79,0,0,0
 _FONT : ''
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''

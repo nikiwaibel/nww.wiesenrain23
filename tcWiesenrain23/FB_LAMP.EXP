@@ -11,7 +11,7 @@ VAR_INPUT
 	ON_OFF: BOOL;   (* on/off on pulse, ignored if FORCE = TRUE *)
 	ON: BOOL;   (* on on pulse, ignored if FORCE = TRUE *)
 	OFF: BOOL;   (* off on pulse, ignored if FORCE = TRUE *)
-	PT: TIME;   (* auto-off aka on-time; see also: expandPT *)
+	PT: TIME := t#30s;   (* auto-off aka on-time; see also: expandPT *)
 	OFF_BLOCK_ON: TIME := t#15s;   (* after off block ON for the time specified *)
 	REACTION: TIME := t#600ms;   (* TODO: do not change state right after statechange *)
 	FORCE: BOOL;   (* if true, force output on/off, depending on FORCE_ON;

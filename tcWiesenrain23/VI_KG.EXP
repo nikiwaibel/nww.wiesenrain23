@@ -36,7 +36,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Heizen',''
 _ZOOM : 'vi_Heizen'
-_TEXT : 5,4294967285,400,0,1,0,0,0
+_TEXT : 9,4294967285,400,0,1,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -59,7 +59,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Waschen',''
 _ZOOM : 'vi_Waschen'
-_TEXT : 5,4294967285,400,0,5,0,0,0
+_TEXT : 1,4294967285,400,0,5,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -82,7 +82,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','KG-Gang',''
 _ZOOM : 'vi_KgGang'
-_TEXT : 5,4294967285,400,0,7,0,0,0
+_TEXT : 1,4294967285,400,0,7,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -105,7 +105,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','KG-EG-$R$NStiege',''
 _ZOOM : 'vi_KgEgStiege'
-_TEXT : 5,4294967285,400,0,8,0,0,0
+_TEXT : 1,4294967285,400,0,8,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -131,7 +131,7 @@ MAIN.kgGangLicht
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 360,250,381,271,360,230
+_POS : 365,235,386,256,365,215
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -162,7 +162,7 @@ MAIN.waschenLichtS
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 480,250,501,271,480,230
+_POS : 490,250,511,271,490,230
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -193,7 +193,7 @@ MAIN.waschenLichtNM
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 480,190,501,211,480,170
+_POS : 490,180,511,201,490,160
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -224,7 +224,7 @@ MAIN.waschenLichtNM
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 480,120,501,141,480,100
+_POS : 490,110,511,131,490,90
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -434,7 +434,7 @@ _THRESH : '','','',''
 _INPUT : 0
 _DSP : '','Stiegen-$R$Nloch',''
 _ZOOM : ''
-_TEXT : 5,4294967285,400,0,28,0,0,0
+_TEXT : 1,4294967285,400,0,28,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -457,7 +457,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Vorrat',''
 _ZOOM : 'vi_Vorrat'
-_TEXT : 5,4294967285,400,0,2,0,0,0
+_TEXT : 9,4294967285,400,0,2,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -480,7 +480,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Lager',''
 _ZOOM : 'vi_Lager'
-_TEXT : 5,4294967285,400,0,3,0,0,0
+_TEXT : 1,4294967285,400,0,3,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -503,7 +503,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Hobby',''
 _ZOOM : 'vi_Hobby'
-_TEXT : 5,4294967285,400,0,4,0,0,0
+_TEXT : 1,4294967285,400,0,4,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -529,7 +529,7 @@ MAIN.vorratLicht
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 240,410,261,431,240,390
+_POS : 245,400,266,421,245,380
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -560,7 +560,7 @@ MAIN.lagerLicht
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 240,300,261,321,240,280
+_POS : 245,285,266,306,245,265
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -591,7 +591,7 @@ MAIN.hobbyLichtS
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 240,170,261,191,240,150
+_POS : 245,170,266,191,245,150
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -622,7 +622,7 @@ MAIN.hobbyLichtN
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 240,110,261,131,240,90
+_POS : 245,110,266,131,245,90
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0

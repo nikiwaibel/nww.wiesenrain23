@@ -5,148 +5,148 @@
 (* @SYMFILEFLAGS := '2048' *)
 (* Generated automatically by TwinCAT - (read only) *)
 VAR_CONFIG
-	IO_FAST.uiStateCX5000 AT %IB0 : UINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^Eingänge^State} *)
-	IO_FAST.uiControlCX5000 AT %QB0 : UINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^Ausgänge^Ctrl} *)
-	IO_FAST.iVoltagePhase1 AT %IB2 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^L1 Voltage Samples^U1 SAMPLES} *)
-	IO_FAST.iVoltagePhase2 AT %IB22 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^L2 Voltage Samples^U2 SAMPLES} *)
-	IO_FAST.iVoltagePhase3 AT %IB42 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^L3 Voltage Samples^U3 SAMPLES} *)
-	IO_FAST.uliStartTimeNextLatch AT %IB62 : ARRAY [0..1] OF UDINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^AI Timestamp NextSync1Time^StartTimeNextLatch} *)
-	IO_FAST.bWcState AT %IX72.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^WcState^WcState} *)
-	IO_FAST.fbA28CH1.bRelay AT %QX2.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A28^Kanal 1^Ausgang} *)
-	IO_FAST.fbA28CH2.bRelay AT %QX2.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A28^Kanal 2^Ausgang} *)
-	IO_FAST.fbA29CH1.bRelay AT %QX2.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A29^Kanal 1^Ausgang} *)
-	IO_FAST.fbA29CH2.bRelay AT %QX2.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A29^Kanal 2^Ausgang} *)
-	IO_FAST.fbA30CH1.bRelay AT %QX2.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A30^Kanal 1^Ausgang} *)
-	IO_FAST.fbA30CH2.bRelay AT %QX2.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A30^Kanal 2^Ausgang} *)
-	IO_FAST.fbA31CH1.bRelay AT %QX2.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A31^Kanal 1^Ausgang} *)
-	IO_FAST.fbA31CH2.bRelay AT %QX2.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A31^Kanal 2^Ausgang} *)
-	IO_FAST.fbA32CH1.bRelay AT %QX3.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A32^Kanal 1^Ausgang} *)
-	IO_FAST.fbA32CH2.bRelay AT %QX3.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A32^Kanal 2^Ausgang} *)
-	IO_FAST.fbA20CH1.bRelay AT %QX3.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A20^Kanal 1^KG-Gang Lampe} *)
-	IO_FAST.fbA20CH2.bRelay AT %QX3.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A20^Kanal 2^KG-EG-Stiege Lampe} *)
-	IO_FAST.fbA21CH1.bRelay AT %QX3.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A21^Kanal 1^Lager Lampe} *)
-	IO_FAST.fbA21CH2.bRelay AT %QX3.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A21^Kanal 2^Ausgang} *)
-	IO_FAST.fbA23CH1.bRelay AT %QX3.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A23^Kanal 1^Heizen Lampe} *)
-	IO_FAST.fbA23CH2.bRelay AT %QX3.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A23^Kanal 2^WaschenS Lampe} *)
-	IO_FAST.fbA24CH1.bRelay AT %QX4.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A24^Kanal 1^WaschenN Lampe} *)
-	IO_FAST.fbA24CH2.bRelay AT %QX4.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A24^Kanal 2^HobbyN Lampe} *)
-	IO_FAST.fbA25CH1.bRelay AT %QX4.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A25^Kanal 1^Vorrat Lampe} *)
-	IO_FAST.fbA25CH2.bRelay AT %QX4.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A25^Kanal 2^HobbyS Lampe} *)
-	IO_FAST.fbA26CH1.bRelay AT %QX4.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A26^Kanal 1^Ausgang} *)
-	IO_FAST.fbA26CH2.bRelay AT %QX4.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A26^Kanal 2^Ausgang} *)
-	IO_FAST.fbA38OGCH1.bRelay AT %QX4.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A38^Kanal 1^Ausgang} *)
-	IO_FAST.fbA38OGCH2.bRelay AT %QX4.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A38^Kanal 2^Ausgang} *)
-	IO_FAST.fbA41OGCH1.bRelay AT %QX5.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A41^Kanal 1^OG-BadO Lampe} *)
-	IO_FAST.fbA41OGCH2.bRelay AT %QX5.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A41^Kanal 2^Ausgang} *)
-	IO_FAST.fbA43OGCH1.bRelay AT %QX5.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A43^Kanal 1^Ausgang} *)
-	IO_FAST.fbA43OGCH2.bRelay AT %QX5.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A43^Kanal 2^Ausgang} *)
-	IO_FAST.fbA44OGCH1.bRelay AT %QX5.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A44^Kanal 1^OG-KindN LampenWO} *)
-	IO_FAST.fbA44OGCH2.bRelay AT %QX5.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A44^Kanal 2^OG-KindS LampenWO} *)
-	IO_FAST.fbA45OGCH1.bRelay AT %QX5.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A45^Kanal 1^OG-KindN LampeM} *)
-	IO_FAST.fbA45OGCH2.bRelay AT %QX5.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A45^Kanal 2^DG-KindO Lampe} *)
-	IO_FAST.fbA48OGCH1.bRelay AT %QX6.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A48^Kanal 1^GaesteW LampenNS} *)
-	IO_FAST.fbA48OGCH2.bRelay AT %QX6.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A48^Kanal 2^GaesteO LampenNS} *)
-	IO_FAST.fbA49OGCH1.bRelay AT %QX6.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A49^Kanal 1^OG-BadDecke Lampen} *)
-	IO_FAST.fbA49OGCH2.bRelay AT %QX6.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A49^Kanal 2^OG-BadON Lampe} *)
-	IO_FAST.fbA50OGCH1.bRelay AT %QX6.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A50^Kanal 1^OG-WC Lampe} *)
-	IO_FAST.fbA50OGCH2.bRelay AT %QX6.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A50^Kanal 2^Ausgang} *)
-	IO_FAST.fbA52OGCH1.bRelay AT %QX6.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A52^Kanal 1^Ausgang} *)
-	IO_FAST.fbA52OGCH2.bRelay AT %QX6.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A52^Kanal 2^Ausgang} *)
-	IO_FAST.fbA53OGCH1.bRelay AT %QX7.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A53^Kanal 1^Balkon Steckdose} *)
-	IO_FAST.fbA53OGCH2.bRelay AT %QX7.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A53^Kanal 2^Balkon Lampe} *)
-	IO_FAST.fbA55OGCH1.bRelay AT %QX7.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A55^Kanal 1^AussenO Lampe} *)
-	IO_FAST.fbA55OGCH2.bRelay AT %QX7.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A55^Kanal 2^AussenOS Lampe} *)
-	IO_FAST.fbA56OGCH1.bRelay AT %QX7.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A56^Kanal 1^AussenWS Lampe} *)
-	IO_FAST.fbA56OGCH2.bRelay AT %QX7.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A56^Kanal 2^AussenW Lampe} *)
-	IO_FAST.fbA57OGCH1.bRelay AT %QX7.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A57^Kanal 1^AussenN Lampe} *)
-	IO_FAST.fbA57OGCH2.bRelay AT %QX7.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A57^Kanal 2^Ausgang} *)
-	IO_FAST.fbA15OGCH1.bRelay AT %QX8.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A15^Kanal 1^EssenNW Lampe} *)
-	IO_FAST.fbA15OGCH2.bRelay AT %QX8.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A15^Kanal 2^Ausgang} *)
-	IO_FAST.fbA17OGCH1.bRelay AT %QX8.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A17^Kanal 1^SchlafenO Lampe} *)
-	IO_FAST.fbA17OGCH2.bRelay AT %QX8.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A17^Kanal 2^Ausgang} *)
-	IO_FAST.fbA18OGCH1.bRelay AT %QX8.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A18^Kanal 1^WohnenSW Lampe} *)
-	IO_FAST.fbA18OGCH2.bRelay AT %QX8.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A18^Kanal 2^WohnenM Lampe} *)
-	IO_FAST.fbA19OGCH1.bRelay AT %QX8.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A19^Kanal 1^SchlafenWN Lampe} *)
-	IO_FAST.fbA19OGCH2.bRelay AT %QX8.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A19^Kanal 2^SchlafenWM Lampe} *)
-	IO_FAST.fbA21OGCH1.bRelay AT %QX9.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A21^Kanal 1^Ausgang} *)
-	IO_FAST.fbA21OGCH2.bRelay AT %QX9.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A21^Kanal 2^Ausgang} *)
-	IO_FAST.fbA23OGCH1.bRelay AT %QX9.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A23^Kanal 1^Ausgang} *)
-	IO_FAST.fbA23OGCH2.bRelay AT %QX9.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A23^Kanal 2^Ausgang} *)
-	IO_FAST.fbA25OGCH1.bRelay AT %QX9.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A25^Kanal 1^KochenO Lampen} *)
-	IO_FAST.fbA25OGCH2.bRelay AT %QX9.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A25^Kanal 2^KochenN Lampen} *)
-	IO_FAST.fbA26OGCH1.bRelay AT %QX9.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A26^Kanal 1^Speis Lampe} *)
-	IO_FAST.fbA26OGCH2.bRelay AT %QX9.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A26^Kanal 2^EG-GangGarderobe Lampe} *)
-	IO_FAST.fbA33OGCH1.bRelay AT %QX10.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A33^Kanal 1^EG-BadON Lampe} *)
-	IO_FAST.fbA33OGCH2.bRelay AT %QX10.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A33^Kanal 2^Ausgang} *)
-	IO_FAST.fbA35OGCH1.bRelay AT %QX10.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A35^Kanal 1^ArbeitenO Lampen} *)
-	IO_FAST.fbA35OGCH2.bRelay AT %QX10.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A35^Kanal 2^ArbeitenW Lampen} *)
-	IO_FAST.fbA36OGCH1.bRelay AT %QX10.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A36^Kanal 1^ArbeitenSO Steckdose} *)
-	IO_FAST.fbA36OGCH2.bRelay AT %QX10.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A36^Kanal 2^Ausgang} *)
-	IO_FAST.fbA78OGCH1.bRelay AT %QX10.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A78^Kanal 1^Ausgang} *)
-	IO_FAST.fbA78OGCH2.bRelay AT %QX10.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A78^Kanal 2^Ausgang} *)
-	IO_FAST.fbA80OGCH1.bRelay AT %QX11.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A80^Kanal 1^Ausgang} *)
-	IO_FAST.fbA80OGCH2.bRelay AT %QX11.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A80^Kanal 2^Ausgang} *)
-	MAIN._bwmKgGang AT %IX76.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A33^Kanal 2^KG-Gang BWM} *)
-	MAIN._bwmEgGang AT %IX124.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A7^Kanal 9^OG-Gang BWM} *)
-	MAIN._bwmEgWc AT %IX128.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A7^Kanal 11^EG-WC BWM} *)
-	MAIN._bwmOgGang AT %IX120.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A7^Kanal 16^OG-Gang BWM} *)
+	IO_FAST.uiStateCX5000 AT %IB0 : UINT;
+	IO_FAST.uiControlCX5000 AT %QB0 : UINT;
+	IO_FAST.iVoltagePhase1 AT %IB2 : ARRAY [0..9] OF INT;
+	IO_FAST.iVoltagePhase2 AT %IB22 : ARRAY [0..9] OF INT;
+	IO_FAST.iVoltagePhase3 AT %IB42 : ARRAY [0..9] OF INT;
+	IO_FAST.uliStartTimeNextLatch AT %IB62 : ARRAY [0..1] OF UDINT;
+	IO_FAST.bWcState AT %IX72.0 : BOOL;
+	IO_FAST.fbA28CH1.bRelay AT %QX2.0 : BOOL;
+	IO_FAST.fbA28CH2.bRelay AT %QX2.1 : BOOL;
+	IO_FAST.fbA29CH1.bRelay AT %QX2.2 : BOOL;
+	IO_FAST.fbA29CH2.bRelay AT %QX2.3 : BOOL;
+	IO_FAST.fbA30CH1.bRelay AT %QX2.4 : BOOL;
+	IO_FAST.fbA30CH2.bRelay AT %QX2.5 : BOOL;
+	IO_FAST.fbA31CH1.bRelay AT %QX2.6 : BOOL;
+	IO_FAST.fbA31CH2.bRelay AT %QX2.7 : BOOL;
+	IO_FAST.fbA32CH1.bRelay AT %QX3.0 : BOOL;
+	IO_FAST.fbA32CH2.bRelay AT %QX3.1 : BOOL;
+	IO_FAST.fbA20CH1.bRelay AT %QX3.2 : BOOL;
+	IO_FAST.fbA20CH2.bRelay AT %QX3.3 : BOOL;
+	IO_FAST.fbA21CH1.bRelay AT %QX3.4 : BOOL;
+	IO_FAST.fbA21CH2.bRelay AT %QX3.5 : BOOL;
+	IO_FAST.fbA23CH1.bRelay AT %QX3.6 : BOOL;
+	IO_FAST.fbA23CH2.bRelay AT %QX3.7 : BOOL;
+	IO_FAST.fbA24CH1.bRelay AT %QX4.0 : BOOL;
+	IO_FAST.fbA24CH2.bRelay AT %QX4.1 : BOOL;
+	IO_FAST.fbA25CH1.bRelay AT %QX4.2 : BOOL;
+	IO_FAST.fbA25CH2.bRelay AT %QX4.3 : BOOL;
+	IO_FAST.fbA26CH1.bRelay AT %QX4.4 : BOOL;
+	IO_FAST.fbA26CH2.bRelay AT %QX4.5 : BOOL;
+	IO_FAST.fbA38OGCH1.bRelay AT %QX4.6 : BOOL;
+	IO_FAST.fbA38OGCH2.bRelay AT %QX4.7 : BOOL;
+	IO_FAST.fbA41OGCH1.bRelay AT %QX5.0 : BOOL;
+	IO_FAST.fbA41OGCH2.bRelay AT %QX5.1 : BOOL;
+	IO_FAST.fbA43OGCH1.bRelay AT %QX5.2 : BOOL;
+	IO_FAST.fbA43OGCH2.bRelay AT %QX5.3 : BOOL;
+	IO_FAST.fbA44OGCH1.bRelay AT %QX5.4 : BOOL;
+	IO_FAST.fbA44OGCH2.bRelay AT %QX5.5 : BOOL;
+	IO_FAST.fbA45OGCH1.bRelay AT %QX5.6 : BOOL;
+	IO_FAST.fbA45OGCH2.bRelay AT %QX5.7 : BOOL;
+	IO_FAST.fbA48OGCH1.bRelay AT %QX6.0 : BOOL;
+	IO_FAST.fbA48OGCH2.bRelay AT %QX6.1 : BOOL;
+	IO_FAST.fbA49OGCH1.bRelay AT %QX6.2 : BOOL;
+	IO_FAST.fbA49OGCH2.bRelay AT %QX6.3 : BOOL;
+	IO_FAST.fbA50OGCH1.bRelay AT %QX6.4 : BOOL;
+	IO_FAST.fbA50OGCH2.bRelay AT %QX6.5 : BOOL;
+	IO_FAST.fbA52OGCH1.bRelay AT %QX6.6 : BOOL;
+	IO_FAST.fbA52OGCH2.bRelay AT %QX6.7 : BOOL;
+	IO_FAST.fbA53OGCH1.bRelay AT %QX7.0 : BOOL;
+	IO_FAST.fbA53OGCH2.bRelay AT %QX7.1 : BOOL;
+	IO_FAST.fbA55OGCH1.bRelay AT %QX7.2 : BOOL;
+	IO_FAST.fbA55OGCH2.bRelay AT %QX7.3 : BOOL;
+	IO_FAST.fbA56OGCH1.bRelay AT %QX7.4 : BOOL;
+	IO_FAST.fbA56OGCH2.bRelay AT %QX7.5 : BOOL;
+	IO_FAST.fbA57OGCH1.bRelay AT %QX7.6 : BOOL;
+	IO_FAST.fbA57OGCH2.bRelay AT %QX7.7 : BOOL;
+	IO_FAST.fbA15OGCH1.bRelay AT %QX8.0 : BOOL;
+	IO_FAST.fbA15OGCH2.bRelay AT %QX8.1 : BOOL;
+	IO_FAST.fbA17OGCH1.bRelay AT %QX8.2 : BOOL;
+	IO_FAST.fbA17OGCH2.bRelay AT %QX8.3 : BOOL;
+	IO_FAST.fbA18OGCH1.bRelay AT %QX8.4 : BOOL;
+	IO_FAST.fbA18OGCH2.bRelay AT %QX8.5 : BOOL;
+	IO_FAST.fbA19OGCH1.bRelay AT %QX8.6 : BOOL;
+	IO_FAST.fbA19OGCH2.bRelay AT %QX8.7 : BOOL;
+	IO_FAST.fbA21OGCH1.bRelay AT %QX9.0 : BOOL;
+	IO_FAST.fbA21OGCH2.bRelay AT %QX9.1 : BOOL;
+	IO_FAST.fbA23OGCH1.bRelay AT %QX9.2 : BOOL;
+	IO_FAST.fbA23OGCH2.bRelay AT %QX9.3 : BOOL;
+	IO_FAST.fbA25OGCH1.bRelay AT %QX9.4 : BOOL;
+	IO_FAST.fbA25OGCH2.bRelay AT %QX9.5 : BOOL;
+	IO_FAST.fbA26OGCH1.bRelay AT %QX9.6 : BOOL;
+	IO_FAST.fbA26OGCH2.bRelay AT %QX9.7 : BOOL;
+	IO_FAST.fbA33OGCH1.bRelay AT %QX10.0 : BOOL;
+	IO_FAST.fbA33OGCH2.bRelay AT %QX10.1 : BOOL;
+	IO_FAST.fbA35OGCH1.bRelay AT %QX10.2 : BOOL;
+	IO_FAST.fbA35OGCH2.bRelay AT %QX10.3 : BOOL;
+	IO_FAST.fbA36OGCH1.bRelay AT %QX10.4 : BOOL;
+	IO_FAST.fbA36OGCH2.bRelay AT %QX10.5 : BOOL;
+	IO_FAST.fbA78OGCH1.bRelay AT %QX10.6 : BOOL;
+	IO_FAST.fbA78OGCH2.bRelay AT %QX10.7 : BOOL;
+	IO_FAST.fbA80OGCH1.bRelay AT %QX11.0 : BOOL;
+	IO_FAST.fbA80OGCH2.bRelay AT %QX11.1 : BOOL;
+	MAIN._bwmKgGang AT %IX76.0 : BOOL;
+	MAIN._bwmEgGang AT %IX124.0 : BOOL;
+	MAIN._bwmEgWc AT %IX128.0 : BOOL;
+	MAIN._bwmOgGang AT %IX120.0 : BOOL;
 	MAIN._bwmHobby AT %IX108.0 : BOOL;
 	MAIN._bwmLager AT %IX108.1 : BOOL;
 	MAIN._bwmWaschen AT %IX112.0 : BOOL;
-	MAIN._temperaturSchlafenStatus AT %IB148 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 1^Schlafen Temperatur Status} *)
-	MAIN._temperaturSchlafenDataIn AT %IB149 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 1^Schlafen Temperatur DataIn} *)
-	MAIN._temperaturWohnenStatus AT %IB152 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 2^Wohnen Temperatur Status} *)
-	MAIN._temperaturWohnenDataIn AT %IB153 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 2^Wohnen Temperatur DataIn} *)
-	MAIN._temperaturEssenStatus AT %IB155 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 3^Essen Temperatur Status} *)
-	MAIN._temperaturEssenDataIn AT %IB156 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 3^Essen Temperatur DataIn} *)
-	MAIN._temperaturEgBadStatus AT %IB158 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 4^EgBad Temperatur Status} *)
-	MAIN._temperaturEgBadDataIn AT %IB159 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10b^Kanal 1^Vorrat Temperatur DataIn} *)
+	MAIN._temperaturSchlafenStatus AT %IB148 : USINT;
+	MAIN._temperaturSchlafenDataIn AT %IB149 : INT;
+	MAIN._temperaturWohnenStatus AT %IB152 : USINT;
+	MAIN._temperaturWohnenDataIn AT %IB153 : INT;
+	MAIN._temperaturEssenStatus AT %IB155 : USINT;
+	MAIN._temperaturEssenDataIn AT %IB156 : INT;
+	MAIN._temperaturEgBadStatus AT %IB158 : USINT;
+	MAIN._temperaturEgBadDataIn AT %IB159 : INT;
 	MAIN._temperaturEgGangStatus AT %IB164 : USINT;
 	MAIN._temperaturEgGangDataIn AT %IB165 : INT;
-	MAIN._temperaturVorratStatus AT %IB161 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10b^Kanal 1^Vorrat Temperatur Status} *)
-	MAIN._temperaturVorratDataIn AT %IB162 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 4^EgBad Temperatur DataIn} *)
-	MAIN._tasterGaesteO AT %IX136.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A72^Kanal 1^GaesteN TasterO} *)
-	MAIN._tasterGaesteL AT %IX136.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A72^Kanal 2^GaesteN TasterL} *)
-	MAIN._tasterGaesteR AT %IX136.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A72^Kanal 3^GaesteN TasterR} *)
-	MAIN._tasterHeizen AT %IX76.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 7^Heizen Taster} *)
-	MAIN._tasterHobbyL AT %IX76.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 5^Hobby TasterL} *)
-	MAIN._tasterHobbyR AT %IX76.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 6^Hobby TasterR} *)
-	MAIN._tasterKochenOL AT %IX144.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 4^KochenO TasterL} *)
-	MAIN._tasterKochenOR AT %IX144.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 5^KochenO TasterR} *)
-	MAIN._tasterKochenWO AT %IX144.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 1^KochenW TasterO} *)
-	MAIN._tasterKochenWL AT %IX144.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 2^KochenW TasterL} *)
-	MAIN._tasterKochenWR AT %IX144.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 3^KochenW TasterR} *)
-	MAIN._tasterLagerNO AT %IX76.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 9^LagerNO Taster} *)
-	MAIN._tasterLagerS AT %IX76.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 8^LagerS Taster} *)
-	MAIN._tasterWaschenL AT %IX76.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 3^Waschen TasterL} *)
-	MAIN._tasterWaschenR AT %IX76.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 4^Waschen TasterR} *)
-	MAIN._tasterEgGang AT %IX80.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^KG-HV A4^Kanal 10^EG-Gang Stiege Taster} *)
-	MAIN._tasterEgWc AT %IX128.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A5^Kanal 6^EG-WC Taster} *)
-	MAIN._tasterEgBadR AT %IX132.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A5^Kanal 8^EG-Bad TasteR} *)
-	MAIN._tasterEgBadL AT %IX132.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A5^Kanal 7^EG-Bad TasterL} *)
-	MAIN._tasterEssenO AT %IX140.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 6^EssenS TasterO} *)
-	MAIN._tasterEssenL AT %IX140.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 7^EssenS TasterL} *)
-	MAIN._tasterEssenR AT %IX140.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 8^EssenS TasterR} *)
-	MAIN._tasterSchlafenOO AT %IX116.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 12^SchlafenO TasterO} *)
-	MAIN._tasterSchlafenOL AT %IX116.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 13^SchlafenO TasterL} *)
-	MAIN._tasterSchlafenOR AT %IX116.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 14^SchlafenO TasterR} *)
-	MAIN._tasterSchlafenWML AT %IX116.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 15^SchlafenWM TasterL} *)
-	MAIN._tasterSchlafenWMR AT %IX116.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 16^SchlafenWM TasterR} *)
-	MAIN._tasterSchlafenWNL AT %IX116.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A5^Kanal 1^SchlafenWN TasterL} *)
-	MAIN._tasterSchlafenWNR AT %IX116.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A5^Kanal 2^SchlafenWN TasterR} *)
-	MAIN._tasterWohnenOO AT %IX124.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 9^WohnenO TasterO} *)
-	MAIN._tasterWohnenOL AT %IX124.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 10^WohnenO TasterL} *)
-	MAIN._tasterWohnenOR AT %IX124.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A4^Kanal 11^WohnenO TasterR} *)
-	MAIN._tasterWohnenWO AT %IX124.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A5^Kanal 3^WohnenW TasterO} *)
-	MAIN._tasterWohnenWL AT %IX124.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A5^Kanal 4^WohnenW TasterL} *)
-	MAIN._tasterWohnenWR AT %IX124.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A5^Kanal 5^WohnenW TasterR} *)
-	MAIN._lampeSchlafenS AT %QX20.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A28^Kanal 1^SchlafenS Lampen} *)
-	MAIN._lampeEgBadOM AT %QX20.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A31^Kanal 2^EG-BadOM Lampe} *)
-	MAIN._lampeEgGang AT %QX20.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A24^Kanal 1^EG-Gang Lampen} *)
-	MAIN._lampeEgWc AT %QX20.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A31^Kanal 1^EG-WC Lampe} *)
-	MAIN._lampeEssenM AT %QX20.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A14^Kanal 1^EssenM Lampe} *)
-	MAIN._lampeEssenS AT %QX20.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A14^Kanal 2^EssenS Lampe} *)
-	MAIN._lampeOgGang AT %QX20.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A40^Kanal 1^OG-Gang Lampe} *)
+	MAIN._temperaturVorratStatus AT %IB161 : USINT;
+	MAIN._temperaturVorratDataIn AT %IB162 : INT;
+	MAIN._tasterEgWc AT %IX128.1 : BOOL;
+	MAIN._tasterEgBadR AT %IX132.0 : BOOL;
+	MAIN._tasterEgBadL AT %IX132.1 : BOOL;
+	MAIN._tasterEssenO AT %IX140.0 : BOOL;
+	MAIN._tasterEssenL AT %IX140.1 : BOOL;
+	MAIN._tasterEssenR AT %IX140.2 : BOOL;
+	MAIN._tasterGaesteO AT %IX136.0 : BOOL;
+	MAIN._tasterGaesteL AT %IX136.1 : BOOL;
+	MAIN._tasterGaesteR AT %IX136.2 : BOOL;
+	MAIN._tasterHeizen AT %IX76.1 : BOOL;
+	MAIN._tasterHobbyL AT %IX76.2 : BOOL;
+	MAIN._tasterHobbyR AT %IX76.3 : BOOL;
+	MAIN._tasterKochenOL AT %IX144.0 : BOOL;
+	MAIN._tasterKochenOR AT %IX144.1 : BOOL;
+	MAIN._tasterKochenWO AT %IX144.2 : BOOL;
+	MAIN._tasterKochenWL AT %IX144.3 : BOOL;
+	MAIN._tasterKochenWR AT %IX144.4 : BOOL;
+	MAIN._tasterLagerNO AT %IX76.6 : BOOL;
+	MAIN._tasterLagerS AT %IX76.7 : BOOL;
+	MAIN._tasterEgGang AT %IX80.0 : BOOL;
+	MAIN._tasterSchlafenOO AT %IX116.0 : BOOL;
+	MAIN._tasterSchlafenOL AT %IX116.1 : BOOL;
+	MAIN._tasterSchlafenOR AT %IX116.2 : BOOL;
+	MAIN._tasterSchlafenWML AT %IX116.3 : BOOL;
+	MAIN._tasterSchlafenWMR AT %IX116.4 : BOOL;
+	MAIN._tasterSchlafenWNL AT %IX116.5 : BOOL;
+	MAIN._tasterSchlafenWNR AT %IX116.6 : BOOL;
+	MAIN._tasterWaschenL AT %IX76.4 : BOOL;
+	MAIN._tasterWaschenR AT %IX76.5 : BOOL;
+	MAIN._tasterWohnenOO AT %IX124.1 : BOOL;
+	MAIN._tasterWohnenOL AT %IX124.2 : BOOL;
+	MAIN._tasterWohnenOR AT %IX124.3 : BOOL;
+	MAIN._tasterWohnenWO AT %IX124.4 : BOOL;
+	MAIN._tasterWohnenWL AT %IX124.5 : BOOL;
+	MAIN._tasterWohnenWR AT %IX124.6 : BOOL;
+	MAIN._lampeEgBadOM AT %QX20.1 : BOOL;
+	MAIN._lampeEgGang AT %QX20.2 : BOOL;
+	MAIN._lampeEgWc AT %QX20.3 : BOOL;
+	MAIN._lampeEssenM AT %QX20.4 : BOOL;
+	MAIN._lampeEssenS AT %QX20.5 : BOOL;
+	MAIN._lampeOgGang AT %QX20.6 : BOOL;
+	MAIN._lampeSchlafenS AT %QX20.0 : BOOL;
 	MAIN.heizenHK1.mischer AT %QB12 : INT;
 	MAIN.heizenHK1.pumpe AT %QB14 : INT;
 	MAIN.heizenHK2.mischer AT %QB16 : INT;

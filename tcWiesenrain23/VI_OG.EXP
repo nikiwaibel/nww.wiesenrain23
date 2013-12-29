@@ -36,7 +36,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Gaeste',''
 _ZOOM : 'vi_Gaeste'
-_TEXT : 5,4294967285,400,0,0,0,0,0
+_TEXT : 9,4294967285,400,0,0,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -59,7 +59,7 @@ _THRESH : '','','',''
 _INPUT : 786432
 _DSP : '','OG-Kind',''
 _ZOOM : 'vi_OgKind'
-_TEXT : 5,4294967285,400,0,2,0,0,0
+_TEXT : 9,4294967285,400,0,2,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -105,7 +105,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','OG-Bad',''
 _ZOOM : 'vi_OgBad'
-_TEXT : 5,4294967285,400,0,3,0,0,0
+_TEXT : 1,4294967285,400,0,3,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -128,7 +128,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','EG-OG-$R$NStiege',''
 _ZOOM : 'vi_EgOgStiege'
-_TEXT : 5,4294967285,400,0,5,0,0,0
+_TEXT : 1,4294967285,400,0,5,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -151,7 +151,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Balkon',''
 _ZOOM : 'vi_Balkon'
-_TEXT : 5,4294967285,400,0,1,0,0,0
+_TEXT : 9,4294967285,400,0,1,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -174,7 +174,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Arbeiten',''
 _ZOOM : 'vi_Arbeiten'
-_TEXT : 5,4294967285,400,0,4,0,0,0
+_TEXT : 1,4294967285,400,0,4,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -197,7 +197,7 @@ _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','OG-WC',''
 _ZOOM : 'vi_OgWC'
-_TEXT : 5,4294967285,400,0,8,0,0,0
+_TEXT : 1,4294967285,400,0,8,0,0,0
 _FONT : 'Trebuchet MS'
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''

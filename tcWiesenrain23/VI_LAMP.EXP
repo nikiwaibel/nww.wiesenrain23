@@ -2,7 +2,7 @@
 
 VISUALISATION vi_Lamp _VISU_TYPES : 1,3
 _BG_BMP : ''
-_TEXT : 11
+_TEXT : 12
 _PAINTZOOM : 400
 
 _SIMPLE : 2
@@ -191,7 +191,7 @@ _THRESH : 'NOT $$fbLight$$.onTimer.Q','','',''
 _INPUT : 0
 _DSP : '','',''
 _ZOOM : ''
-_TEXT : 5,4294967285,400,0,4294967295,0,0,0
+_TEXT : 5,4294967285,400,0,11,0,0,0
 _FONT : ''
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
