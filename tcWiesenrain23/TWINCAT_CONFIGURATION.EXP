@@ -140,13 +140,13 @@ VAR_CONFIG
 	MAIN._tasterWohnenWO AT %IX124.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A5^Kanal 3^WohnenW TasterO} *)
 	MAIN._tasterWohnenWL AT %IX124.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A5^Kanal 4^WohnenW TasterL} *)
 	MAIN._tasterWohnenWR AT %IX124.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A5^Kanal 5^WohnenW TasterR} *)
-	MAIN._lampeSchlafenS AT %QX20.0 : BOOL;
-	MAIN._lampeEgBadOM AT %QX20.1 : BOOL;
-	MAIN._lampeEgGang AT %QX20.2 : BOOL;
-	MAIN._lampeEgWc AT %QX20.3 : BOOL;
-	MAIN._lampeEssenM AT %QX20.4 : BOOL;
-	MAIN._lampeEssenS AT %QX20.5 : BOOL;
-	MAIN._lampeOgGang AT %QX20.6 : BOOL;
+	MAIN._lampeSchlafenS AT %QX20.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A28^Kanal 1^SchlafenS Lampen} *)
+	MAIN._lampeEgBadOM AT %QX20.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A31^Kanal 2^EG-BadOM Lampe} *)
+	MAIN._lampeEgGang AT %QX20.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A24^Kanal 1^EG-Gang Lampen} *)
+	MAIN._lampeEgWc AT %QX20.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A31^Kanal 1^EG-WC Lampe} *)
+	MAIN._lampeEssenM AT %QX20.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A14^Kanal 1^EssenM Lampe} *)
+	MAIN._lampeEssenS AT %QX20.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A14^Kanal 2^EssenS Lampe} *)
+	MAIN._lampeOgGang AT %QX20.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A40^Kanal 1^OG-Gang Lampe} *)
 	MAIN.heizenHK1.mischer AT %QB12 : INT;
 	MAIN.heizenHK1.pumpe AT %QB14 : INT;
 	MAIN.heizenHK2.mischer AT %QB16 : INT;

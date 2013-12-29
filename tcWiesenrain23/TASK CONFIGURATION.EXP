@@ -6,6 +6,11 @@ MAIN
 {Additional_info : 1,0,0,0,1,4294967295}
 END_TASK
 
+TASK Slow (PRIORITY := 2, INTERVAL := T#200ms);
+VI_MAIN
+{Additional_info : 1,0,0,0,1,4294967295}
+END_TASK
+
 TASK Fast (PRIORITY := 0, INTERVAL := T#1ms);
 IO_FAST
 {Additional_info : 1,0,0,0,1,4294967295}

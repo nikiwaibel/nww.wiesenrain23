@@ -2,7 +2,7 @@
 
 VISUALISATION VI_EG _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 71
+_TEXT : 75
 _PAINTZOOM : 150
 
 _SIMPLE : 0
@@ -1857,7 +1857,7 @@ MAIN.schlafenLichtS
 VI_MAIN.schlafenTasterOR
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 530,240,551,261,530,220
+_POS : 520,240,541,261,520,220
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
@@ -2052,6 +2052,124 @@ _DSP : '','',''
 _ZOOM : ''
 _INPUT : 0
 _TEXT : 5,4294967285,400,0,70,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'VI_LIGHT_TINY'
+NUM_STRINGS_IN_LIST: 2
+fbLight
+fbButton
+NUM_STRINGS_IN_LIST: 2
+MAIN.egGangLicht
+
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 400,120,421,141,400,100
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,71,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'vi_Hygrometer'
+NUM_STRINGS_IN_LIST: 1
+fb_Temperature
+NUM_STRINGS_IN_LIST: 1
+MAIN.vorratTemperatur
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 560,240,581,261,570,250
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,72,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'vi_Temperaturesensor'
+NUM_STRINGS_IN_LIST: 1
+fb_Temperature
+NUM_STRINGS_IN_LIST: 1
+MAIN.vorratTemperatur
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 540,240,561,261,550,250
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,73,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'vi_SmokeDetector'
+NUM_STRINGS_IN_LIST: 1
+fbMotiondetector
+NUM_STRINGS_IN_LIST: 1
+MAIN.lagerBwm
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 500,450,521,471,510,460
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,0
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,74,0,0,0
 _FONT : ''
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
