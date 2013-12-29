@@ -6,7 +6,7 @@
 (*
  TODO: REACTION
 *)
-FUNCTION_BLOCK FB_Light
+FUNCTION_BLOCK FB_Lamp
 VAR_INPUT
 	ON_OFF: BOOL;   (* on/off on pulse, ignored if FORCE = TRUE *)
 	ON: BOOL;   (* on on pulse, ignored if FORCE = TRUE *)

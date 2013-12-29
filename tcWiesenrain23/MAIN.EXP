@@ -74,59 +74,59 @@ VAR
 (* KG *)
 
 	heizenTaster: FB_Button;
-	heizenLicht: FB_Light;
+	heizenLicht: FB_Lamp;
 	heizenHK1: FB_Heizkreis;
 	heizenHK2: FB_Heizkreis;
 
 	hobbyBwm: FB_Motiondetector;
 	hobbyTasterL: FB_Button;
 	hobbyTasterR: FB_Button;
-	hobbyLichtN: FB_Light;
-	hobbyLichtS: FB_Light;
+	hobbyLichtN: FB_Lamp;
+	hobbyLichtS: FB_Lamp;
 
 	lagerBwm: FB_Motiondetector;
 	lagerTasterNO: FB_Button;
 	lagerTasterS: FB_Button;
-	lagerLicht: FB_Light;
+	lagerLicht: FB_Lamp;
 
-	vorratLicht: FB_Light;
+	vorratLicht: FB_Lamp;
 	vorratTemperatur: FB_Temperature;
 
 	waschenBwm: FB_Motiondetector;
 	waschenTasterL: FB_Button;
 	waschenTasterR: FB_Button;
-	waschenLichtNM: FB_Light;
-	waschenLichtS: FB_Light;
+	waschenLichtNM: FB_Lamp;
+	waschenLichtS: FB_Lamp;
 
 	kgGangBwm: FB_Motiondetector;
-	kgGangLicht: FB_Light;
+	kgGangLicht: FB_Lamp;
 
-	kgEgLicht: FB_Light;
+	kgEgLicht: FB_Lamp;
 
 (* EG *)
 
 	egBadTasterR: FB_Button;
 	egBadTasterL: FB_Button;
 	egBadTemperatur: FB_Temperature;
-	egBadLichtON: FB_Light;
-	egBadLichtOM: FB_Light;
-	egBadLichtSM: FB_Light;
+	egBadLichtON: FB_Lamp;
+	egBadLichtOM: FB_Lamp;
+	egBadLichtSM: FB_Lamp;
 
 	egGangBwm: FB_Motiondetector;
-	egGangLicht: FB_Light;
+	egGangLicht: FB_Lamp;
 	egGangTaster: FB_Button;
 
 	egWcBwm: FB_Motiondetector;
-	egWcLicht: FB_Light;
+	egWcLicht: FB_Lamp;
 	egWcTaster: FB_Button;
 
 	essenTasterO: FB_Button;
 	essenTasterL: FB_Button;
 	essenTasterR: FB_Button;
 	essenTemperatur: FB_Temperature;
-	essenLichtS:  FB_Light;
-	essenLichtM:  FB_Light;
-	essenLichtNW: FB_Light;
+	essenLichtS:  FB_Lamp;
+	essenLichtM:  FB_Lamp;
+	essenLichtNW: FB_Lamp;
 
 	kochenTasterOL: FB_Button;
 	kochenTasterOR: FB_Button;
@@ -142,10 +142,10 @@ VAR
 	schlafenTasterWNL: FB_Button;
 	schlafenTasterWNR: FB_Button;
 	schlafenTemperatur: FB_Temperature;
-	schlafenLichtS: FB_Light;
-	schlafenLichtWM: FB_Light;
-	schlafenLichtWN: FB_Light;
-	schlafenLichtO:  FB_Light;
+	schlafenLichtS: FB_Lamp;
+	schlafenLichtWM: FB_Lamp;
+	schlafenLichtWN: FB_Lamp;
+	schlafenLichtO:  FB_Lamp;
 
 	wohnenTasterOO: FB_Button;
 	wohnenTasterOR: FB_Button;
@@ -154,20 +154,20 @@ VAR
 	wohnenTasterWR: FB_Button;
 	wohnenTasterWL: FB_Button;
 	wohnenTemperatur: FB_Temperature;
-	wohnenLichtM: FB_Light;
-	wohnenLichtNW: FB_Light;
-	wohnenLichtNO: FB_Light;
-	wohnenLichtSW: FB_Light;
+	wohnenLichtM: FB_Lamp;
+	wohnenLichtNW: FB_Lamp;
+	wohnenLichtNO: FB_Lamp;
+	wohnenLichtSW: FB_Lamp;
 
 (* OG *)
 
 	gaesteTasterO: FB_Button;
 	gaesteTasterR: FB_Button;
 	gaesteTasterL: FB_Button;
-	gaesteLichtO: FB_Light;
-	gaesteLichtW: FB_Light;
+	gaesteLichtO: FB_Lamp;
+	gaesteLichtW: FB_Lamp;
 	ogGangBwm: FB_Motiondetector;
-	ogGangLicht: FB_Light;
+	ogGangLicht: FB_Lamp;
 
 END_VAR
 (* @END_DECLARATION := '0' *)
