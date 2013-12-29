@@ -289,7 +289,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -320,7 +320,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -351,7 +351,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -382,7 +382,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -413,7 +413,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -568,7 +568,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -599,7 +599,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -630,7 +630,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -661,7 +661,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -692,7 +692,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -723,7 +723,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -754,7 +754,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -785,7 +785,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -816,7 +816,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -847,7 +847,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -878,7 +878,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -909,7 +909,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -940,7 +940,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -971,7 +971,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -1002,7 +1002,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -1033,7 +1033,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -1064,7 +1064,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -1095,7 +1095,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -1126,7 +1126,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -1157,7 +1157,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -1440,7 +1440,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -1848,7 +1848,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -1879,7 +1879,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -1910,7 +1910,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -1941,7 +1941,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -1972,7 +1972,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -2003,7 +2003,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -2034,7 +2034,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
@@ -2065,7 +2065,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lamp_tiny'
+_REF : 'VI_LIGHT_TINY'
 NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
