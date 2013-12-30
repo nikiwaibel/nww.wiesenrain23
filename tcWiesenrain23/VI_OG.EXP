@@ -219,7 +219,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.ogGangLampe
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -250,7 +250,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.ogGangLampe
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -281,7 +281,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.ogGangLampe
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -342,9 +342,9 @@ fbButton_T
 fbButton_L
 fbButton_R
 NUM_STRINGS_IN_LIST: 3
-VI_MAIN.schlafenTasterOO
-VI_MAIN.schlafenTasterOL
-V_MAIN.schlafenTasterOR
+MAIN.gaesteTasterO
+MAIN.gaesteTasterL
+MAIN.gaesteTasterR
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 490,260,511,301,500,280
@@ -374,7 +374,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.gaesteLampeW
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -405,7 +405,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.gaesteLampeW
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -436,7 +436,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.gaesteLampeO
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -467,7 +467,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.gaesteLampeO
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -498,8 +498,8 @@ NUM_STRINGS_IN_LIST: 2
 fbButton_L
 fbButton_R
 NUM_STRINGS_IN_LIST: 2
-MAIN.hobbyTasterL
-MAIN.hobbyTasterR
+MAIN.ogKindTasterWL
+MAIN.ogKindTasterWR
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 330,370,351,391,330,380
@@ -529,8 +529,8 @@ NUM_STRINGS_IN_LIST: 2
 fbButton_L
 fbButton_R
 NUM_STRINGS_IN_LIST: 2
-MAIN.hobbyTasterL
-MAIN.hobbyTasterR
+MAIN.arbeitenTasterSL
+MAIN.arbeitenTasterSR
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 270,300,291,321,270,310
@@ -561,9 +561,9 @@ fbButton_T
 fbButton_L
 fbButton_R
 NUM_STRINGS_IN_LIST: 3
-VI_MAIN.schlafenTasterOO
-VI_MAIN.schlafenTasterOL
-V_MAIN.schlafenTasterOR
+MAIN.ogKindTasterNO
+MAIN.ogKindTasterNL
+MAIN.ogKindTasterNR
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 390,260,411,301,400,280
@@ -594,9 +594,9 @@ fbButton_T
 fbButton_L
 fbButton_R
 NUM_STRINGS_IN_LIST: 3
-VI_MAIN.schlafenTasterOO
-VI_MAIN.schlafenTasterOL
-V_MAIN.schlafenTasterOR
+MAIN.arbeitenTasterOO
+MAIN.arbeitenTasterOL
+MAIN.arbeitenTasterOR
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 310,190,331,231,320,210
@@ -626,8 +626,8 @@ NUM_STRINGS_IN_LIST: 2
 fbButton_L
 fbButton_R
 NUM_STRINGS_IN_LIST: 2
-MAIN.hobbyTasterL
-MAIN.hobbyTasterR
+MAIN.ogBadTasterL
+MAIN.ogBadTasterR
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 490,170,511,191,490,180
@@ -656,7 +656,7 @@ _REF : 'vi_ButtonSingle_tiny'
 NUM_STRINGS_IN_LIST: 1
 fbButton
 NUM_STRINGS_IN_LIST: 1
-MAIN.egGangTaster
+MAIN.ogWcTaster
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 530,170,551,191,530,180
@@ -685,7 +685,7 @@ _REF : 'vi_Temperaturesensor'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.essenTemperatur
+MAIN.gaesteTemperatur
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 560,270,581,291,570,260
@@ -743,7 +743,7 @@ _REF : 'vi_Temperaturesensor'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.essenTemperatur
+MAIN.ogKindTemperatur
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 440,300,461,321,450,310
@@ -772,7 +772,7 @@ _REF : 'vi_Temperaturesensor'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.essenTemperatur
+MAIN.ogGangTemperatur
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 350,230,371,251,340,220
@@ -801,7 +801,7 @@ _REF : 'vi_Temperaturesensor'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.essenTemperatur
+MAIN.ogWcTemperatur
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 550,170,571,191,690,110
@@ -830,7 +830,7 @@ _REF : 'vi_Temperaturesensor'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.essenTemperatur
+MAIN.ogBadTemperatur
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 510,170,531,191,520,180
@@ -860,7 +860,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.ogWcLampe
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -891,7 +891,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.ogBadLichtOM
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -922,7 +922,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.ogBadLichtSM
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -953,7 +953,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.ogBadLichtSM
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -984,7 +984,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.ogBadLichtON
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -1015,7 +1015,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.egOgLampe
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -1046,7 +1046,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.arbeitenLampeN
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -1077,7 +1077,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.arbeitenLampeS
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -1108,7 +1108,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.arbeitenLampeS
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -1139,7 +1139,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.arbeitenLampeN
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -1201,7 +1201,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.ogKindLampeM
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -1232,7 +1232,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.ogKindLampeS
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -1263,7 +1263,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.ogKindLampeS
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -1294,7 +1294,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.ogKindLampeN
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -1325,7 +1325,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.ogKindLampeN
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -1355,7 +1355,7 @@ _REF : 'vi_Temperaturesensor'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.essenTemperatur
+MAIN.arbeitenTemperatur
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 300,80,321,101,440,20
@@ -1416,7 +1416,7 @@ NUM_STRINGS_IN_LIST: 2
 fbLight
 fbButton
 NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+MAIN.arbeitenLampeSW
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
