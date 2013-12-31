@@ -217,7 +217,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogGangLampe
 
@@ -248,7 +248,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogGangLampe
 
@@ -279,7 +279,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogGangLampe
 
@@ -372,7 +372,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.gaesteLampeW
 
@@ -403,7 +403,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.gaesteLampeW
 
@@ -434,7 +434,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.gaesteLampeO
 
@@ -465,7 +465,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.gaesteLampeO
 
@@ -858,7 +858,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogWcLampe
 
@@ -889,7 +889,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogBadLichtOM
 
@@ -920,7 +920,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogBadLichtSM
 
@@ -951,7 +951,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogBadLichtSM
 
@@ -982,7 +982,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogBadLichtON
 
@@ -1013,7 +1013,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.egOgLampe
 
@@ -1044,7 +1044,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.arbeitenLampeN
 
@@ -1075,7 +1075,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.arbeitenLampeS
 
@@ -1106,7 +1106,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.arbeitenLampeS
 
@@ -1137,7 +1137,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.arbeitenLampeN
 
@@ -1168,7 +1168,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogGangLicht
 
@@ -1199,7 +1199,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogKindLampeM
 
@@ -1230,7 +1230,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogKindLampeS
 
@@ -1261,7 +1261,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogKindLampeS
 
@@ -1292,7 +1292,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogKindLampeN
 
@@ -1323,7 +1323,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogKindLampeN
 
@@ -1383,7 +1383,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.ogGangLicht
 
@@ -1414,7 +1414,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.arbeitenLampeSW
 

@@ -125,7 +125,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.kgGangLicht
 
@@ -156,7 +156,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.waschenLichtS
 
@@ -187,7 +187,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.waschenLichtNM
 
@@ -218,7 +218,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.waschenLichtNM
 
@@ -249,7 +249,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.kgEgLicht
 
@@ -280,7 +280,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.heizenLicht
 
@@ -311,7 +311,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.heizenLicht
 
@@ -523,7 +523,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.vorratLicht
 
@@ -554,7 +554,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.lagerLicht
 
@@ -585,7 +585,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.hobbyLichtS
 
@@ -616,7 +616,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.hobbyLichtN
 

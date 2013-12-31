@@ -22,6 +22,7 @@ END_VAR
 viText := CONCAT(ROOM, '$N');
 viText := CONCAT(viText, LOCATION);
 
+
 IF Status.6 THEN
 	Error := TRUE;
 ELSE

@@ -110,8 +110,20 @@ VAR
 	_lampeEgWc         AT %Q*: BOOL; (* West *)
 	_lampeEssenM       AT %Q*: BOOL; (* Mitte *)
 	_lampeEssenS       AT %Q*: BOOL; (* Sued *)
-	_lampeOgGang       AT %Q*: BOOL; (* Sued-West *)
+	_lampeKochenSW     AT %Q*: BOOL; (* Sued-West *)
+	_lampeOgGang       AT %Q*: BOOL; (* 3 *)
 	_lampeSchlafenS    AT %Q*: BOOL; (* Sued-West | Sued-Ost*)
+	_lampeWohnenM      AT %Q*: BOOL; (* Mitte *)
+	_dimmerWohnenN_intensity AT %I*: REAL := 67;
+	_dimmerWohnenN_status    AT %I*: USINT;
+	_dimmerWohnenN_dataIn    AT %I*: INT;
+	_dimmerWohnenN_dataOut   AT %Q*: INT;
+	_dimmerWohnenN_control   AT %Q*: USINT;
+	_dimmerEgBadSM_intensity AT %I*: REAL := 67;
+	_dimmerEgBadSM_status    AT %I*: USINT;
+	_dimmerEgBadSM_dataIn    AT %I*: INT;
+	_dimmerEgBadSM_dataOut   AT %Q*: INT;
+	_dimmerEgBadSM_control   AT %Q*: USINT;
 
 (* KG *)
 
@@ -154,9 +166,10 @@ VAR
 	egBadTasterR:    FB_Button;
 	egBadTasterL:    FB_Button;
 	egBadTemperatur: FB_Temperature;
-	egBadLichtON:    FB_Lamp;
-	egBadLichtOM:    FB_Lamp;
-	egBadLichtSM:    FB_Lamp;
+	egBadLampeON:    FB_Lamp;
+	egBadLampeOM:    FB_Lamp;
+	egBadLampeSM:    FB_Lamp;
+	egBadDimmerSM:   FB_Dimmer;
 
 	egGangBwm:          FB_Motiondetector;
 	egGangTaster:       FB_Button;
@@ -214,6 +227,7 @@ VAR
 	wohnenLichtM:     FB_Lamp;
 	wohnenLichtN:     FB_Lamp;
 	wohnenLichtSW:    FB_Lamp;
+	wohnenDimmerN:    FB_Dimmer;
 
 	egOgLampe: FB_Lamp;
 
@@ -306,6 +320,8 @@ kochenTasterWL(IN := _tasterKochenWL, ROOM := 'Kochen', Location := 'West');
 kochenTasterWR(IN := _tasterKochenWR, ROOM := 'Kochen', Location := 'West');
 kochenTasterOL(IN := _tasterKochenOL, ROOM := 'Kochen', Location := 'Ost');
 kochenTasterOR(IN := _tasterKochenOR, ROOM := 'Kochen', Location := 'Ost');
+kochenTemperatur(Status := _temperaturKochenStatus, DataIn := _temperaturKochenDataIn,
+	ROOM := 'Kochen', LOCATION := 'Sued-West');
 schlafenTasterWML(IN := _tasterSchlafenWML, ROOM := 'Schlafen', LOCATION := 'West-Mitte');
 schlafenTasterWMR(IN := _tasterSchlafenWMR, ROOM := 'Schlafen', LOCATION := 'West-Mitte');
 schlafenTasterWNL(IN := _tasterSchlafenWNL, ROOM := 'Schlafen', LOCATION := 'West-Nord');
@@ -317,11 +333,11 @@ schlafenTemperatur(Status := _temperaturSchlafenStatus, DataIn := _temperaturSch
 	ROOM := 'Schlafen', LOCATION := 'Nord-West');
 speisTuer(IN := _tasterSpeis, ROOM := 'Speis', LOCATION := 'Tuerkontakt');
 wohnenTasterOO(IN := _tasterWohnenOO, ROOM := 'Wohnen', LOCATION := 'Ost');
-wohnenTasterOL(IN := _tasterWohnenOR, ROOM := 'Wohnen', LOCATION := 'Ost');
-wohnenTasterOR(IN := _tasterWohnenOL, ROOM := 'Wohnen', LOCATION := 'Ost');
+wohnenTasterOL(IN := _tasterWohnenOL, ROOM := 'Wohnen', LOCATION := 'Ost');
+wohnenTasterOR(IN := _tasterWohnenOR, ROOM := 'Wohnen', LOCATION := 'Ost');
 wohnenTasterWO(IN := _tasterWohnenWO, ROOM := 'Wohnen', LOCATION := 'West');
-wohnenTasterWL(IN := _tasterWohnenWR, ROOM := 'Wohnen', LOCATION := 'West');
-wohnenTasterWR(IN := _tasterWohnenWL, ROOM := 'Wohnen', LOCATION := 'West');
+wohnenTasterWL(IN := _tasterWohnenWL, ROOM := 'Wohnen', LOCATION := 'West');
+wohnenTasterWR(IN := _tasterWohnenWR, ROOM := 'Wohnen', LOCATION := 'West');
 wohnenTemperatur(Status := _temperaturWohnenStatus, DataIn := _temperaturWohnenDataIn,
 	ROOM := 'Wohnen', LOCATION := 'Sued-West');
 
@@ -375,16 +391,20 @@ vorratLicht(ON_OFF := lagerTasterS.pulseOnClick, PT := t#2m, ROOM := 'Vorrat', L
 waschenLichtNM(ON := waschenBwm.pulseOnMotion, ON_OFF := waschenTasterR.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Nord|Mitte');
 waschenLichtS(ON := waschenBwm.pulseOnMotion, ON_OFF := waschenTasterL.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Sued');
 
-egBadLichtON(
+egBadLampeON(
 	ON_OFF := egBadTasterR.pulseOnLongpress
 		OR egBadTasterL.pulseOnLongpress,
 	PT := t#10m, ROOM := 'EG-Bad', LOCATION := 'Ost-Dusche');
-egBadLichtOM(
+egBadLampeOM(
 	ON_OFF := egBadTasterL.pulseOnClick,
 	PT := t#10m, ROOM := 'EG-Bad', LOCATION := 'Ost-Spiegel');
-egBadLichtSM(
+egBadLampeSM(
 	ON_OFF := egBadTasterR.pulseOnClick,
 	PT := t#30m, ROOM := 'EG-Bad', LOCATION := 'Sued|Mitte');
+egBadDimmerSM(ON := egBadLampeSM.Q,
+	INTENSITY := _dimmerEgBadSM_intensity,
+	Status := _dimmerEgBadSM_status,
+	DataIn := _dimmerEgBadSM_dataIn);
 egGangLampe(ON := egGangBwm.pulseOnMotion,
 	OFF := egGangTaster.pulseOnLongpress,
 	OFF_BLOCK_ON := t#30s,
@@ -422,9 +442,9 @@ kochenLampeSW(
 	PT := t#30m, ROOM := 'Kochen', LOCATION := 'Nord');
 
 speisLampe(
-	ON_OFF := speisTuer.pulseOnPress
-		OR speisTuer.pulseOnRelease,
-	PT := t#5m, ROOM := 'Speis');
+	ON := speisTuer.pulseOnRelease,
+	OFF := speisTuer.pulseOnPress,
+	PT := t#5m, OFF_BLOCK_ON := T#0s, ROOM := 'Speis');
 
 schlafenLichtS(
 	ON_OFF := schlafenTasterOO.pulseOnClick
@@ -449,6 +469,11 @@ wohnenLichtN(
 	ON_OFF := wohnenTasterOL.pulseOnClick
 		OR wohnenTasterWR.pulseOnClick,
 	PT := t#1h, ROOM := 'Wohnen', LOCATION := 'Nord');
+wohnenDimmerN(ON := wohnenLichtN.Q,
+	INTENSITY := _dimmerWohnenN_intensity,
+	Status := _dimmerWohnenN_status,
+	DataIn := _dimmerWohnenN_dataIn);
+
 wohnenLichtSW(
 	ON_OFF := wohnenTasterOR.pulseOnClick
 		OR wohnenTasterWL.pulseOnClick,
@@ -510,10 +535,17 @@ dachbodenLampe(ON_OFF := dgKindTaster.pulseOnLongpress,
 heizenHk1(soll := 24.0, vorlauf :=, ruecklauf :=);
 heizenHk2(soll := 24.0, vorlauf :=, ruecklauf :=);
 
+_lampeEgBadOM := egBadLampeOM.Q;
 _lampeEgGang := egGangLampe.Q;
 _lampeEgWc := egWcLampe.Q;
-_lampeOgGang := ogGangLampe.Q;
-_lampeSchlafenS := schlafenLichtS.Q;
 _lampeEssenM := essenLichtM.Q;
 _lampeEssenS := essenLichtS.Q;
+_lampeKochenSW := kochenLampeSW.Q;
+_lampeOgGang := ogGangLampe.Q;
+_lampeSchlafenS := schlafenLichtS.Q;
+_lampeWohnenM := wohnenLichtM.Q;
+_dimmerWohnenN_dataOut := wohnenDimmerN.DataOut;
+_dimmerWohnenN_control := wohnenDimmerN.Control;
+_dimmerEgBadSM_dataOut := egBadDimmerSM.DataOut;
+_dimmerEgBadSM_control := egBadDimmerSM.Control;
 END_PROGRAM

@@ -1,0 +1,35 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK FB_Dimmer
+VAR_INPUT
+	ON: BOOL;
+	INTENSITY: REAL; (* 0..100; clamped *)
+	Status: USINT;
+	DataIn: INT;
+END_VAR
+VAR_OUTPUT
+	Control: USINT;
+	DataOut: INT;
+END_VAR
+VAR
+	mIntensity: REAL;
+	mLastIntensity: REAL;
+END_VAR
+(* @END_DECLARATION := '0' *)
+IF NOT ON OR INTENSITY < 0 THEN
+	mIntensity := 0;
+ELSIF INTENSITY > 100 THEN
+	mIntensity := 100;
+ELSE
+	mIntensity := INTENSITY;
+END_IF
+
+IF mIntensity <> mLastIntensity THEN
+	Control := 0;
+	DataOut := REAL_TO_INT(mIntensity * 16#7FFF / 100);
+	mLastIntensity := mIntensity;
+END_IF
+END_FUNCTION_BLOCK

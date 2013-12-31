@@ -79,7 +79,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.dgKindLampe
 
@@ -110,7 +110,7 @@ _END_ELEM
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 2
 fbLight
-fbButton
+FB_Button
 NUM_STRINGS_IN_LIST: 2
 MAIN.dachbodenLampe
 

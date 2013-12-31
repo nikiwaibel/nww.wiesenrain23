@@ -201,7 +201,7 @@ fbA15OGCH1(bValue:=MAIN.essenLichtNW.Q, udiDelayNanoSek:= 6100000, tNextZeroVolt
 fbA15OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
 fbA17OGCH1(bValue:=MAIN.schlafenLichtO.Q, udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
 fbA17OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
-fbA18OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA18OGCH1(bValue:=MAIN.wohnenLichtSW.Q, udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
 fbA18OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
 fbA19OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
 fbA19OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
@@ -209,11 +209,11 @@ fbA21OGCH1(bValue:= , udiDelayNanoSek:= 6000000, tNextZeroVoltage:= fbAnalyseVol
 fbA21OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
 fbA23OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
 fbA23OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
-fbA25OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
-fbA25OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
-fbA26OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA25OGCH1(bValue:=MAIN.kochenLampeO.Q, udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA25OGCH2(bValue:=MAIN.kochenLampeN.Q, udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA26OGCH1(bValue:=MAIN.speisLampe.Q , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
 fbA26OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
-fbA33OGCH1(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA33OGCH1(bValue:=MAIN.egBadLampeON.Q, udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
 fbA33OGCH2(bValue:= , udiDelayNanoSek:= 6100000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
 fbA35OGCH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
 fbA35OGCH2(bValue:= , udiDelayNanoSek:= 6200000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
