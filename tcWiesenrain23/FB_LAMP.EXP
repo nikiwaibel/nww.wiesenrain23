@@ -35,6 +35,9 @@ VAR
 	viOffTimer: TIME;
 	onTimer: TOF;
 	offTimer: TOF;
+	onTrigger: R_TRIG;
+	onOffTrigger: R_TRIG;
+	offTrigger: R_TRIG;
 	forceOnTrigger: R_TRIG;
 	forceOffTrigger: F_TRIG;
 	forceOnTime: TIME;
@@ -71,8 +74,11 @@ END_IF
 IF FORCE THEN
 	Q := FORCE_ON;
 ELSE (* NOT FORCE *)
-	IF (ON OR ON_OFF) AND NOT onTimer.Q THEN   (* on or on/off pulse and onTimer = off *)
-		IF ON AND offTimer.Q THEN
+	onTrigger(CLK := ON);
+	onOffTrigger(CLK := ON_OFF);
+	offTrigger(CLK := OFF);
+	IF (onTrigger.Q OR onOffTrigger.Q) AND NOT onTimer.Q THEN   (* on or on/off pulse and onTimer = off *)
+		IF onTrigger.Q AND offTimer.Q THEN
 			(* ignore on while offTimer.Q is TRUE *)
 			;
 		ELSE
@@ -80,12 +86,12 @@ ELSE (* NOT FORCE *)
 			onTimer(IN := TRUE, PT := PT);
 			offTimer(IN := FALSE, PT := OFF_BLOCK_ON);
 		END_IF
-	ELSIF (OFF OR ON_OFF) AND onTimer.Q THEN   (* off or on/off pulse and onTimer = on *)
+	ELSIF (offTrigger.Q OR onOffTrigger.Q) AND onTimer.Q THEN   (* off or on/off pulse and onTimer = on *)
 		(* turn off timer / light *)
 		onTimer(IN := FALSE, PT := t#0s);
 		extendPT := t#0ms;
 		offTimer(IN := TRUE, PT := OFF_BLOCK_ON);
-	ELSIF ON AND onTimer.Q THEN   (* on pulse and onTimer = on *)
+	ELSIF onTrigger.Q AND onTimer.Q THEN   (* on pulse and onTimer = on *)
 		(* reset PT *)
 		onTimer(IN := TRUE, PT := PT);
  	ELSIF onTimer.Q THEN   (* no on/off pulse but timer is on *)

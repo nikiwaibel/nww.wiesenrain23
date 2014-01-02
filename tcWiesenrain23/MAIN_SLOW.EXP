@@ -1,0 +1,12 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+PROGRAM MAIN_SLOW
+VAR
+END_VAR
+(* @END_DECLARATION := '0' *)
+;
+
+END_PROGRAM

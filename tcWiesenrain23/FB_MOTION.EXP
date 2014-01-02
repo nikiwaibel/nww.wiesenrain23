@@ -3,7 +3,7 @@
 (* @PATH := '\/FBs' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION_BLOCK FB_Motiondetector
+FUNCTION_BLOCK FB_Motion
 VAR_INPUT
 	IN: BOOL;
 	ROOM: STRING;
@@ -16,7 +16,7 @@ END_VAR
 VAR
 	viText: STRING;
 	viIN: BOOL;
-	myIn: BOOL;
+	myIN: BOOL;
 	x: R_TRIG;
 END_VAR
 (* @END_DECLARATION := '0' *)

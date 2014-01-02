@@ -5,15 +5,15 @@
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK FB_ANALYSE_VOLTAGE
 VAR_INPUT
-	uliStartTimeNextLatch : ARRAY [0..1] OF UDINT;
-	bWcState		: BOOL;
+	uliStartTimeNextLatch: ARRAY [0..1] OF UDINT;
+	bWcState: BOOL;
 END_VAR
 VAR_IN_OUT
 	iVoltage : ARRAY [0..9] OF INT;
 END_VAR
 VAR
-	iBufferV : ARRAY [0..209] OF INT;
-	iBufferT : ARRAY [0..209] OF T_DCTIME;
+	iBufferV: ARRAY [0..209] OF INT;
+	iBufferT: ARRAY [0..209] OF T_DCTIME;
 	i: INT;
 	dctActSample: T_DCTIME;
 	multiplier: T_DCTIME;
@@ -62,17 +62,17 @@ MEMCPY(ADR(ui64b), ADR(dctActSample), SIZEOF(ui64b));
 ui64Sub := UInt64Sub64(ui64a, ui64b);
 MEMCPY(ADR(dctElSampleDelta), ADR(ui64Sub), SIZEOF(dctElSampleDelta));
 
-fbGETCURTASKINDEX(index=> );
-tCylceTime.dwLowPart := SYSTEMTASKINFOARR[fbGETCURTASKINDEX.index].cycleTime*100;
+fbGETCURTASKINDEX(index => );
+tCylceTime.dwLowPart := SYSTEMTASKINFOARR[fbGETCURTASKINDEX.index].cycleTime * 100;
 tCylceTime.dwHighPart := 0;
 
 
-IF (dctElSampleDelta.dwLowPart <> tCylceTime.dwLowPart) OR (dctElSampleDelta.dwHighPart <> tCylceTime.dwHighPart) THEN
+IF (dctElSampleDelta.dwLowPart <> tCylceTime.dwLowPart)
+OR (dctElSampleDelta.dwHighPart <> tCylceTime.dwHighPart) THEN
 	bError := TRUE;
 ELSE
 	bError := FALSE;
 END_IF
-
 
 IF NOT bWcState AND NOT bError THEN
 	(* Samplezeit *)
@@ -103,7 +103,6 @@ IF NOT bWcState AND NOT bError THEN
 	FOR n := 1 TO 2 DO
 		FOR i := m TO 0 BY -1 DO
 			IF (iBufferV[i].15 AND NOT iBufferV[i+1].15) OR (NOT iBufferV[i].15 AND iBufferV[i+1].15) THEN
-
 				iBufferZeroSumV := ABS(iBufferV[i]) + ABS(iBufferV[i+1]);
 				IF iBufferZeroSumV > 0 THEN
 					dctSampleTimePerV.dwLowPart := LREAL_TO_DWORD(DWORD_TO_LREAL(tSampleTime.dwLowPart) / INT_TO_LREAL(iBufferZeroSumV));
@@ -113,7 +112,6 @@ IF NOT bWcState AND NOT bError THEN
 				ELSE
 					dctZeroPoint[n] := iBufferT[i];
 				END_IF
-
 
 				m := i-1;
 
@@ -129,7 +127,6 @@ IF NOT bWcState AND NOT bError THEN
 					IF (diResultSub >= 0) AND (diResultAdd <= 0)THEN
 						bZeroNow := TRUE;
 					END_IF
-
 				END_IF
 				EXIT;
 			END_IF
@@ -149,11 +146,8 @@ IF NOT bWcState AND NOT bError THEN
 		MEMCPY(ADR(tNextZeroVoltage), ADR(ui64Add), SIZEOF(tNextZeroVoltage));
 
 
-		lrFrequency := 1/(2*DWORD_TO_LREAL(dctZeroPointDelta.dwLowPart)/1000000000);
+		lrFrequency := 1 / (2 * DWORD_TO_LREAL(dctZeroPointDelta.dwLowPart) / 1000000000);
 	END_IF
-
-
-
 END_IF
 MEMCPY(ADR(dctActSample), ADR(uliStartTimeNextLatch), SIZEOF(dctActsample));
 

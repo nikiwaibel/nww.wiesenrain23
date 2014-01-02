@@ -19,6 +19,64 @@ VAR
 	mLastIntensity: REAL;
 END_VAR
 (* @END_DECLARATION := '0' *)
+(*
+KL2751: 300VA (1.35A)
+KL2761: 600VA (2.7A)
+
+wo: DataOut: 0..32767
+wo: Control.7: 1=registerAccess, 0=processData
+wo: Control.6: if Control.7=1: 0=readRegister, 1=writeRegister
+wo: Control.5-0: if Control.7=1: register
+wo: Control.0: if Control.7=0: manual autodetect (0->1) 
+ro: DataIn: Internal temperature in celsius
+ro: Status.7: 1=registerAccess, 0=processData
+if Status.7=0=processData:
+ro: Status.6: error (short)
+ro: Status.5: temperature warning (>80 grad celsius) - 20% max til 60 grad celsius
+ro: Status.4: overload (on turn on)
+ro: Status.3: operation mode 0=auto 1=abschnitt 2=anschnitt
+ro: Status.2: operation mode 3=posHalbwelleAnschnitt
+ro: Status.1: operation mode 4=negHalbwelleAnschnitt
+ro: Status.0: synchron
+if Status.7=1=registerAccess:
+ro: Status.6: 0=readRegister, 1=writeRegister
+ro: Status.5-0: register
+
+rw  r7    (ram): command
+ro  r8    (rom): hw type: 2751 or 2761 (dec) = "2751" or "2761"
+ro  r9    (rom): fw version: 0x3141 = "1A"
+ro r10    (rom): multiplex shift
+ro r11    (rom): signal channels
+ro r12    (rom): min datalength
+ro r13    (rom): data structure
+rw r15    (ram): alignment
+rw r16 (eeprom): hw version
+ro r29    (rom): hw subtype: 0x000b = 11 = "-0011"
+rw r31    (ram): codeword 0x1235=rwOtherRegister def(<>0x1235)=roOtherRegister
+rw r32 (eeprom): feature
+   r32.3: dimRamp 0(def)=rel 1=abs(anyChangeUsesFullTime)
+   r32.2: disWatchdog
+   r32.0: enUserScale (r33/r34)
+rw r33 (eeprom): scale-offset
+rw r34 (eeprom): scale-gain 0x100(def)=1 0x80=0.5 0x200=2 ...
+rw r35 (eeprom): ramp time 0=50ms 1=100ms 2=200ms 3(def)=500ms 4=1s 5=2s 6=5s 7=10s
+rw r36 (eeprom): watchdog-timeout 10(dec)=100ms 22(dec)=220ms ...
+rw r37 (eeprom): timeout (k-bus error) on-value def=16383(dec)
+rw r38 (eeprom): timeout (k-bus error) off-value def=0
+rw r39 (eeprom): dimmer mode (see Status.3-1)
+rw r40 (eeprom): after short 0=stayOff 1(def)=turnOn
+rw r41 (eeprom): frequency 0(def)=50hz 1=60hz
+
+r7 command 0x7000: factory reset
+
+I. Schreiben des Code-Worts (0x1235) in Register 31
+II. Lesen des Register 31 (gesetztes Code-Wort überprüfen)
+III. Schreiben des Register 32 (Inhalt des Feature-Registers ändern)
+IV. Lesen des Register 32 (geändertes Feature-Register überprüfen)
+V. Schreiben des Register 31 (Code-Wort zurücksetzen)
+
+*)
+
 IF NOT ON OR INTENSITY < 0 THEN
 	mIntensity := 0;
 ELSIF INTENSITY > 100 THEN

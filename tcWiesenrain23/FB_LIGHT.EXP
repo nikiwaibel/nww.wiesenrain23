@@ -3,15 +3,14 @@
 (* @PATH := '\/FBs' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION_BLOCK FB_Temperature
+FUNCTION_BLOCK FB_Light
 VAR_INPUT
-	Status: USINT;
-	DataIn: INT;
+	IN_0to10V: REAL;
 	ROOM: STRING;
 	LOCATION: STRING;
 END_VAR
 VAR_OUTPUT
-	Celsius: REAL;
+	Lux: REAL;
 	Error: BOOL;
 END_VAR
 VAR
@@ -22,10 +21,5 @@ END_VAR
 viText := CONCAT(ROOM, '$N');
 viText := CONCAT(viText, LOCATION);
 
-IF Status.6 THEN
-	Error := TRUE;
-ELSE
-	Error := FALSE;
-	Celsius := INT_TO_REAL(DataIn) / 100;
-END_IF
+Error := TRUE;
 END_FUNCTION_BLOCK

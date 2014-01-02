@@ -215,22 +215,20 @@ _END_ELEM
 (* @NO_FRAME_AROUND_BITMAP := '_NO_FRAME_AROUND_BITMAP: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogGangLampe
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 510,190,531,211,510,170
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','',''
+_THRESH : '','','','MAIN.ogGangLampe.ON_OFF'
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 0
+_INPUT : 131072
 _TEXT : 5,4294967285,400,0,9,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -246,22 +244,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogGangLampe
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 440,240,461,261,440,220
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','',''
+_THRESH : '','','','MAIN.ogGangLampe.ON_OFF'
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 0
+_INPUT : 131072
 _TEXT : 5,4294967285,400,0,10,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -277,19 +273,17 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogGangLampe
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 330,190,351,211,330,170
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','','MAIN.ogGangLampe.ON_OFF'
 _DSP : '','',''
 _ZOOM : ''
 _INPUT : 131072
@@ -370,22 +364,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.gaesteLampeW
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 460,310,481,331,460,290
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,14,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -401,22 +393,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.gaesteLampeW
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 460,410,481,431,460,390
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,15,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -432,22 +422,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.gaesteLampeO
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 560,310,581,331,560,290
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,16,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -463,22 +451,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.gaesteLampeO
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 560,410,581,431,560,390
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,17,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -856,22 +842,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogWcLampe
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 530,130,551,151,530,110
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,31,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -887,22 +871,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogBadLichtOM
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 510,130,531,151,510,110
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,32,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -918,22 +900,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogBadLichtSM
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 460,150,481,171,460,130
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,33,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -949,22 +929,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogBadLichtSM
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 460,100,481,121,460,80
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,34,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -980,22 +958,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogBadLichtON
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
-_POS : 530,80,551,101,530,60
+_POS : 530,80,551,101,540,90
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,35,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -1011,19 +987,17 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.egOgLampe
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 400,120,421,141,400,100
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','','MAIN.egOgLampe.ON_OFF'
 _DSP : '','',''
 _ZOOM : ''
 _INPUT : 131072
@@ -1042,22 +1016,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.arbeitenLampeN
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 310,130,331,151,310,110
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,37,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -1073,22 +1045,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.arbeitenLampeS
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 310,260,331,281,310,240
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,38,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -1104,22 +1074,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.arbeitenLampeS
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 180,260,201,281,180,240
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,39,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -1135,22 +1103,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.arbeitenLampeN
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 180,130,201,151,180,110
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,40,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -1166,22 +1132,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogGangLicht
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 310,320,331,341,310,300
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,41,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -1197,22 +1161,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogKindLampeM
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 390,300,411,321,390,280
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,42,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -1228,22 +1190,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogKindLampeS
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 330,410,351,431,330,390
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,43,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -1259,22 +1219,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogKindLampeS
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 440,410,461,431,440,390
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,44,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -1290,22 +1248,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogKindLampeN
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 440,310,461,331,440,290
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,45,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -1321,22 +1277,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.ogKindLampeN
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 330,310,351,331,330,290
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,46,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -1381,11 +1335,9 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
-MAIN.ogGangLicht
+NUM_STRINGS_IN_LIST: 1
 
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
@@ -1393,10 +1345,10 @@ _POS : 190,320,211,341,190,300
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,48,0,0,0
 _FONT : ''
 _EXEC : ''
@@ -1412,22 +1364,20 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'vi_Lamp_tiny'
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 fbLight
-FB_Button
-NUM_STRINGS_IN_LIST: 2
+NUM_STRINGS_IN_LIST: 1
 MAIN.arbeitenLampeSW
-
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 190,300,211,321,190,280
 _COLORS : 0,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,0
-_THRESH : '','','','MAIN.ogGangLicht.ON_OFF'
+_THRESH : '','','',''
 _DSP : '','',''
 _ZOOM : ''
-_INPUT : 131072
+_INPUT : 0
 _TEXT : 5,4294967285,400,0,49,0,0,0
 _FONT : ''
 _EXEC : ''
