@@ -88,7 +88,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.waschenLichtNM
 _LINEWIDTH : 0
@@ -117,7 +117,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.waschenLichtS
 _LINEWIDTH : 0
@@ -146,7 +146,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.waschenLichtNM
 _LINEWIDTH : 0
@@ -202,9 +202,9 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lightsensor'
+_REF : 'vi_Light'
 NUM_STRINGS_IN_LIST: 1
-fbLightsensor
+FB_Light
 NUM_STRINGS_IN_LIST: 1
 
 _LINEWIDTH : 0

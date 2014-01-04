@@ -27,12 +27,13 @@ VAR_OUTPUT RETAIN PERSISTENT
 	usageCounterSwitchOn: UDINT := 0;
 END_VAR
 VAR_OUTPUT
-	Q: BOOL;   (* light on / off *)
+	Q: BOOL;   (* lamp on / off *)
 END_VAR
 VAR
-	viText: STRING;
-	viOnTimer: TIME;
-	viOffTimer: TIME;
+	viText: STRING; (* ro by visualisation *)
+	viOnTimer: TIME; (* ro by visualisation *)
+	viOffTimer: TIME; (* ro by visualisation *)
+	viOnOff: BOOL; (* wo by visualisation *)
 	onTimer: TOF;
 	offTimer: TOF;
 	onTrigger: R_TRIG;
@@ -75,19 +76,19 @@ IF FORCE THEN
 	Q := FORCE_ON;
 ELSE (* NOT FORCE *)
 	onTrigger(CLK := ON);
-	onOffTrigger(CLK := ON_OFF);
+	onOffTrigger(CLK := ON_OFF XOR viOnOff);
 	offTrigger(CLK := OFF);
 	IF (onTrigger.Q OR onOffTrigger.Q) AND NOT onTimer.Q THEN   (* on or on/off pulse and onTimer = off *)
 		IF onTrigger.Q AND offTimer.Q THEN
 			(* ignore on while offTimer.Q is TRUE *)
 			;
 		ELSE
-			(* turn on light and onTimer, reset offTimer *)
+			(* turn on lamp and onTimer, reset offTimer *)
 			onTimer(IN := TRUE, PT := PT);
 			offTimer(IN := FALSE, PT := OFF_BLOCK_ON);
 		END_IF
 	ELSIF (offTrigger.Q OR onOffTrigger.Q) AND onTimer.Q THEN   (* off or on/off pulse and onTimer = on *)
-		(* turn off timer / light *)
+		(* turn off timer / lamp *)
 		onTimer(IN := FALSE, PT := t#0s);
 		extendPT := t#0ms;
 		offTimer(IN := TRUE, PT := OFF_BLOCK_ON);

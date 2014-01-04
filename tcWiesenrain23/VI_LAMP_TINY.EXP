@@ -11,7 +11,7 @@ _NOCOLORS : 1,0
 _POS : 10,10,51,51,75,40
 _COLORS : 16777215,16711935,16777215,0,0
 _VARIABLES : '','','','','','','',''
-_THRESH : 'NOT $$fbLight$$.FORCE','','',''
+_THRESH : 'NOT $$FB_Lamp$$.FORCE','','',''
 _DSP : '','',''
 _ZOOM : ''
 _INPUT : 0
@@ -36,8 +36,8 @@ _NOCOLORS : 1,1
 _POS : 10,10,51,51,30,30
 _COLORS : 16777215,0,65535,65535,0
 _VARIABLES : '','','','','','','',''
-_THRESH : '','$$fbLight$$.Q','','$$fbLight$$.ON_OFF'
-_DSP : '$$fbLight$$.viOnTimer / 1000','%u',''
+_THRESH : '','$$FB_Lamp$$.Q','','$$FB_Lamp$$.viOnOff'
+_DSP : '$$FB_Lamp$$.viOnTimer / 1000','%u',''
 _ZOOM : ''
 _INPUT : 131072
 _TEXT : 5,4294967280,400,0,0,0,0,0

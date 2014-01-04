@@ -192,9 +192,9 @@ VAR
 	essenTasterL:    FB_Button;
 	essenTasterR:    FB_Button;
 	essenTemperatur: FB_Temperature;
-	essenLichtS:     FB_Lamp;
-	essenLichtM:     FB_Lamp;
-	essenLichtNW:    FB_Lamp;
+	essenLampeS:     FB_Lamp;
+	essenLampeM:     FB_Lamp;
+	essenLampeNW:    FB_Lamp;
 
 	kochenBwm:        FB_Motion;
 	kochenTasterOL:   FB_Button;
@@ -215,10 +215,10 @@ VAR
 	schlafenTasterWNL:  FB_Button;
 	schlafenTasterWNR:  FB_Button;
 	schlafenTemperatur: FB_Temperature;
-	schlafenLichtS:     FB_Lamp;
-	schlafenLichtO:     FB_Lamp;
-	schlafenLichtWM:    FB_Lamp;
-	schlafenLichtWN:    FB_Lamp;
+	schlafenLampeS:     FB_Lamp;
+	schlafenLampeO:     FB_Lamp;
+	schlafenLampeWM:    FB_Lamp;
+	schlafenLampeWN:    FB_Lamp;
 
 	speisTuer:  FB_Button;
 	speisLampe: FB_Lamp;
@@ -259,11 +259,12 @@ VAR
 	ogBadTasterR:    FB_Button;
 	ogBadTasterL:    FB_Button;
 	ogBadTemperatur: FB_Temperature;
-	ogBadLichtON:    FB_Lamp;
-	ogBadLichtOM:    FB_Lamp;
-	ogBadLichtSM:    FB_Lamp;
+	ogBadLampeON:    FB_Lamp;
+	ogBadLampeOM:    FB_Lamp;
+	ogBadLampeSM:    FB_Lamp;
 
 	ogGangBwm:        FB_Motion;
+	ogGangLicht:      FB_Light;
 	ogGangTemperatur: FB_Temperature;
 	ogGangLampe:      FB_Lamp;
 
@@ -423,15 +424,15 @@ egWcLampe(
 	ON := egWcBwm.pulseOnMotion,
 	ON_OFF := egWcTaster.pulseOnClick,
 	PT := t#6m, ROOM := 'EG-WC', LOCATION := 'West');
-essenLichtM(
+essenLampeM(
 	ON_OFF := essenTasterO.pulseOnClick
 		OR essenTasterR.pulseOnClick,
 	PT := t#1h, ROOM := 'Essen', LOCATION := 'Mitte');
-essenLichtS(
+essenLampeS(
 	ON_OFF := essenTasterO.pulseOnClick
 		OR essenTasterL.pulseOnClick,
 	PT := t#1h, ROOM := 'Essen', LOCATION := 'Sued');
-essenLichtNW(
+essenLampeNW(
 	ON_OFF := essenTasterO.pulseOnLongpress
 		OR essenTasterR.pulseOnLongpress,
 	PT := t#1h, ROOM := 'Essen', LOCATION := 'Sued');
@@ -456,15 +457,15 @@ speisLampe(
 	OFF := speisTuer.pulseOnPress,
 	PT := t#5m, OFF_BLOCK_ON := T#0s, ROOM := 'Speis');
 
-schlafenLichtS(
+schlafenLampeS(
 	ON_OFF := schlafenTasterOO.pulseOnClick
 		OR schlafenTasterOR.pulseOnClick,
 	OFF := schlafenTasterWML.pulseOnClick
 		OR schlafenTasterWNR.pulseOnClick,
 	PT := t#30m, ROOM := 'Schlafen', LOCATION := 'Sued');
-schlafenLichtWM(ON_OFF := schlafenTasterWMR.pulseOnClick, PT := t#1h, ROOM := 'Schlafen', LOCATION := 'West-Mitte');
-schlafenLichtWN(ON_OFF := schlafenTasterWNL.pulseOnClick, PT := t#1h, ROOM := 'Schlafen', LOCATION := 'West-Nord');
-schlafenLichtO(
+schlafenLampeWM(ON_OFF := schlafenTasterWMR.pulseOnClick, PT := t#1h, ROOM := 'Schlafen', LOCATION := 'West-Mitte');
+schlafenLampeWN(ON_OFF := schlafenTasterWNL.pulseOnClick, PT := t#1h, ROOM := 'Schlafen', LOCATION := 'West-Nord');
+schlafenLampeO(
 	ON_OFF := schlafenTasterOO.pulseOnClick
 		OR schlafenTasterOL.pulseOnClick
 		OR schlafenTasterWML.pulseOnClick
@@ -503,14 +504,14 @@ arbeitenLampeSW(
 	ON_OFF := arbeitenTasterOO.pulseOnLongpress
 		OR arbeitenTasterOR.pulseOnLongpress,
 	PT := t#1h, ROOM := 'Arbeiten', LOCATION := 'Sued-West');
-ogBadLichtON(
+ogBadLampeON(
 	ON_OFF := ogBadTasterR.pulseOnLongpress
 		OR ogBadTasterL.pulseOnLongpress,
 	PT := t#10m, ROOM := 'OG-Bad', LOCATION := 'Ost-Dusche');
-ogBadLichtOM(
+ogBadLampeOM(
 	ON_OFF := ogBadTasterL.pulseOnClick,
 	PT := t#10m, ROOM := 'OG-Bad', LOCATION := 'Ost-Spiegel');
-ogBadLichtSM(
+ogBadLampeSM(
 	ON_OFF := ogBadTasterR.pulseOnClick,
 	PT := t#30m, ROOM := 'OG-Bad', LOCATION := 'Sued|Mitte');
 ogGangLampe(ON := ogGangBwm.pulseOnMotion,
@@ -547,11 +548,11 @@ heizenHk2(soll := 24.0, vorlauf :=, ruecklauf :=);
 _lampeEgBadOM := egBadLampeOM.Q;
 _lampeEgGang := egGangLampe.Q;
 _lampeEgWc := egWcLampe.Q;
-_lampeEssenM := essenLichtM.Q;
-_lampeEssenS := essenLichtS.Q;
+_lampeEssenM := essenLampeM.Q;
+_lampeEssenS := essenLampeS.Q;
 _lampeKochenSW := kochenLampeSW.Q;
 _lampeOgGang := ogGangLampe.Q;
-_lampeSchlafenS := schlafenLichtS.Q;
+_lampeSchlafenS := schlafenLampeS.Q;
 _lampeWohnenM := wohnenLampeM.Q;
 _dimmerWohnenN_dataOut := wohnenDimmerN.DataOut;
 _dimmerWohnenN_control := wohnenDimmerN.Control;

@@ -4,7 +4,82 @@
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
 VAR_GLOBAL
+	A_TemperatureUnit: ARRAY [0..7] OF ST_TemperatureUnit := (
+			id := KELVIN,   (* commonly used in scientific endeavors *)
+			unit := 'Kelvin',
+			symbol := 'K',
+			f1 := 0,
+			f2 := 273.16,
+			offset := 0,
+			scale := 1,
+			inventor := 'William Thomson, 1st Baron Kelvin'
+		), (
+			id := GRAD_CELSIUS,   (* used by most of the world's population *)
+			unit := 'Celsius',
+			symbol := '°C',
+			f1 := 0,
+			f2 := 100,
+			offset := 273.15,
+			scale := 1,
+			inventor := 'Anders Celsius'
+		), (
+			id := GRAD_FAHRENHEIT,   (* commonly used in the United States *)
+			unit := 'Fahrenheit',
+			symbol := '°F',
+			f1 := 0,
+			f2 := 96,
+			offset := 255.3722222222222, (* 459.67 * 5 / 9 *)
+			scale := 0.55555555555555555555,
+			inventor := 'Daniel Gabriel Fahrenheit'
+		), (
+			id := GRAD_RANKINE,
+			unit := 'Rankine',
+			symbol := '°Ra',
+			f1 := 0,
+			f2 := 96,
+			offset := 0,
+			scale := 0.5555555555555555555,
+			inventor := 'William John Macquorn Rankine'
+		), (
+			id := GRAD_DELISLE,
+			unit := 'Delisle',
+			symbol := '°De',
+			f1 := 150,
+			f2 := 0,
+			offset := 373.15,
+			scale := -0.66666666666666666666,
+			inventor := 'Joseph-Nicolas Delisle'
+		), (
+			id := GRAD_REAUMUR,
+			unit := 'Réaumur',
+			symbol := '°Ré',
+			f1 := 0,
+			f2 := 80,
+			offset := 273.15,
+			scale := 1.25,
+			inventor := 'René-Antoine Ferchault de Réaumur'
+		), (
+			id := GRAD_NEWTON,
+			unit := 'Newton',
+			symbol := '°N',
+			f1 := 0,
+			f2 := 33,
+			offset := 273.15,
+			scale := 0.66666666666666666666,
+			inventor := 'Sir Isaac Newton'
+		), (
+			id := GRAD_ROMER,
+			unit := 'Rømer',
+			symbol := '°Rø',
+			f1 := 0,
+			f2 := 60,
+			offset := 258.86428571428571428572, (* 273.15 - 7.5 * 40 / 21 *)
+			scale := 1.90476190476190476190,
+			inventor := 'Ole Christensen Rømer'
+		);
 END_VAR
+
+
 
 (* @OBJECT_END := 'Global_Variables' *)
 (* @CONNECTIONS := Global_Variables

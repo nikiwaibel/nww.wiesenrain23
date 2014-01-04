@@ -1,0 +1,16 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE ST_TemperatureUnit :
+STRUCT
+	id: E_TemperatureUnit;
+	unit: STRING;
+	symbol: STRING;
+	f1: REAL;
+	f2: REAL;
+	offset: REAL;
+	scale: REAL;
+	inventor: STRING;
+END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

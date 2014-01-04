@@ -57,7 +57,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.vorratLicht
 _LINEWIDTH : 0

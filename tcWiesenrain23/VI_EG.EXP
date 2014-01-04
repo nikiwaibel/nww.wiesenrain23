@@ -291,9 +291,9 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
-MAIN.schlafenLichtS
+MAIN.schlafenLampeS
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 280,230,301,251,280,210
@@ -320,9 +320,9 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
-MAIN.schlafenLichtS
+MAIN.schlafenLampeS
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 210,230,231,251,210,210
@@ -349,9 +349,9 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
-MAIN.schlafenLichtWM
+MAIN.schlafenLampeWM
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 180,175,201,196,180,155
@@ -378,9 +378,9 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
-MAIN.schlafenLichtWN
+MAIN.schlafenLampeWN
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 180,110,201,131,180,90
@@ -407,9 +407,9 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
-MAIN.schlafenLichtO
+MAIN.schlafenLampeO
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 310,120,331,141,310,100
@@ -529,7 +529,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Motiondetector'
+_REF : 'vi_Motion'
 NUM_STRINGS_IN_LIST: 1
 fbMotiondetector
 NUM_STRINGS_IN_LIST: 1
@@ -591,7 +591,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.wohnenLampeM
 _LINEWIDTH : 0
@@ -620,9 +620,9 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
-MAIN.essenLichtM
+MAIN.essenLampeM
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 380,350,401,371,380,330
@@ -649,9 +649,9 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
-MAIN.essenLichtS
+MAIN.essenLampeS
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 380,430,401,451,380,410
@@ -678,7 +678,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.kochenLampeSW
 _LINEWIDTH : 0
@@ -707,7 +707,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.kochenLampeO
 _LINEWIDTH : 0
@@ -736,7 +736,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.kochenLampeN
 _LINEWIDTH : 0
@@ -765,7 +765,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.speisLampe
 _LINEWIDTH : 0
@@ -794,7 +794,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.wohnenLampeSW
 _LINEWIDTH : 0
@@ -823,7 +823,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.egGangLampe
 _LINEWIDTH : 0
@@ -852,7 +852,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.egGangLampe
 _LINEWIDTH : 0
@@ -881,7 +881,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.egGangLampe
 _LINEWIDTH : 0
@@ -910,7 +910,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.egBadLampeON
 _LINEWIDTH : 0
@@ -939,7 +939,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.egBadLampeOM
 _LINEWIDTH : 0
@@ -968,7 +968,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.egWcLampe
 _LINEWIDTH : 0
@@ -1218,7 +1218,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Motiondetector'
+_REF : 'vi_Motion'
 NUM_STRINGS_IN_LIST: 1
 fbMotiondetector
 NUM_STRINGS_IN_LIST: 1
@@ -1249,9 +1249,9 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
-MAIN.essenLichtNW
+MAIN.essenLampeNW
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 340,280,361,301,340,260
@@ -1276,7 +1276,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Temperaturesensor'
+_REF : 'vi_Temperature'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
@@ -1305,7 +1305,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Temperaturesensor'
+_REF : 'vi_Temperature'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
@@ -1334,7 +1334,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Temperaturesensor'
+_REF : 'vi_Temperature'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
@@ -1363,7 +1363,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Temperaturesensor'
+_REF : 'vi_Temperature'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
@@ -1392,7 +1392,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Temperaturesensor'
+_REF : 'vi_Temperature'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
@@ -1421,9 +1421,9 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lightsensor'
+_REF : 'vi_Light'
 NUM_STRINGS_IN_LIST: 1
-fbLightsensor
+FB_Light
 NUM_STRINGS_IN_LIST: 1
 
 _LINEWIDTH : 0
@@ -1450,7 +1450,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Motiondetector'
+_REF : 'vi_Motion'
 NUM_STRINGS_IN_LIST: 1
 fbMotiondetector
 NUM_STRINGS_IN_LIST: 1
@@ -1479,7 +1479,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Temperaturesensor'
+_REF : 'vi_Temperature'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
@@ -1508,9 +1508,9 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lightsensor'
+_REF : 'vi_Light'
 NUM_STRINGS_IN_LIST: 1
-fbLightsensor
+FB_Light
 NUM_STRINGS_IN_LIST: 1
 
 _LINEWIDTH : 0
@@ -1537,11 +1537,11 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Lightsensor'
+_REF : 'vi_Light'
 NUM_STRINGS_IN_LIST: 1
-fbLightsensor
+FB_Light
 NUM_STRINGS_IN_LIST: 1
-
+MAIN.egWcLight
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 550,170,561,181,540,210
@@ -1566,7 +1566,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Temperaturesensor'
+_REF : 'vi_Temperature'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
@@ -1595,7 +1595,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Motiondetector'
+_REF : 'vi_Motion'
 NUM_STRINGS_IN_LIST: 1
 fbMotiondetector
 NUM_STRINGS_IN_LIST: 1
@@ -1624,7 +1624,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Motiondetector'
+_REF : 'vi_Motion'
 NUM_STRINGS_IN_LIST: 1
 fbMotiondetector
 NUM_STRINGS_IN_LIST: 1
@@ -1655,7 +1655,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 
 _LINEWIDTH : 0
@@ -1684,7 +1684,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 
 _LINEWIDTH : 0
@@ -1713,7 +1713,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 
 _LINEWIDTH : 0
@@ -1742,7 +1742,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 
 _LINEWIDTH : 0
@@ -1771,7 +1771,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 
 _LINEWIDTH : 0
@@ -1800,7 +1800,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.egOgLampe
 _LINEWIDTH : 0
@@ -1856,7 +1856,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_Temperaturesensor'
+_REF : 'vi_Temperature'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
@@ -1885,7 +1885,7 @@ _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
-_REF : 'vi_SmokeDetector'
+_REF : 'vi_Smoke'
 NUM_STRINGS_IN_LIST: 1
 fbMotiondetector
 NUM_STRINGS_IN_LIST: 1
@@ -1916,7 +1916,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.kochenLampeO
 _LINEWIDTH : 0
@@ -1945,7 +1945,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp_tiny'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.kochenLampeO
 _LINEWIDTH : 0

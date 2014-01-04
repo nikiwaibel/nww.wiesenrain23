@@ -57,7 +57,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.hobbyLichtS
 _LINEWIDTH : 0
@@ -86,7 +86,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.hobbyLichtN
 _LINEWIDTH : 0

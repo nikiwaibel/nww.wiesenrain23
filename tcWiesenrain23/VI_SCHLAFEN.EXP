@@ -57,7 +57,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.schlafenLichtS
 _LINEWIDTH : 0
@@ -86,7 +86,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.schlafenLichtO
 _LINEWIDTH : 0
@@ -115,7 +115,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.schlafenLichtS
 _LINEWIDTH : 0
@@ -144,7 +144,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.schlafenLichtWM
 _LINEWIDTH : 0
@@ -173,7 +173,7 @@ _END_ELEM
 
 _REF : 'vi_Lamp'
 NUM_STRINGS_IN_LIST: 1
-fbLight
+FB_Lamp
 NUM_STRINGS_IN_LIST: 1
 MAIN.schlafenLichtWN
 _LINEWIDTH : 0

@@ -1,6 +1,6 @@
 (* @PATH := '\/templates' *)
 
-VISUALISATION vi_Temperaturesensor _VISU_TYPES : 1,3
+VISUALISATION vi_Temperature _VISU_TYPES : 1,3
 _BG_BMP : ''
 _TEXT : 11
 _PAINTZOOM : 100
@@ -62,7 +62,7 @@ _POS : 0,0,101,101,50,50
 _COLORS : 16777215,0,255,0,0
 _VARIABLES : '','','','','','','',''
 _THRESH : '','','',''
-_DSP : '$$fb_Temperature$$.Celsius','%2.2f',''
+_DSP : '$$fb_Temperature$$.Value','%2.2f',''
 _ZOOM : ''
 _INPUT : 0
 _TEXT : 5,4294967259,400,0,0,0,0,0
