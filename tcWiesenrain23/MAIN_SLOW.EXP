@@ -8,5 +8,4 @@ VAR
 END_VAR
 (* @END_DECLARATION := '0' *)
 ;
-
 END_PROGRAM

@@ -114,9 +114,6 @@ VAR
 	_lampeOgGang       AT %Q*: BOOL; (* 3 *)
 	_lampeSchlafenS    AT %Q*: BOOL; (* Sued-West | Sued-Ost*)
 	_lampeWohnenM      AT %Q*: BOOL; (* Mitte *)
-	_lichtWaschen        AT %Q*: BOOL; (* Sued-West *)
-	_lichtHobby        AT %Q*: BOOL; (* Sued-West *)
-	_lichtLager        AT %Q*: BOOL; (* Sued-West *)
 	_dimmerWohnenN_intensity AT %I*: REAL := 67;
 	_dimmerWohnenN_status    AT %I*: USINT;
 	_dimmerWohnenN_dataIn    AT %I*: INT;
