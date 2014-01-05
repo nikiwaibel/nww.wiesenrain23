@@ -15,44 +15,58 @@ VAR_CONFIG
 	MAIN._bwmLager AT %IX108.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A5^Kanal 5^Lager BWM} *)
 	MAIN._bwmOgGang AT %IX120.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A7^Kanal 16^OG-Gang BWM} *)
 	MAIN._bwmWaschen AT %IX112.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A5^Kanal 2^Waschen BWM} *)
-	MAIN._temperaturArbeitenStatus AT %IB164 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A74a^Kanal 2^Arbeiten Temperatur Status} *)
-	MAIN._temperaturArbeitenDataIn AT %IB165 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A74a^Kanal 2^Arbeiten Temperatur Daten Ein} *)
-	MAIN._temperaturEgBadStatus AT %IB158 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 4^EgBad Temperatur Status} *)
-	MAIN._temperaturEgBadDataIn AT %IB159 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A9b^Kanal 2^EgBad Temperatur Daten Ein} *)
-	MAIN._temperaturEgGangStatusSM AT %IB167 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9a^Kanal 1^EgGang TemperaturSM Status} *)
-	MAIN._temperaturEgGangDataInSM AT %IB168 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9a^Kanal 1^EgGang TemperaturSM DataIn} *)
-	MAIN._temperaturEgGangStatusSO AT %IB170 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A9a^Kanal 2^EgGang TemperaturSO Status} *)
-	MAIN._temperaturEgGangDataInSO AT %IB171 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A9a^Kanal 2^EgGang TemperaturSO Daten Ein} *)
-	MAIN._temperaturEgWcStatus AT %IB173 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9b^Kanal 1^EgWc Temperatur Status} *)
-	MAIN._temperaturEgWcDataIn AT %IB174 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9b^Kanal 1^EgWc Temperatur Daten Ein} *)
-	MAIN._temperaturEssenStatus AT %IB155 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 3^Essen Temperatur Status} *)
-	MAIN._temperaturEssenDataIn AT %IB156 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 3^Essen Temperatur DataIn} *)
-	MAIN._temperaturGaesteStatus AT %IB176 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A74a^Kanal 3^GaesteTemperatur Status} *)
-	MAIN._temperaturGaesteDataIn AT %IB177 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A74a^Kanal 3^GaesteTemperatur Daten Ein} *)
-	MAIN._temperaturHobbyStatus AT %IB179 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A8a^Kanal 1^Hobby Temperatur Status} *)
-	MAIN._temperaturHobbyDataIn AT %IB180 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A8a^Kanal 1^Hobby Temperatur Daten Ein} *)
-	MAIN._temperaturKochenStatus AT %IB182 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9a^Kanal 3^Kochen Temperatur Status} *)
-	MAIN._temperaturKochenDataIn AT %IB183 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9a^Kanal 3^Kochen Temperatur Daten Ein} *)
-	MAIN._temperaturLagerStatus AT %IB185 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A8a^Kanal 3^Lager Temperatur Status} *)
-	MAIN._temperaturLagerDataIn AT %IB186 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A8a^Kanal 3^Lager Temperatur Daten Ein} *)
-	MAIN._temperaturOgBadStatus AT %IB188 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A74b^Kanal 3^OG-Bad Temperatur Status} *)
-	MAIN._temperaturOgBadDataIn AT %IB189 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A74b^Kanal 3^OG-Bad Temperatur Daten Ein} *)
-	MAIN._temperaturOgGangStatus AT %IB191 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A73a^Kanal 1^OgGang Temperatur Status} *)
-	MAIN._temperaturOgGangDataIn AT %IB192 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A73a^Kanal 1^OgGang Temperatur Daten Ein} *)
-	MAIN._temperaturOgKindStatus AT %IB194 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A74a^Kanal 1^OG-Kind Temperatur Status} *)
-	MAIN._temperaturOgKindDataIn AT %IB195 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A74a^Kanal 1^OG-Kind Temperatur Daten Ein} *)
-	MAIN._temperaturOgWcStatus AT %IB197 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A74b^Kanal 1^OG-WC Temperatur Status} *)
-	MAIN._temperaturOgWcDataIn AT %IB198 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A74b^Kanal 1^OG-WC Temperatur Daten Ein} *)
-	MAIN._temperaturSchlafenStatus AT %IB148 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 1^Schlafen Temperatur Status} *)
-	MAIN._temperaturSchlafenDataIn AT %IB149 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 1^Schlafen Temperatur DataIn} *)
-	MAIN._temperaturVorratStatus AT %IB161 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10b^Kanal 1^Vorrat Temperatur Status} *)
-	MAIN._temperaturVorratDataIn AT %IB162 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10b^Kanal 1^Vorrat Temperatur DataIn} *)
-	MAIN._temperaturWaschenStatusON AT %IB200 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A8b^Kanal 1^WaschenO TemperaturN Status} *)
-	MAIN._temperaturWaschenDataInON AT %IB201 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A8b^Kanal 1^WaschenO TemperaturN Daten Ein} *)
-	MAIN._temperaturWaschenStatusOS AT %IB203 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A9a^Kanal 4^WaschenO TemperaturN Status} *)
-	MAIN._temperaturWaschenDataInOS AT %IB204 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A9a^Kanal 4^WaschenO TemperaturN Daten Ein} *)
-	MAIN._temperaturWohnenStatus AT %IB152 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 2^Wohnen Temperatur Status} *)
-	MAIN._temperaturWohnenDataIn AT %IB153 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 2^Wohnen Temperatur DataIn} *)
+	MAIN._lichtEgGang_status AT %IB300 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9a^Kanal 2^EgGang Licht Status} *)
+	MAIN._lichtEgGang_dataIn AT %IB301 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9a^Kanal 2^EgGang Licht DataIn} *)
+	MAIN._lichtEgWc_status AT %IB303 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9b^Kanal 2^EgWc Licht Status} *)
+	MAIN._lichtEgWc_dataIn AT %IB304 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9b^Kanal 2^EgWc Licht Daten Ein} *)
+	MAIN._lichtHobby_status AT %IB306 : USINT;
+	MAIN._lichtHobby_dataIn AT %IB307 : INT;
+	MAIN._lichtKochen_status AT %IB309 : USINT;
+	MAIN._lichtKochen_dataIn AT %IB310 : INT;
+	MAIN._lichtLager_status AT %IB312 : USINT;
+	MAIN._lichtLager_dataIn AT %IB313 : INT;
+	MAIN._lichtOgGang_status AT %IB315 : USINT;
+	MAIN._lichtOgGang_dataIn AT %IB316 : INT;
+	MAIN._lichtWaschen_status AT %IB318 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A8b^Kanal 2^Waschen Licht Status} *)
+	MAIN._lichtWaschen_dataIn AT %IB319 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A8b^Kanal 2^Waschen Licht Daten Ein} *)
+	MAIN._temperaturArbeiten_status AT %IB324 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A74a^Kanal 2^Arbeiten Temperatur Status} *)
+	MAIN._temperaturArbeiten_dataIn AT %IB325 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A74a^Kanal 2^Arbeiten Temperatur Daten Ein} *)
+	MAIN._temperaturEgBad_status AT %IB327 : USINT;
+	MAIN._temperaturEgBad_dataIn AT %IB328 : INT;
+	MAIN._temperaturEgGangSM_status AT %IB330 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9a^Kanal 1^EgGang TemperaturSM Status} *)
+	MAIN._temperaturEgGangSM_dataIn AT %IB331 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9a^Kanal 1^EgGang TemperaturSM DataIn} *)
+	MAIN._temperaturEgGangSO_status AT %IB333 : USINT;
+	MAIN._temperaturEgGangSO_dataIn AT %IB334 : INT;
+	MAIN._temperaturEgWc_status AT %IB336 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9b^Kanal 1^EgWc Temperatur Status} *)
+	MAIN._temperaturEgWc_dataIn AT %IB337 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A9b^Kanal 1^EgWc Temperatur Daten Ein} *)
+	MAIN._temperaturEssen_status AT %IB339 : USINT;
+	MAIN._temperaturEssen_dataIn AT %IB340 : INT;
+	MAIN._temperaturGaeste_status AT %IB342 : USINT;
+	MAIN._temperaturGaeste_dataIn AT %IB343 : INT;
+	MAIN._temperaturHobby_status AT %IB345 : USINT;
+	MAIN._temperaturHobby_dataIn AT %IB346 : INT;
+	MAIN._temperaturKochen_status AT %IB348 : USINT;
+	MAIN._temperaturKochen_dataIn AT %IB349 : INT;
+	MAIN._temperaturLager_status AT %IB351 : USINT;
+	MAIN._temperaturLager_dataIn AT %IB352 : INT;
+	MAIN._temperaturOgBad_status AT %IB354 : USINT;
+	MAIN._temperaturOgBad_dataIn AT %IB355 : INT;
+	MAIN._temperaturOgGang_status AT %IB357 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A73a^Kanal 1^OgGang Temperatur Status} *)
+	MAIN._temperaturOgGang_dataIn AT %IB358 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A73a^Kanal 1^OgGang Temperatur Daten Ein} *)
+	MAIN._temperaturOgKind_status AT %IB360 : USINT;
+	MAIN._temperaturOgKind_dataIn AT %IB361 : INT;
+	MAIN._temperaturOgWc_status AT %IB363 : USINT;
+	MAIN._temperaturOgWc_dataIn AT %IB364 : INT;
+	MAIN._temperaturSchlafen_status AT %IB366 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 1^Schlafen Temperatur Status} *)
+	MAIN._temperaturSchlafen_dataIn AT %IB367 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 1^Schlafen Temperatur DataIn} *)
+	MAIN._temperaturVorrat_status AT %IB369 : USINT;
+	MAIN._temperaturVorrat_dataIn AT %IB370 : INT;
+	MAIN._temperaturWaschenON_status AT %IB372 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A8b^Kanal 1^WaschenO TemperaturN Status} *)
+	MAIN._temperaturWaschenON_dataIn AT %IB373 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A???^KG-HV A8b^Kanal 1^WaschenO TemperaturN Daten Ein} *)
+	MAIN._temperaturWaschenOS_status AT %IB375 : USINT;
+	MAIN._temperaturWaschenOS_dataIn AT %IB376 : INT;
+	MAIN._temperaturWohnen_status AT %IB378 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 2^Wohnen Temperatur Status} *)
+	MAIN._temperaturWohnen_dataIn AT %IB379 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A??? (mitte rechts)^OG-UV A10a^Kanal 2^Wohnen Temperatur DataIn} *)
 	MAIN._tasterArbeitenOO AT %IX206.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A6^Kanal 3^ArbeitenO TasterO} *)
 	MAIN._tasterArbeitenOL AT %IX206.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A6^Kanal 4^ArbeitenO TasterL} *)
 	MAIN._tasterArbeitenOR AT %IX206.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A6^Kanal 5^ArbeitenO TasterR} *)
@@ -127,7 +141,7 @@ VAR_CONFIG
 	MAIN.heizenHK2.mischer AT %QB16 : INT;
 	MAIN.heizenHK2.pumpe AT %QB18 : INT;
 	MAIN_FAST.uiStateCX5000 AT %IB224 : UINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^Eingänge^State} *)
-	MAIN_FAST.uiControlCX5000 AT %QB40 : UINT;
+	MAIN_FAST.uiControlCX5000 AT %QB40 : UINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^Ausgänge^Ctrl} *)
 	MAIN_FAST.iVoltagePhase1 AT %IB226 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^L1 Voltage Samples^U1 SAMPLES} *)
 	MAIN_FAST.iVoltagePhase2 AT %IB246 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^L2 Voltage Samples^U2 SAMPLES} *)
 	MAIN_FAST.iVoltagePhase3 AT %IB266 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^KG-HV A35^KG-HV A18^L3 Voltage Samples^U3 SAMPLES} *)

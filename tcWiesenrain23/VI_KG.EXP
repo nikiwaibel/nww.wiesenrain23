@@ -802,7 +802,7 @@ _REF : 'vi_Light'
 NUM_STRINGS_IN_LIST: 1
 FB_Light
 NUM_STRINGS_IN_LIST: 1
-
+MAIN.waschenLicht
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 550,160,581,181,565,170
@@ -860,7 +860,7 @@ _REF : 'vi_Temperature'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.vorratTemperatur
+MAIN.hobbyTemperatur
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 180,210,201,231,190,220
@@ -947,7 +947,7 @@ _REF : 'vi_Light'
 NUM_STRINGS_IN_LIST: 1
 FB_Light
 NUM_STRINGS_IN_LIST: 1
-
+MAIN.lagerLicht
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 180,330,211,351,195,340
@@ -1003,9 +1003,9 @@ _END_ELEM
 
 _REF : 'vi_Hygrometer'
 NUM_STRINGS_IN_LIST: 1
-fb_Temperature
+FB_Hygrometer
 NUM_STRINGS_IN_LIST: 1
-MAIN.vorratTemperatur
+
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 560,200,581,221,570,210
@@ -1034,7 +1034,7 @@ _REF : 'vi_Temperature'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.vorratTemperaturOS
+MAIN.waschenTemperaturOS
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 560,220,581,241,570,230
@@ -1063,7 +1063,7 @@ _REF : 'vi_Temperature'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.vorratTemperaturON
+MAIN.waschenTemperaturON
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 550,150,571,171,560,160

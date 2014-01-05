@@ -23,4 +23,5 @@ viText := CONCAT(ROOM, '$N');
 viText := CONCAT(viText, LOCATION);
 
 Error := TRUE;
+Value := INT_TO_REAL(DataIn);
 END_FUNCTION_BLOCK

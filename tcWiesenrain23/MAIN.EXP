@@ -17,44 +17,58 @@ VAR
 	_bwmLager          AT %I*: BOOL; (* Sued-West *)
 	_bwmOgGang         AT %I*: BOOL; (* Sued-West *)
 	_bwmWaschen        AT %I*: BOOL; (* Ost *)
-	_temperaturArbeitenStatus AT %I*: USINT;
-	_temperaturArbeitenDataIn AT %I*: INT;
-	_temperaturEgBadStatus AT %I*: USINT;
-	_temperaturEgBadDataIn AT %I*: INT;
-	_temperaturEgGangStatusSM AT %I*: USINT;
-	_temperaturEgGangDataInSM AT %I*: INT;
-	_temperaturEgGangStatusSO AT %I*: USINT;
-	_temperaturEgGangDataInSO AT %I*: INT;
-	_temperaturEgWcStatus AT %I*: USINT;
-	_temperaturEgWcDataIn AT %I*: INT;
-	_temperaturEssenStatus AT %I*: USINT;
-	_temperaturEssenDataIn AT %I*: INT;
-	_temperaturGaesteStatus AT %I*: USINT;
-	_temperaturGaesteDataIn AT %I*: INT;
-	_temperaturHobbyStatus AT %I*: USINT;
-	_temperaturHobbyDataIn AT %I*: INT;
-	_temperaturKochenStatus AT %I*: USINT;
-	_temperaturKochenDataIn AT %I*: INT;
-	_temperaturLagerStatus AT %I*: USINT;
-	_temperaturLagerDataIn AT %I*: INT;
-	_temperaturOgBadStatus AT %I*: USINT;
-	_temperaturOgBadDataIn AT %I*: INT;
-	_temperaturOgGangStatus AT %I*: USINT;
-	_temperaturOgGangDataIn AT %I*: INT;
-	_temperaturOgKindStatus AT %I*: USINT;
-	_temperaturOgKindDataIn AT %I*: INT;
-	_temperaturOgWcStatus AT %I*: USINT;
-	_temperaturOgWcDataIn AT %I*: INT;
-	_temperaturSchlafenStatus AT %I*: USINT;
-	_temperaturSchlafenDataIn AT %I*: INT;
-	_temperaturVorratStatus AT %I*: USINT;
-	_temperaturVorratDataIn AT %I*: INT;
-	_temperaturWaschenStatusON AT %I*: USINT;
-	_temperaturWaschenDataInON AT %I*: INT;
-	_temperaturWaschenStatusOS AT %I*: USINT;
-	_temperaturWaschenDataInOS AT %I*: INT;
-	_temperaturWohnenStatus AT %I*: USINT;
-	_temperaturWohnenDataIn AT %I*: INT;
+	_lichtEgGang_status  AT %I*: USINT;
+	_lichtEgGang_dataIn  AT %I*: INT;
+	_lichtEgWc_status    AT %I*: USINT;
+	_lichtEgWc_dataIn    AT %I*: INT;
+	_lichtHobby_status   AT %I*: USINT;
+	_lichtHobby_dataIn   AT %I*: INT;
+	_lichtKochen_status  AT %I*: USINT;
+	_lichtKochen_dataIn  AT %I*: INT;
+	_lichtLager_status   AT %I*: USINT;
+	_lichtLager_dataIn   AT %I*: INT;
+	_lichtOgGang_status  AT %I*: USINT;
+	_lichtOgGang_dataIn  AT %I*: INT;
+	_lichtWaschen_status AT %I*: USINT;
+	_lichtWaschen_dataIn AT %I*: INT;
+	_temperaturArbeiten_status AT %I*: USINT;
+	_temperaturArbeiten_dataIn AT %I*: INT;
+	_temperaturEgBad_status AT %I*: USINT;
+	_temperaturEgBad_dataIn AT %I*: INT;
+	_temperaturEgGangSM_status AT %I*: USINT;
+	_temperaturEgGangSM_dataIn AT %I*: INT;
+	_temperaturEgGangSO_status AT %I*: USINT;
+	_temperaturEgGangSO_dataIn AT %I*: INT;
+	_temperaturEgWc_status AT %I*: USINT;
+	_temperaturEgWc_dataIn AT %I*: INT;
+	_temperaturEssen_status AT %I*: USINT;
+	_temperaturEssen_dataIn AT %I*: INT;
+	_temperaturGaeste_status AT %I*: USINT;
+	_temperaturGaeste_dataIn AT %I*: INT;
+	_temperaturHobby_status AT %I*: USINT;
+	_temperaturHobby_dataIn AT %I*: INT;
+	_temperaturKochen_status AT %I*: USINT;
+	_temperaturKochen_dataIn AT %I*: INT;
+	_temperaturLager_status AT %I*: USINT;
+	_temperaturLager_dataIn AT %I*: INT;
+	_temperaturOgBad_status AT %I*: USINT;
+	_temperaturOgBad_dataIn AT %I*: INT;
+	_temperaturOgGang_status AT %I*: USINT;
+	_temperaturOgGang_dataIn AT %I*: INT;
+	_temperaturOgKind_status AT %I*: USINT;
+	_temperaturOgKind_dataIn AT %I*: INT;
+	_temperaturOgWc_status AT %I*: USINT;
+	_temperaturOgWc_dataIn AT %I*: INT;
+	_temperaturSchlafen_status AT %I*: USINT;
+	_temperaturSchlafen_dataIn AT %I*: INT;
+	_temperaturVorrat_status AT %I*: USINT;
+	_temperaturVorrat_dataIn AT %I*: INT;
+	_temperaturWaschenON_status AT %I*: USINT;
+	_temperaturWaschenON_dataIn AT %I*: INT;
+	_temperaturWaschenOS_status AT %I*: USINT;
+	_temperaturWaschenOS_dataIn AT %I*: INT;
+	_temperaturWohnen_status AT %I*: USINT;
+	_temperaturWohnen_dataIn AT %I*: INT;
 	_tasterArbeitenOO  AT %I*: BOOL; (* Ost *)
 	_tasterArbeitenOL  AT %I*: BOOL; (* Ost *)
 	_tasterArbeitenOR  AT %I*: BOOL; (* Ost *)
@@ -175,12 +189,14 @@ VAR
 	egBadDimmerSM:   FB_Dimmer;
 
 	egGangBwm:          FB_Motion;
+	egGangLicht:        FB_Light;
 	egGangTaster:       FB_Button;
 	egGangTemperaturSM: FB_Temperature;
 	egGangTemperaturSO: FB_Temperature;
 	egGangLampe:        FB_Lamp;
 
 	egWcBwm:        FB_Motion;
+	egWcLicht:      FB_Light;
 	egWcTaster:     FB_Button;
 	egWcTemperatur: FB_Temperature;
 	egWcLampe:      FB_Lamp;
@@ -194,6 +210,7 @@ VAR
 	essenLampeNW:    FB_Lamp;
 
 	kochenBwm:        FB_Motion;
+	kochenLicht:      FB_Light;
 	kochenTasterOL:   FB_Button;
 	kochenTasterOR:   FB_Button;
 	kochenTasterWO:   FB_Button;
@@ -300,37 +317,47 @@ aussenBwmSO(IN := _bwmAussenSO, ROOM := 'Aussen', LOCATION := 'Sued-Ost');
 kgGangBwm(IN := _bwmKgGang, ROOM := 'KG-Gang', LOCATION := 'Ost');
 heizenTaster(IN := _tasterHeizen, ROOM := 'Heizen', LOCATION := 'Nord-West');
 hobbyBwm(IN := _bwmHobby, ROOM := 'Hobby', LOCATION := 'Sued-West');
+hobbyLicht(Status := _lichtHobby_status, DataIn := _lichtHobby_dataIn, ROOM := 'Hobby', LOCATION := 'Sued-West');
 hobbyTasterL(IN := _tasterHobbyL, ROOM := 'Hobby', LOCATION := 'Ost');
 hobbyTasterR(IN := _tasterHobbyR, ROOM := 'Hobby', LOCATION := 'Ost');
 lagerBwm(IN := _bwmLager, ROOM := 'Lager', LOCATION := 'Sued-West');
+lagerLicht(Status := _lichtLager_status, DataIn := _lichtLager_dataIn, ROOM := 'Lager', LOCATION := 'Sued-West');
 lagerTasterNO(IN := _tasterLagerNO, ROOM := 'Lager', LOCATION := 'Nord-Ost');
 lagerTasterS(IN := _tasterLagerS, ROOM := 'Lager', LOCATION := 'Sued');
-vorratTemperatur(Status := _temperaturVorratStatus, DataIn := _temperaturVorratDataIn,
+vorratTemperatur(Status := _temperaturVorrat_status, DataIn := _temperaturVorrat_dataIn,
 	ROOM := 'Vorrat', LOCATION := 'Sued-West');
 waschenBwm(IN := _bwmWaschen, ROOM := 'Waschen', LOCATION := 'Ost');
+waschenLicht(Status := _lichtWaschen_status, DataIn := _lichtWaschen_dataIn, ROOM := 'Lager', LOCATION := 'Sued-West');
 waschenTasterL(IN := _tasterWaschenL, ROOM := 'Waschen', LOCATION := 'West-Sued');
 waschenTasterR(IN := _tasterWaschenR, ROOM := 'Waschen', LOCATION := 'West-Sued');
+waschenTemperaturON(Status := _temperaturWaschenON_status, DataIn := _temperaturWaschenON_dataIn,
+	ROOM := 'Vorrat', LOCATION := 'Sued-West');
 
 egBadTasterL(IN := _tasterEgBadL, ROOM := 'EG-Bad', LOCATION := 'Sued');
 egBadTasterR(IN := _tasterEgBadR, ROOM := 'EG-Bad', LOCATION := 'Sued');
-egBadTemperatur(Status := _temperaturEgBadStatus, DataIn := _temperaturEgBadDataIn,
+egBadTemperatur(Status := _temperaturEgBad_status, DataIn := _temperaturEgBad_dataIn,
 	ROOM := 'EG-Bad', LOCATION := 'Sued-Ost');
 egGangBwm(IN := _bwmEgGang, ROOM := 'EG-Gang', LOCATION := 'Sued');
+egGangLicht(Status := _lichtEgGang_status, DataIn := _lichtEgGang_dataIn, ROOM := 'EG-Gang', Location := 'Sued');
 egGangTaster(IN := _tasterEgGang, ROOM := 'EG-Gang', LOCATION := 'Nord-West');
+egGangTemperaturSM(Status := _temperaturEgGangSM_status, DataIn := _temperaturEgGangSM_dataIn,
+	ROOM := 'EG-Gang', LOCATION := 'Sued-Mitte');
 egWcBwm(IN := _bwmEgWc, ROOM := 'EG-WC', LOCATION := 'Sued-West');
+egWcLicht(Status := _lichtEgWc_status, DataIn := _lichtEgWc_dataIn, ROOM := 'EG-WC', Location := 'Sued-West');
 egWcTaster(IN := _tasterEgWc, ROOM := 'EG-WC', LOCATION := 'West-Sued');
 essenTasterO(IN := _tasterEssenO, ROOM := 'Essen', LOCATION := 'Nord');
 essenTasterL(IN := _tasterEssenL, ROOM := 'Essen', LOCATION := 'Nord');
 essenTasterR(IN := _tasterEssenR, ROOM := 'Essen', LOCATION := 'Nord');
-essenTemperatur(Status := _temperaturEssenStatus, DataIn := _temperaturEssenDataIn,
+essenTemperatur(Status := _temperaturEssen_status, DataIn := _temperaturEssen_dataIn,
 	ROOM := 'Essen', LOCATION := 'Sued-West');
 kochenBwm(IN := _bwmKochen, ROOM := 'Kochen', LOCATION := 'Sued-West');
+kochenLicht(Status := _lichtKochen_status, DataIn := _lichtKochen_dataIn, ROOM := 'Kochen', Location := 'Sued-West');
 kochenTasterWO(IN := _tasterKochenWO, ROOM := 'Kochen', Location := 'West');
 kochenTasterWL(IN := _tasterKochenWL, ROOM := 'Kochen', Location := 'West');
 kochenTasterWR(IN := _tasterKochenWR, ROOM := 'Kochen', Location := 'West');
 kochenTasterOL(IN := _tasterKochenOL, ROOM := 'Kochen', Location := 'Ost');
 kochenTasterOR(IN := _tasterKochenOR, ROOM := 'Kochen', Location := 'Ost');
-kochenTemperatur(Status := _temperaturKochenStatus, DataIn := _temperaturKochenDataIn,
+kochenTemperatur(Status := _temperaturKochen_status, DataIn := _temperaturKochen_dataIn,
 	ROOM := 'Kochen', LOCATION := 'Sued-West');
 schlafenTasterWML(IN := _tasterSchlafenWML, ROOM := 'Schlafen', LOCATION := 'West-Mitte');
 schlafenTasterWMR(IN := _tasterSchlafenWMR, ROOM := 'Schlafen', LOCATION := 'West-Mitte');
@@ -339,7 +366,7 @@ schlafenTasterWNR(IN := _tasterSchlafenWNR, ROOM := 'Schlafen', LOCATION := 'Wes
 schlafenTasterOO(IN := _tasterSchlafenOO, ROOM := 'Schlafen', LOCATION := 'Ost');
 schlafenTasterOL(IN := _tasterSchlafenOL, ROOM := 'Schlafen', LOCATION := 'Ost');
 schlafenTasterOR(IN := _tasterSchlafenOR, ROOM := 'Schlafen', LOCATION := 'Ost');
-schlafenTemperatur(Status := _temperaturSchlafenStatus, DataIn := _temperaturSchlafenDataIn,
+schlafenTemperatur(Status := _temperaturSchlafen_status, DataIn := _temperaturSchlafen_dataIn,
 	ROOM := 'Schlafen', LOCATION := 'Nord-West');
 speisTuer(IN := _tasterSpeis, ROOM := 'Speis', LOCATION := 'Tuerkontakt');
 wohnenTasterOO(IN := _tasterWohnenOO, ROOM := 'Wohnen', LOCATION := 'Ost');
@@ -348,7 +375,7 @@ wohnenTasterOR(IN := _tasterWohnenOR, ROOM := 'Wohnen', LOCATION := 'Ost');
 wohnenTasterWO(IN := _tasterWohnenWO, ROOM := 'Wohnen', LOCATION := 'West');
 wohnenTasterWL(IN := _tasterWohnenWL, ROOM := 'Wohnen', LOCATION := 'West');
 wohnenTasterWR(IN := _tasterWohnenWR, ROOM := 'Wohnen', LOCATION := 'West');
-wohnenTemperatur(Status := _temperaturWohnenStatus, DataIn := _temperaturWohnenDataIn,
+wohnenTemperatur(Status := _temperaturWohnen_status, DataIn := _temperaturWohnen_dataIn,
 	ROOM := 'Wohnen', LOCATION := 'Sued-West');
 
 arbeitenTasterOO(IN := _tasterArbeitenOO, ROOM := 'Arbeiten', LOCATION := 'Ost');
@@ -356,29 +383,30 @@ arbeitenTasterOL(IN := _tasterArbeitenOL, ROOM := 'Arbeiten', LOCATION := 'Ost')
 arbeitenTasterOR(IN := _tasterArbeitenOR, ROOM := 'Arbeiten', LOCATION := 'Ost');
 arbeitenTasterSL(IN := _tasterArbeitenSL, ROOM := 'Arbeiten', LOCATION := 'Sued');
 arbeitenTasterSR(IN := _tasterArbeitenSR, ROOM := 'Arbeiten', LOCATION := 'Sued');
-arbeitenTemperatur(Status := _temperaturArbeitenStatus, DataIn := _temperaturArbeitenDataIn,
+arbeitenTemperatur(Status := _temperaturArbeiten_status, DataIn := _temperaturArbeiten_dataIn,
 	ROOM := 'Arbeiten', LOCATION := 'Nord-Ost');
 gaesteTasterO(IN := _tasterGaesteO, ROOM := 'Gaeste', LOCATION := 'Nord');
 gaesteTasterL(IN := _tasterGaesteL, ROOM := 'Gaeste', LOCATION := 'Nord');
 gaesteTasterR(IN := _tasterGaesteR, ROOM := 'Gaeste', LOCATION := 'Nord');
-gaesteTemperatur(Status := _temperaturGaesteStatus, DataIn := _temperaturGaesteDataIn,
+gaesteTemperatur(Status := _temperaturGaeste_status, DataIn := _temperaturGaeste_dataIn,
 	ROOM := 'Gaeste', LOCATION := 'Ost-Nord');
 ogKindTasterNO(IN := _tasterOgKindNO, ROOM := 'OG-Kind', LOCATION := 'Nord');
 ogKindTasterNL(IN := _tasterOgKindNL, ROOM := 'OG-Kind', LOCATION := 'Nord');
 ogKindTasterNR(IN := _tasterOgKindNR, ROOM := 'OG-Kind', LOCATION := 'Nord');
 ogKindTasterWL(IN := _tasterOgKindWL, ROOM := 'OG-Kind', LOCATION := 'West');
 ogKindTasterWR(IN := _tasterOgKindWR, ROOM := 'OG-Kind', LOCATION := 'West');
-ogKindTemperatur(Status := _temperaturOgKindStatus, DataIn := _temperaturOgKindDataIn,
+ogKindTemperatur(Status := _temperaturOgKind_status, DataIn := _temperaturOgKind_dataIn,
 	ROOM := 'OG-Kind', LOCATION := 'Ost-Nord');
 ogBadTasterL(IN := _tasterOgBadL, ROOM := 'OG-Bad', LOCATION := 'Sued');
 ogBadTasterR(IN := _tasterOgBadR, ROOM := 'OG-Bad', LOCATION := 'Sued');
-ogBadTemperatur(Status := _temperaturOgBadStatus, DataIn := _temperaturOgBadDataIn,
+ogBadTemperatur(Status := _temperaturOgBad_status, DataIn := _temperaturOgBad_dataIn,
 	ROOM := 'OG-Bad', LOCATION := 'Sued-Ost');
 ogGangBwm(IN := _bwmOgGang, ROOM := 'OG-Gang', LOCATION := 'Sued-West');
-ogGangTemperatur(Status := _temperaturOgGangStatus, DataIn := _temperaturOgGangDataIn,
+ogGangLicht(ROOM := 'OG-Gang', LOCATION := 'Sued-West');
+ogGangTemperatur(Status := _temperaturOgGang_status, DataIn := _temperaturOgGang_dataIn,
 	ROOM := 'OG-Gang', LOCATION := 'Sued-West');
 ogWcTaster(IN := _tasterOgWc, ROOM := 'OG-WC', LOCATION := 'Ost-Sued');
-ogWcTemperatur(Status := _temperaturOgWcStatus, DataIn := _temperaturOgWcDataIn,
+ogWcTemperatur(Status := _temperaturOgWc_status, DataIn := _temperaturOgWc_dataIn,
 	ROOM := 'OG-WC', LOCATION := 'Ost-Sued');
 
 dgKindTaster(IN := _tasterDgKind, Room := 'DG-Kind', LOCATION := 'West-Sued');
