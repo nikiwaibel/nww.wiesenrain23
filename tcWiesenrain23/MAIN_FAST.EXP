@@ -165,13 +165,13 @@ fbA26CH2(bValue:= , udiDelayNanoSek:= 6150000, tNextZeroVoltage:= fbAnalyseVolta
 fbA38OGCH1(bValue:= , udiDelayNanoSek:= 6000000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
 fbA38OGCH2(bValue:= , udiDelayNanoSek:= 6200000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
 fbA41OGCH1(bValue:= , udiDelayNanoSek:= 6200000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
-fbA41OGCH2(bValue:= , udiDelayNanoSek:= 5600000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
+fbA41OGCH2(bValue:=MAIN.ogBadLampeOM.Q, udiDelayNanoSek:= 5600000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
 fbA43OGCH1(bValue:= , udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
 fbA43OGCH2(bValue:= , udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
-fbA44OGCH1(bValue:= , udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
-fbA44OGCH2(bValue:= , udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
-fbA45OGCH1(bValue:= , udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
-fbA45OGCH2(bValue:= , udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA44OGCH1(bValue:=MAIN.ogKindLampeN.Q, udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA44OGCH2(bValue:=MAIN.ogKindLampeS.Q, udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA45OGCH1(bValue:=MAIN.ogKindLampeM.Q, udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbA45OGCH2(bValue:=MAIN.dgKindLampe.Q, udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
 fbA48OGCH1(bValue:= , udiDelayNanoSek:= 6000000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
 fbA48OGCH2(bValue:= , udiDelayNanoSek:= 6000000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
 fbA49OGCH1(bValue:= , udiDelayNanoSek:= 6000000, tNextZeroVoltage:= fbAnalyseVoltagePhase2.tNextZeroVoltage);
@@ -212,7 +212,7 @@ fbA35OGCH2(bValue:=MAIN.arbeitenLampeS.Q, udiDelayNanoSek:= 6200000, tNextZeroVo
 fbA36OGCH1(bValue:=MAIN.arbeitenLampeSW.Q, udiDelayNanoSek:= 6400000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
 fbA36OGCH2(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
 fbA78OGCH1(bValue:= , udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
-fbA78OGCH2(bValue:= , udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
+fbA78OGCH2(bValue:=MAIN.dachbodenLampe.Q, udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase3.tNextZeroVoltage);
 fbA80OGCH1(bValue:= , udiDelayNanoSek:= 5500000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
 fbA80OGCH2(bValue:= , udiDelayNanoSek:= 5500000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
 END_PROGRAM

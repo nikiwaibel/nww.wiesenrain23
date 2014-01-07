@@ -124,6 +124,7 @@ VAR_CONFIG
 	MAIN._lampeEssenS AT %QX20.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A14^Kanal 2^EssenS Lampe} *)
 	MAIN._lampeKochenSW AT %QX32.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A24^Kanal 2^KochenSW Lampe} *)
 	MAIN._lampeOgGang AT %QX20.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A40^Kanal 1^OG-Gang Lampe} *)
+	MAIN._lampeEgOgStiege AT %QX52.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A40^Kanal 2^EG-OG-Stiege Lampe} *)
 	MAIN._lampeSchlafenS AT %QX20.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A28^Kanal 1^SchlafenS Lampen} *)
 	MAIN._lampeWohnenM AT %QX28.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A28^Kanal 2^WohnenM Lampe} *)
 	MAIN._dimmerWohnenN_intensity AT %IB208 : REAL;
@@ -218,7 +219,7 @@ VAR_CONFIG
 	MAIN_FAST.fbA36OGCH1.bRelay AT %QX50.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A36^Kanal 1^ArbeitenSO Steckdose} *)
 	MAIN_FAST.fbA36OGCH2.bRelay AT %QX50.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 (EtherCAT)^OG-UV A1 (unten links)^OG-UV A36^Kanal 2^Ausgang} *)
 	MAIN_FAST.fbA78OGCH1.bRelay AT %QX50.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A78^Kanal 1^Ausgang} *)
-	MAIN_FAST.fbA78OGCH2.bRelay AT %QX50.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A78^Kanal 2^Ausgang} *)
+	MAIN_FAST.fbA78OGCH2.bRelay AT %QX50.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A78^Kanal 2^Dachboden Lampe} *)
 	MAIN_FAST.fbA80OGCH1.bRelay AT %QX51.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A80^Kanal 1^Ausgang} *)
 	MAIN_FAST.fbA80OGCH2.bRelay AT %QX51.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus^KG-HV A1^OG-UV A80^Kanal 2^Ausgang} *)
 END_VAR

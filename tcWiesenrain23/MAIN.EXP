@@ -126,6 +126,7 @@ VAR
 	_lampeEssenS       AT %Q*: BOOL; (* Sued *)
 	_lampeKochenSW     AT %Q*: BOOL; (* Sued-West *)
 	_lampeOgGang       AT %Q*: BOOL; (* 3 *)
+	_lampeEgOgStiege   AT %Q*: BOOL; (* Ost *)
 	_lampeSchlafenS    AT %Q*: BOOL; (* Sued-West | Sued-Ost*)
 	_lampeWohnenM      AT %Q*: BOOL; (* Mitte *)
 	_dimmerWohnenN_intensity AT %I*: REAL := 67;
@@ -430,7 +431,7 @@ waschenLampeS(ON := waschenBwm.pulseOnMotion, ON_OFF := waschenTasterL.pulseOnCl
 egBadLampeON(
 	ON_OFF := egBadTasterR.pulseOnLongpress
 		OR egBadTasterL.pulseOnLongpress,
-	PT := t#10m, ROOM := 'EG-Bad', LOCATION := 'Ost-Dusche');
+	PT := t#4h, ROOM := 'EG-Bad', LOCATION := 'Ost-Dusche');
 egBadLampeOM(
 	ON_OFF := egBadTasterL.pulseOnClick,
 	PT := t#10m, ROOM := 'EG-Bad', LOCATION := 'Ost-Spiegel');
