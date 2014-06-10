@@ -1,0 +1,229 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK FB_ScanModbusSlaveAdresses_KL6x22B
+VAR_INPUT
+	bStartScan: BOOL; (* Start scanning *)
+	bOnlyRead: BOOL;
+	byModbusSlaveDeviceAdress: BYTE := 1; (* Modbus Device Address *)
+	MBStartAddr: WORD := 0; (* First ModbusRegisterAddress *)
+	MBEndAddr: WORD := 100; (* Last ModbusRegisterAddress *)
+	(* ATTENTION please!!! This FB writes to the ModbusRegisterAddress
+		the value 0 with every write function!!!
+		DON'T SCAN SYSTEMREGISTER OR FIRMWARE REGISTER
+		... the Device could be destroyed! *)
+END_VAR
+VAR_OUTPUT
+	rPercentOfScanProzess: REAL;
+	bNoFreeSpaceForNewValues: BOOL;
+	bReady: BOOL;
+	stValues: ARRAY [0..999] OF stResultOfModbusSlaveScan; (* Scanresult *)
+END_VAR
+VAR
+	FB_ModbusRtuMaster_KL6x22B: ModbusRtuMaster_KL6x22B;
+	F_TRIG1: F_TRIG;
+	R_TRIG1: R_TRIG;
+	F_TRIG2: F_TRIG;
+	bStart: BOOL;
+	MBFunction: INT := 1;
+	MBAddr: WORD;
+	Pos: INT;
+	i: INT;
+	Result: UDINT;
+	rActuellScanProzess: REAL;
+END_VAR
+(* @END_DECLARATION := '0' *)
+CASE MBFunction OF
+1:
+	FB_ModbusRtuMaster_KL6x22B.ReadCoils(
+		UnitID := byModbusSlaveDeviceAdress,
+		Quantity := 1,
+		MBAddr := MBAddr,
+		cbLength := 2,
+		pMemoryAddr := ADR(stValues[Pos].wValue),
+		Execute := bStart,
+		Timeout := t#1s,
+		BUSY => ,
+		Error => ,
+		ErrorId => ,
+		cbRead => );
+2:
+	FB_ModbusRtuMaster_KL6x22B.ReadInputStatus(
+		UnitID:=byModbusSlaveDeviceAdress ,
+		Quantity:=1 ,
+		MBAddr:=MBAddr ,
+		cbLength:=2 ,
+		pMemoryAddr:=ADR(stValues[Pos].wValue) ,
+		Execute:=bStart ,
+		Timeout:=t#1s ,
+		BUSY=> ,
+		Error=> ,
+		ErrorId=> ,
+		cbRead=> );
+3:
+	FB_ModbusRtuMaster_KL6x22B.ReadRegs(
+		UnitID:=byModbusSlaveDeviceAdress ,
+		Quantity:=1 ,
+		MBAddr:=MBAddr ,
+		cbLength:=2 ,
+		pMemoryAddr:=ADR(stValues[Pos].wValue) ,
+		Execute:=bStart ,
+		Timeout:=t#1s ,
+		BUSY=> ,
+		Error=> ,
+		ErrorId=> ,
+		cbRead=> );
+4:
+	FB_ModbusRtuMaster_KL6x22B.ReadInputRegs(
+		UnitID:=byModbusSlaveDeviceAdress ,
+		Quantity:=1 ,
+		MBAddr:=MBAddr ,
+		cbLength:=2 ,
+		pMemoryAddr:=ADR(stValues[Pos].wValue) ,
+		Execute:=bStart ,
+		Timeout:=t#1s ,
+		BUSY=> ,
+		Error=> ,
+		ErrorId=> ,
+		cbRead=> );
+5:
+	FB_ModbusRtuMaster_KL6x22B.WriteSingleCoil(
+		UnitID:=byModbusSlaveDeviceAdress ,
+		Quantity:=1 ,
+		MBAddr:=MBAddr ,
+		cbLength:=2 ,
+		pMemoryAddr:=ADR(stValues[Pos].wValue) ,
+		Execute:=bStart ,
+		Timeout:=t#1s ,
+		BUSY=> ,
+		Error=> ,
+		ErrorId=> ,
+		cbRead=> );
+6:
+	FB_ModbusRtuMaster_KL6x22B.WriteSingleRegister(
+		UnitID:=byModbusSlaveDeviceAdress ,
+		Quantity:=1 ,
+		MBAddr:=MBAddr ,
+		cbLength:=2 ,
+		pMemoryAddr:=ADR(stValues[Pos].wValue) ,
+		Execute:=bStart ,
+		Timeout:=t#1s ,
+		BUSY=> ,
+		Error=> ,
+		ErrorId=> ,
+		cbRead=> );
+8:
+	FB_ModbusRtuMaster_KL6x22B.Diagnostics(
+		UnitID:=byModbusSlaveDeviceAdress ,
+		Quantity:=1 ,
+		MBAddr:=MBAddr ,
+		cbLength:=2 ,
+		pMemoryAddr:=ADR(stValues[Pos].wValue) ,
+		Execute:=bStart ,
+		Timeout:=t#1s ,
+		BUSY=> ,
+		Error=> ,
+		ErrorId=> ,
+		cbRead=> );
+15:
+	FB_ModbusRtuMaster_KL6x22B.WriteMultipleCoils(
+		UnitID:=byModbusSlaveDeviceAdress ,
+		Quantity:=1 ,
+		MBAddr:=MBAddr ,
+		cbLength:=2 ,
+		pMemoryAddr:=ADR(stValues[Pos].wValue) ,
+		Execute:=bStart ,
+		Timeout:=t#1s ,
+		BUSY=> ,
+		Error=> ,
+		ErrorId=> ,
+		cbRead=> );
+16:
+	FB_ModbusRtuMaster_KL6x22B.WriteRegs(
+		UnitID:=byModbusSlaveDeviceAdress ,
+		Quantity:=1 ,
+		MBAddr:=MBAddr ,
+		cbLength:=2 ,
+		pMemoryAddr:=ADR(stValues[Pos].wValue) ,
+		Execute:=bStart ,
+		Timeout:=t#1s ,
+		BUSY=> ,
+		Error=> ,
+		ErrorId=> ,
+		cbRead=> );
+END_CASE
+
+F_TRIG1(CLK := FB_ModbusRtuMaster_KL6x22B.BUSY);
+
+R_TRIG1(CLK := bStartScan);
+F_TRIG2(CLK := bStartScan);
+
+IF F_TRIG2.Q THEN
+	i := 0;
+END_IF
+
+CASE i OF
+0:
+	IF R_TRIG1.Q THEN
+		i := i + 1;
+		bStart := FALSE;
+		bNoFreeSpaceForNewValues := FALSE;
+		bReady := FALSE;
+		MBAddr := MBStartAddr;
+		rPercentOfScanProzess := 0.0;
+		rActuellScanProzess := 0.0;
+	END_IF
+1:
+	bStart := TRUE;
+	i := i + 1;
+2:
+	IF F_TRIG1.Q AND ((NOT FB_ModbusRtuMaster_KL6x22B.Error) OR FB_ModbusRtuMaster_KL6x22B.ErrorId = 3) THEN
+		stValues[Pos].eModbusError := FB_ModbusRtuMaster_KL6x22B.ErrorId;
+		stValues[Pos].eModbusfunction := MBFunction;
+		stValues[Pos].iModbusAdress := MBAddr;
+		(*New Array Position*)
+		Pos := Pos + 1;
+	END_IF
+
+	IF F_TRIG1.Q THEN
+		IF Pos > 999 THEN
+			Pos := 0;
+			i := 0;
+			bNoFreeSpaceForNewValues := TRUE;
+		END_IF
+
+		MBAddr := MBAddr + 1;
+		i := 1;
+		bStart := FALSE;
+		IF MBAddr > MBEndAddr THEN
+			MBAddr := MBStartAddr;
+			MBFunction := MBFunction + 1;
+			IF MBFunction > 4 AND bOnlyRead OR MBFunction = 17 THEN
+				MBFunction := 1;
+				i := 4;
+				bReady := TRUE;
+			ELSE
+				IF MBFunction = 7 THEN
+					MBFunction := 8;
+				ELSIF MBFunction = 9 THEN
+					MBFunction := 15;
+				ELSE
+					;
+				END_IF
+			END_IF
+		END_IF
+	END_IF
+4:
+		rPercentOfScanProzess := 100.0;
+END_CASE
+
+IF F_TRIG1.Q THEN
+	rActuellScanProzess := rActuellScanProzess + 1.0;
+END_IF
+
+IF NOT (i = 4) THEN
+	rPercentOfScanProzess := (100.0 * rActuellScanProzess) / (9.0 * WORD_TO_REAL(MBEndAddr - MBStartAddr));
+END_IF
+END_FUNCTION_BLOCK

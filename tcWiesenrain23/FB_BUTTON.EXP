@@ -9,8 +9,9 @@ VAR_INPUT
 	LOCATION: STRING;
 	IN: BOOL;
 	LONGPRESS: TIME := t#250ms; (*read by the visualisation*)
+	RESET: BOOL := TRUE; (* if TRUE, viText is set; set to FALSE within the cycle *)
 END_VAR
-VAR_OUTPUT RETAIN PERSISTENT
+VAR_OUTPUT PERSISTENT
 	toggleOnPress: BOOL;
 	toggleOnRelease: BOOL;
 	toggleOnLongpress: BOOL;
@@ -28,7 +29,7 @@ VAR_OUTPUT
 	pulseOnPress: BOOL;
 	pulseOnRelease: BOOL;
 	pulseOnLongpress: BOOL;
-	pulseOnClick: BOOL;
+	pulseOnClick: BOOL; (* TAKE CARE: this is not reported after a pulseOnLongpress! if required, use pulseOnRelease. *)
 END_VAR
 VAR
 	viIN: BOOL; (*written by the visualisation*)
@@ -38,14 +39,14 @@ VAR
 	longpressTimer: TON;
 	lTrig: R_TRIG;
 	cTrig: R_TRIG;
-	t1: TOF;
-	t2: TOF;
 	myIN: BOOL;
 END_VAR
 (* @END_DECLARATION := '0' *)
-(* support VIsualisations *)
-viText := CONCAT(ROOM, ' ');
-viText := CONCAT(viText, LOCATION);
+IF RESET THEN
+	viText := CONCAT(ROOM, ' ');
+	viText := CONCAT(viText, LOCATION);
+	RESET := FALSE;
+END_IF
 myIN := IN XOR viIN;
 
 pTrig(CLK := myIN);
@@ -55,7 +56,7 @@ pulseOnRelease := rTrig.Q;
 
 longpressTimer(IN := myIN, PT := LONGPRESS);
 lTrig(CLK := longpressTimer.Q);
-pulseOnLongpress := ltrig.Q;
+pulseOnLongpress := lTrig.Q;
 IF pulseOnLongpress AND NOT pulseOnRelease THEN
 	isLongpressed := TRUE;
 	usageCounterLongpress := usageCounterLongpress + 1;

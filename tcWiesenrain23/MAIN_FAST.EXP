@@ -4,8 +4,12 @@
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
 PROGRAM MAIN_FAST
+VAR CONSTANT
+	FROELING_MODBUS_ADDRESS: USINT := 9;
+END_VAR
 VAR
 	rs232: FB_SetSerial;
+	fbFroeling: FB_Froeling;
 (*	froeling: ModbusRtuMaster_KL6x22B;
 	froelingIn: MB_KL6inData22B;
 	froelingOut: MB_KL6outData22B;
@@ -116,6 +120,11 @@ froeling.pMemoryAddr := ADR(froelingData);
 froeling.Timeout := t#8s;
 froeling.Execute := TRUE;
 *)
+
+fbFroeling(
+	modbusSlaveAddress := FROELING_MODBUS_ADDRESS,
+	timeout := t#1s,
+);
 
 (* Spannungsanalyse *)
 fbAnalyseVoltagePhase1(

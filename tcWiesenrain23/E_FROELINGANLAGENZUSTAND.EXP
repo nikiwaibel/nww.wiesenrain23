@@ -1,0 +1,15 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE E_FroelingAnlagenzustand : (
+	Winterbetrieb := 0,
+	Sommerbetrieb := 1,
+	Uebergangsbetrieb := 2,
+	KeinScheitholzbetrieb := 3,
+	Ausgeschaltet := 5,
+	Extraheizen := 6,
+	Kaminkehrer := 7,
+	Reinigen := 8
+);
+END_TYPE
+(* @END_DECLARATION := '0' *)

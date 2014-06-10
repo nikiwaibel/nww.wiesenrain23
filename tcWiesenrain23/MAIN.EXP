@@ -4,9 +4,15 @@
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
 PROGRAM MAIN
+VAR CONSTANT
+	JALOUSIE_UD_TIME_TERASSE: TIME := t#35s500ms;
+	JALOUSIE_UD_TIME_BALKON: TIME := t#35s500ms;
+	JALOUSIE_UD_TIME_WINDOW_EG: TIME := t#35s500ms;
+	JALOUSIE_UD_TIME_WINDOW_OG: TIME := t#37s500ms;
+END_VAR
 VAR
 	ups: FB_S_UPS;
-
+(*sensoren*)
 	_bwmAussenW        AT %I*: BOOL; (* West *)
 	_bwmAussenSO       AT %I*: BOOL; (* Sued-Ost *)
 	_bwmEgGang         AT %I*: BOOL; (* Sued *)
@@ -103,9 +109,9 @@ VAR
 	_tasterOgKindWL    AT %I*: BOOL; (* West *)
 	_tasterOgKindWR    AT %I*: BOOL; (* West *)
 	_tasterOgWc        AT %I*: BOOL; (* West *)
-	_tasterSchlafenOO  AT %I*: BOOL; (* Ost *)
-	_tasterSchlafenOL  AT %I*: BOOL; (* Ost *)
-	_tasterSchlafenOR  AT %I*: BOOL; (* Ost *)
+	_tasterSchlafenOo  AT %I*: BOOL; (* Ost *)
+	_tasterSchlafenOl  AT %I*: BOOL; (* Ost *)
+	_tasterSchlafenOr  AT %I*: BOOL; (* Ost *)
 	_tasterSchlafenWML AT %I*: BOOL; (* West-Mitte *)
 	_tasterSchlafenWMR AT %I*: BOOL; (* West-Mitte *)
 	_tasterSchlafenWNL AT %I*: BOOL; (* West-Nord *)
@@ -119,16 +125,7 @@ VAR
 	_tasterWohnenWO    AT %I*: BOOL; (* West *)
 	_tasterWohnenWL    AT %I*: BOOL; (* West *)
 	_tasterWohnenWR    AT %I*: BOOL; (* West *)
-	_lampeEgBadOM      AT %Q*: BOOL; (* Ost (Spiegel) *)
-	_lampeEgGang       AT %Q*: BOOL; (* Sued *)
-	_lampeEgWc         AT %Q*: BOOL; (* West *)
-	_lampeEssenM       AT %Q*: BOOL; (* Mitte *)
-	_lampeEssenS       AT %Q*: BOOL; (* Sued *)
-	_lampeKochenSW     AT %Q*: BOOL; (* Sued-West *)
-	_lampeOgGang       AT %Q*: BOOL; (* 3 *)
-	_lampeEgOgStiege   AT %Q*: BOOL; (* Ost *)
-	_lampeSchlafenS    AT %Q*: BOOL; (* Sued-West | Sued-Ost*)
-	_lampeWohnenM      AT %Q*: BOOL; (* Mitte *)
+(*aktoren*)
 	_dimmerWohnenN_intensity AT %I*: REAL := 67;
 	_dimmerWohnenN_status    AT %I*: USINT;
 	_dimmerWohnenN_dataIn    AT %I*: INT;
@@ -139,6 +136,16 @@ VAR
 	_dimmerEgBadSM_dataIn    AT %I*: INT;
 	_dimmerEgBadSM_dataOut   AT %Q*: INT;
 	_dimmerEgBadSM_control   AT %Q*: USINT;
+	_lampeEgBadOM      AT %Q*: BOOL; (* Ost (Spiegel) *)
+	_lampeEgGang       AT %Q*: BOOL; (* Sued *)
+	_lampeEgWc         AT %Q*: BOOL; (* West *)
+	_lampeEssenM       AT %Q*: BOOL; (* Mitte *)
+	_lampeEssenS       AT %Q*: BOOL; (* Sued *)
+	_lampeKochenSW     AT %Q*: BOOL; (* Sued-West *)
+	_lampeOgGang       AT %Q*: BOOL; (* 3 *)
+	_lampeEgOgStiege   AT %Q*: BOOL; (* Ost *)
+	_lampeSchlafenS    AT %Q*: BOOL; (* Sued-West | Sued-Ost*)
+	_lampeWohnenM      AT %Q*: BOOL; (* Mitte *)
 
 (* KG *)
 
@@ -184,10 +191,11 @@ VAR
 	egBadTasterR:    FB_Button;
 	egBadTasterL:    FB_Button;
 	egBadTemperatur: FB_Temperature;
+	egBadDimmerSM:   FB_Dimmer;
 	egBadLampeON:    FB_Lamp;
 	egBadLampeOM:    FB_Lamp;
 	egBadLampeSM:    FB_Lamp;
-	egBadDimmerSM:   FB_Dimmer;
+	egBadJalousie:   FB_Jalousie;
 
 	egGangBwm:          FB_Motion;
 	egGangLicht:        FB_Light;
@@ -209,6 +217,7 @@ VAR
 	essenLampeS:     FB_Lamp;
 	essenLampeM:     FB_Lamp;
 	essenLampeNW:    FB_Lamp;
+	essenJalousie:   FB_Jalousie;
 
 	kochenBwm:        FB_Motion;
 	kochenLicht:      FB_Light;
@@ -221,10 +230,12 @@ VAR
 	kochenLampeO:     FB_Lamp;
 	kochenLampeN:     FB_Lamp;
 	kochenLampeSW:    FB_Lamp;
+	kochenJalousieS:  FB_Jalousie;
+	kochenJalousieO:  FB_Jalousie;
 
-	schlafenTasterOO:   FB_Button;
-	schlafenTasterOL:   FB_Button;
-	schlafenTasterOR:   FB_Button;
+	schlafenTasterOo:   FB_Button;
+	schlafenTasterOl:   FB_Button;
+	schlafenTasterOr:   FB_Button;
 	schlafenTasterWML:  FB_Button;
 	schlafenTasterWMR:  FB_Button;
 	schlafenTasterWNL:  FB_Button;
@@ -234,6 +245,8 @@ VAR
 	schlafenLampeO:     FB_Lamp;
 	schlafenLampeWM:    FB_Lamp;
 	schlafenLampeWN:    FB_Lamp;
+	schlafenJalousieN:  FB_Jalousie;
+	schlafenJalousieW:  FB_Jalousie;
 
 	speisTuer:  FB_Button;
 	speisLampe: FB_Lamp;
@@ -249,6 +262,9 @@ VAR
 	wohnenLampeN:     FB_Lamp;
 	wohnenLampeSW:    FB_Lamp;
 	wohnenDimmerN:    FB_Dimmer;
+	wohnenJalousieS:  FB_Jalousie;
+	wohnenJalousieWa: FB_Jalousie;
+	wohnenJalousieWb: FB_Jalousie;
 
 	egOgLampe: FB_Lamp;
 
@@ -263,6 +279,9 @@ VAR
 	arbeitenLampeN:     FB_Lamp;
 	arbeitenLampeS:     FB_Lamp;
 	arbeitenLampeSW:    FB_Lamp;
+	arbeitenJalousieN:  FB_Jalousie;
+	arbeitenJalousieW:  FB_Jalousie;
+	arbeitenJalousieS:  FB_Jalousie;
 
 	gaesteTasterO:    FB_Button;
 	gaesteTasterR:    FB_Button;
@@ -270,6 +289,8 @@ VAR
 	gaesteTemperatur: FB_Temperature;
 	gaesteLampeO:     FB_Lamp;
 	gaesteLampeW:     FB_Lamp;
+	gaesteJalousieO:  FB_Jalousie;
+	gaesteJalousieS:  FB_Jalousie;
 
 	ogBadTasterR:    FB_Button;
 	ogBadTasterL:    FB_Button;
@@ -277,6 +298,7 @@ VAR
 	ogBadLampeON:    FB_Lamp;
 	ogBadLampeOM:    FB_Lamp;
 	ogBadLampeSM:    FB_Lamp;
+	ogBadJalousie:   FB_Jalousie;
 
 	ogGangBwm:        FB_Motion;
 	ogGangLicht:      FB_Light;
@@ -292,6 +314,8 @@ VAR
 	ogKindLampeN:     FB_Lamp;
 	ogKindLampeM:     FB_Lamp;
 	ogKindLampeS:     FB_Lamp;
+	ogKindJalousieS:  FB_Jalousie;
+	ogKindJalousieW:  FB_Jalousie;
 
 	ogWcTaster:     FB_Button;
 	ogWcTemperatur: FB_Temperature;
@@ -308,6 +332,7 @@ VAR
 	aussenBwmW:  FB_Motion;
 	aussenBwmSO: FB_Motion;
 END_VAR
+
 (* @END_DECLARATION := '0' *)
 ups();
 
@@ -364,9 +389,9 @@ schlafenTasterWML(IN := _tasterSchlafenWML, ROOM := 'Schlafen', LOCATION := 'Wes
 schlafenTasterWMR(IN := _tasterSchlafenWMR, ROOM := 'Schlafen', LOCATION := 'West-Mitte');
 schlafenTasterWNL(IN := _tasterSchlafenWNL, ROOM := 'Schlafen', LOCATION := 'West-Nord');
 schlafenTasterWNR(IN := _tasterSchlafenWNR, ROOM := 'Schlafen', LOCATION := 'West-Nord');
-schlafenTasterOO(IN := _tasterSchlafenOO, ROOM := 'Schlafen', LOCATION := 'Ost');
-schlafenTasterOL(IN := _tasterSchlafenOL, ROOM := 'Schlafen', LOCATION := 'Ost');
-schlafenTasterOR(IN := _tasterSchlafenOR, ROOM := 'Schlafen', LOCATION := 'Ost');
+schlafenTasterOo(IN := _tasterSchlafenOo, ROOM := 'Schlafen', LOCATION := 'Ost');
+schlafenTasterOl(IN := _tasterSchlafenOl, ROOM := 'Schlafen', LOCATION := 'Ost');
+schlafenTasterOr(IN := _tasterSchlafenOr, ROOM := 'Schlafen', LOCATION := 'Ost');
 schlafenTemperatur(Status := _temperaturSchlafen_status, DataIn := _temperaturSchlafen_dataIn,
 	ROOM := 'Schlafen', LOCATION := 'Nord-West');
 speisTuer(IN := _tasterSpeis, ROOM := 'Speis', LOCATION := 'Tuerkontakt');
@@ -413,6 +438,25 @@ ogWcTemperatur(Status := _temperaturOgWc_status, DataIn := _temperaturOgWc_dataI
 dgKindTaster(IN := _tasterDgKind, Room := 'DG-Kind', LOCATION := 'West-Sued');
 
 (* control *)
+
+arbeitenJalousieN(T_UD := JALOUSIE_UD_TIME_WINDOW_OG, T_ANGLE:= t#1s);
+arbeitenJalousieW(T_UD := JALOUSIE_UD_TIME_WINDOW_OG, T_ANGLE:= t#1s);
+arbeitenJalousieS(T_UD := JALOUSIE_UD_TIME_BALKON, T_ANGLE:= t#1s);
+egBadJalousie(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE:= t#1s);
+essenJalousie(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE:= t#1s);
+gaesteJalousieS(T_UD := JALOUSIE_UD_TIME_WINDOW_OG, T_ANGLE:= t#1s);
+gaesteJalousieO(T_UD := JALOUSIE_UD_TIME_WINDOW_OG, T_ANGLE:= t#1s);
+kochenJalousieS(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE:= t#1s);
+kochenJalousieO(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE:= t#1s);
+ogBadJalousie(T_UD := JALOUSIE_UD_TIME_WINDOW_OG, T_ANGLE:= t#1s);
+ogKindJalousieW(T_UD := JALOUSIE_UD_TIME_BALKON, T_ANGLE:= t#1s);
+ogKindJalousieS(T_UD := JALOUSIE_UD_TIME_WINDOW_OG, T_ANGLE:= t#1s);
+schlafenJalousieN(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE:= t#1s);
+schlafenJalousieW(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE := t#1s);
+wohnenJalousieS(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE:= t#1s);
+wohnenJalousieWa(T_UD := JALOUSIE_UD_TIME_TERASSE, T_ANGLE:= t#1s);
+wohnenJalousieWb(T_UD := JALOUSIE_UD_TIME_TERASSE, T_ANGLE:= t#1s);
+
 
 (* output processing *)
 
@@ -484,19 +528,21 @@ speisLampe(
 	PT := t#5m, OFF_BLOCK_ON := T#0s, ROOM := 'Speis');
 
 schlafenLampeS(
-	ON_OFF := schlafenTasterOO.pulseOnClick
-		OR schlafenTasterOR.pulseOnClick,
+	ON_OFF := schlafenTasterOo.pulseOnClick
+		OR schlafenTasterOr.pulseOnClick,
 	OFF := schlafenTasterWML.pulseOnClick
 		OR schlafenTasterWNR.pulseOnClick,
 	PT := t#30m, ROOM := 'Schlafen', LOCATION := 'Sued');
 schlafenLampeWM(ON_OFF := schlafenTasterWMR.pulseOnClick, PT := t#1h, ROOM := 'Schlafen', LOCATION := 'West-Mitte');
 schlafenLampeWN(ON_OFF := schlafenTasterWNL.pulseOnClick, PT := t#1h, ROOM := 'Schlafen', LOCATION := 'West-Nord');
 schlafenLampeO(
-	ON_OFF := schlafenTasterOO.pulseOnClick
-		OR schlafenTasterOL.pulseOnClick
+	ON_OFF := schlafenTasterOo.pulseOnClick
+		OR schlafenTasterOl.pulseOnClick
 		OR schlafenTasterWML.pulseOnClick
 		OR schlafenTasterWNR.pulseOnClick,
 	PT := t#30m, ROOM := 'Schlafen', LOCATION := 'Ost');
+schlafenJalousieN();
+
 wohnenLampeM(
 	ON_OFF := wohnenTasterOO.pulseOnClick
 		OR wohnenTasterWO.pulseOnClick,
@@ -584,4 +630,5 @@ _dimmerWohnenN_dataOut := wohnenDimmerN.DataOut;
 _dimmerWohnenN_control := wohnenDimmerN.Control;
 _dimmerEgBadSM_dataOut := egBadDimmerSM.DataOut;
 _dimmerEgBadSM_control := egBadDimmerSM.Control;
+
 END_PROGRAM

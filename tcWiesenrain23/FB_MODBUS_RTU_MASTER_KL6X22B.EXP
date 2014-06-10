@@ -1,0 +1,241 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK FB_Modbus_RTU_Master_KL6x22B
+VAR_INPUT
+	bStart: BOOL; (* Start Modbus-Communication *)
+	byModbusSlaveStartAdress: BYTE := 1; (* First Modbus Device Address *)
+	byModbusSlaveEndAdress: BYTE := 247; (* Last Modbus Device Address *)
+	tModbusSlaveTimeout: TIME := t#500ms; (* Modbus Communication Timeout *)
+	tDelayModbusTime: TIME := t#50ms; (* Delay between two Modbus Requests *)
+	bIgnoreError: BOOL; (* Ignore ever Modbus Error *)
+END_VAR
+VAR_OUTPUT
+	bBusy: BOOL; (* if TRUE, Modbustelegramms are being sent *)
+	bError: BOOL; (* if TRUE, a Modbustelegramm wasn't send correctly *)
+	eErrorID: MODBUS_ERRORS;
+	bNoResponse: BOOL; (* if TRUE, a FB with a DeviceAddress isn't existing as phyical device *)
+	byLastNoResponseModbusAddress: BYTE;
+END_VAR
+VAR_IN_OUT
+	stCommunication: stFB_ModbusMaster; (* Communicationvariable must connect with ever Slave FB *)
+END_VAR
+VAR
+	FB_ModbusRtuMaster_KL6x22B: ModbusRtuMaster_KL6x22B;
+	R_TRIG_START: R_TRIG;
+	F_TRIG_ModbusReady: F_TRIG;
+	TON_Delay: TON;
+	i: INT;
+	j: INT;
+	bBusyMaster: BOOL;
+	bNextModbusDevice: BOOL;
+	bNextData: BOOL;
+END_VAR
+
+(* @END_DECLARATION := '0' *)
+R_TRIG_START(CLK := bStart);
+TON_Delay(IN := i = 2, PT := tDelayModbusTime);
+
+F_TRIG_ModbusReady(CLK := FB_ModbusRtuMaster_KL6x22B.BUSY);
+IF F_TRIG_ModbusReady.Q THEN
+	bBusy := FALSE;
+END_IF
+
+(* Init FB *)
+IF R_TRIG_START.Q THEN
+	i := 0;
+END_IF
+
+CASE i OF
+0: (* Set Startaddress *)
+	IF R_TRIG_START.Q THEN
+		bBusy := TRUE;
+		bError := FALSE;
+		eErrorID := 0;
+		stCommunication.byCurrentModbusSlaveAdress := byModbusSlaveStartAdress;
+		i := i + 1;
+	END_IF
+1: (* Exist Address?*)
+	IF stCommunication.bModbusAddressExist THEN
+		i := i + 1;
+		stCommunication.bModbusCommunicationActive := TRUE;
+	ELSE
+		j := j + 1;
+	END_IF
+	IF j > 10 THEN
+		stCommunication.byCurrentModbusSlaveAdress := stCommunication.byCurrentModbusSlaveAdress + 1;
+		j := 0;
+	END_IF
+	IF stCommunication.byCurrentModbusSlaveAdress > byModbusSlaveEndAdress OR stCommunication.byCurrentModbusSlaveAdress > 247 THEN
+		stCommunication.byCurrentModbusSlaveAdress := byModbusSlaveStartAdress;
+		IF byModbusSlaveStartAdress < 1 THEN
+			stCommunication.byCurrentModbusSlaveAdress := 1;
+		END_IF
+	END_IF
+
+2: (* Init Modbus and order data from slave*)
+	IF TON_Delay.Q AND bStart THEN
+		bBusy := TRUE;
+		bError := FALSE;
+		eErrorID := 0;
+		FB_ModbusRtuMaster_KL6x22B.ReadCoils(Execute := FALSE);
+		FB_ModbusRtuMaster_KL6x22B.ReadInputStatus(Execute := FALSE);
+		FB_ModbusRtuMaster_KL6x22B.ReadRegs(Execute := FALSE);
+		FB_ModbusRtuMaster_KL6x22B.ReadInputRegs(Execute := FALSE);
+		FB_ModbusRtuMaster_KL6x22B.WriteSingleCoil(Execute := FALSE);
+		FB_ModbusRtuMaster_KL6x22B.WriteSingleRegister(Execute := FALSE);
+		FB_ModbusRtuMaster_KL6x22B.Diagnostics(Execute := FALSE);
+		FB_ModbusRtuMaster_KL6x22B.WriteMultipleCoils(Execute := FALSE);
+		FB_ModbusRtuMaster_KL6x22B.WriteRegs(Execute := FALSE);
+		i := i + 1;
+	END_IF
+3: (*Wait for new data from slave *)
+	CASE stCommunication.stCurrentDeviceSpace[0].iModbusFunction OF
+		1:
+			FB_ModbusRtuMaster_KL6x22B.ReadCoils(
+				UnitID:=stCommunication.byCurrentModbusSlaveAdress,
+				Quantity:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength/2,
+				MBAddr:= stCommunication.stCurrentDeviceSpace[0].wModbusAdress,
+				cbLength:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength,
+				pMemoryAddr:= stCommunication.stCurrentDeviceSpace[0].pSPSDataSpace,
+				Execute:= TRUE,
+				Timeout := tModbusSlaveTimeout,
+				Busy=>bBusyMaster);
+		2:
+			FB_ModbusRtuMaster_KL6x22B.ReadInputStatus(
+				UnitID:=stCommunication.byCurrentModbusSlaveAdress,
+				Quantity:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength/2,
+				MBAddr:= stCommunication.stCurrentDeviceSpace[0].wModbusAdress,
+				cbLength:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength,
+				pMemoryAddr:= stCommunication.stCurrentDeviceSpace[0].pSPSDataSpace,
+				Execute:= TRUE,
+				Timeout := tModbusSlaveTimeout,
+				Busy=>bBusyMaster);
+		3:
+			FB_ModbusRtuMaster_KL6x22B.ReadRegs(
+				UnitID:=stCommunication.byCurrentModbusSlaveAdress,
+				Quantity:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength/2,
+				MBAddr:= stCommunication.stCurrentDeviceSpace[0].wModbusAdress,
+				cbLength:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength,
+				pMemoryAddr:= stCommunication.stCurrentDeviceSpace[0].pSPSDataSpace,
+				Execute:= TRUE,
+				Timeout := tModbusSlaveTimeout,
+				Busy=>bBusyMaster);
+		4:
+			FB_ModbusRtuMaster_KL6x22B.ReadInputRegs(
+				UnitID:=stCommunication.byCurrentModbusSlaveAdress,
+				Quantity:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength/2,
+				MBAddr:= stCommunication.stCurrentDeviceSpace[0].wModbusAdress,
+				cbLength:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength,
+				pMemoryAddr:= stCommunication.stCurrentDeviceSpace[0].pSPSDataSpace,
+				Execute:= TRUE,
+				Timeout := tModbusSlaveTimeout,
+				Busy=>bBusyMaster);
+		5:
+			FB_ModbusRtuMaster_KL6x22B.WriteSingleCoil(
+				UnitID:=stCommunication.byCurrentModbusSlaveAdress,
+				Quantity:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength/2,
+				MBAddr:= stCommunication.stCurrentDeviceSpace[0].wModbusAdress,
+				cbLength:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength,
+				pMemoryAddr:= stCommunication.stCurrentDeviceSpace[0].pSPSDataSpace,
+				Execute:= TRUE,
+				Timeout := tModbusSlaveTimeout,
+				Busy=>bBusyMaster);
+		6:
+			FB_ModbusRtuMaster_KL6x22B.WriteSingleRegister(
+				UnitID:=stCommunication.byCurrentModbusSlaveAdress,
+				Quantity:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength/2,
+				MBAddr:= stCommunication.stCurrentDeviceSpace[0].wModbusAdress,
+				cbLength:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength,
+				pMemoryAddr:= stCommunication.stCurrentDeviceSpace[0].pSPSDataSpace,
+				Execute:= TRUE,
+				Timeout := tModbusSlaveTimeout,
+				Busy=>bBusyMaster);
+		8:
+			FB_ModbusRtuMaster_KL6x22B.Diagnostics(
+				UnitID:=stCommunication.byCurrentModbusSlaveAdress,
+				Quantity:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength/2,
+				MBAddr:= stCommunication.stCurrentDeviceSpace[0].wModbusAdress,
+				cbLength:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength,
+				pMemoryAddr:= stCommunication.stCurrentDeviceSpace[0].pSPSDataSpace,
+				Execute:= TRUE,
+				Timeout := tModbusSlaveTimeout,
+				Busy=>bBusyMaster);
+		15:
+			FB_ModbusRtuMaster_KL6x22B.WriteMultipleCoils(
+				UnitID:=stCommunication.byCurrentModbusSlaveAdress,
+				Quantity:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength/2,
+				MBAddr:= stCommunication.stCurrentDeviceSpace[0].wModbusAdress,
+				cbLength:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength,
+				pMemoryAddr:= stCommunication.stCurrentDeviceSpace[0].pSPSDataSpace,
+				Execute:= TRUE,
+				Timeout := tModbusSlaveTimeout,
+				Busy=>bBusyMaster);
+		16:
+			FB_ModbusRtuMaster_KL6x22B.WriteRegs(
+				UnitID:=stCommunication.byCurrentModbusSlaveAdress,
+				Quantity:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength/2,
+				MBAddr:= stCommunication.stCurrentDeviceSpace[0].wModbusAdress,
+				cbLength:= stCommunication.stCurrentDeviceSpace[0].wSPSDataSpaceLength,
+				pMemoryAddr:= stCommunication.stCurrentDeviceSpace[0].pSPSDataSpace,
+				Execute:= TRUE,
+				Timeout := tModbusSlaveTimeout,
+				Busy=>bBusyMaster);
+	ELSE
+		bError := TRUE;
+		eErrorID := 1;
+	END_CASE
+
+	IF F_TRIG_ModbusReady.Q AND NOT FB_ModbusRtuMaster_KL6x22B.Error THEN (*No Error*)
+		bNoResponse := FALSE;
+		bError := FALSE;
+		bNextData := TRUE;
+	ELSIF FB_ModbusRtuMaster_KL6x22B.Error AND FB_ModbusRtuMaster_KL6x22B.ErrorId = 16#25 THEN (*no  Response *)
+		i := 1;
+		bNoResponse := TRUE;
+		bError := TRUE;
+		eErrorID := FB_ModbusRtuMaster_KL6x22B.ErrorId;
+		byLastNoResponseModbusAddress := stCommunication.byCurrentModbusSlaveAdress;
+		stCommunication.byCurrentModbusSlaveAdress := stCommunication.byCurrentModbusSlaveAdress + 1;
+		stCommunication.bModbusAddressExist := FALSE;
+		stCommunication.bModbusCommunicationActive := FALSE;
+		i := 1;
+		FOR j := 0 TO stCommunication.iNumberOfData DO
+			stCommunication.stCurrentDeviceSpace[stCommunication.iNumberOfData].iModbusFunction := 0;
+			stCommunication.stCurrentDeviceSpace[stCommunication.iNumberOfData].pSPSDataSpace := 0;
+			stCommunication.stCurrentDeviceSpace[stCommunication.iNumberOfData].wModbusAdress := 0;
+			stCommunication.stCurrentDeviceSpace[stCommunication.iNumberOfData].wSPSDataSpaceLength := 0;
+		END_FOR
+	ELSIF FB_ModbusRtuMaster_KL6x22B.Error AND bIgnoreError THEN
+		bNoResponse := FALSE;
+		bError := TRUE;
+		bNextData := TRUE;
+	ELSIF FB_ModbusRtuMaster_KL6x22B.Error THEN
+		i := 100;
+	END_IF
+
+	IF bNextData THEN
+		FOR j := 1 TO stCommunication.iNumberOfData DO
+			stCommunication.stCurrentDeviceSpace[j-1] := stCommunication.stCurrentDeviceSpace[j];
+		END_FOR
+		stCommunication.stCurrentDeviceSpace[stCommunication.iNumberOfData].iModbusFunction := 0;
+		stCommunication.stCurrentDeviceSpace[stCommunication.iNumberOfData].pSPSDataSpace := 0;
+		stCommunication.stCurrentDeviceSpace[stCommunication.iNumberOfData].wModbusAdress := 0;
+		stCommunication.stCurrentDeviceSpace[stCommunication.iNumberOfData].wSPSDataSpaceLength := 0;
+		i := 2;
+		bNextData := FALSE;
+		bBusy := FALSE;
+		IF stCommunication.stCurrentDeviceSpace[0].iModbusFunction = 0 THEN
+			stCommunication.byCurrentModbusSlaveAdress := stCommunication.byCurrentModbusSlaveAdress + 1;
+			stCommunication.bModbusAddressExist := FALSE;
+			stCommunication.bModbusCommunicationActive := FALSE;
+			i := 1;
+		END_IF
+	END_IF
+100:
+	bError := FB_ModbusRtuMaster_KL6x22B.Error;
+	eErrorID := FB_ModbusRtuMaster_KL6x22B.ErrorId;
+END_CASE
+END_FUNCTION_BLOCK

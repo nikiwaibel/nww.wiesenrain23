@@ -4,8 +4,13 @@
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
 PROGRAM MAIN_SLOW
+VAR_OUTPUT
+
+END_VAR
 VAR
+	fbDoubleButton: FB_DoubleButton;
 END_VAR
 (* @END_DECLARATION := '0' *)
-;
+fbDoubleButton(CLICK_A_IN := MAIN.schlafenTasterOl.isClicked, CLICK_B_IN := MAIN.schlafenTasterOr.isClicked);
+
 END_PROGRAM

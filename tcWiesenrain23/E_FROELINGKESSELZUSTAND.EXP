@@ -1,0 +1,45 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE E_FroelingKesselzustand : (
+	Stoerung := 0,
+	KesselAus := 1,
+	Anheizen := 2,
+	Heizen := 3,
+	Feuererhaltung := 4,
+	FeuerAus := 5,
+	TuerOffen := 6,
+	Vorbereitung := 7,
+	Vorwaermen := 8,
+	Zuenden := 9,
+	AbstellenWarten := 10,
+	AbstellenWarten1 := 11,
+	AbstellenEinschub1 := 12,
+	AbstellenWarten2 := 13,
+	AbstellenEinschub2 := 14,
+	Abreinigen := 15,
+	Warten2h := 16,
+	Saugen_Heizen := 17,
+	Fehlzuendung := 18,
+	Betriebsbereit := 19,
+	RostSchliessen := 20,
+	StokerLeeren := 21,
+	Vorheizen := 22,
+	Saugen := 23,
+	RseSchliessen := 24,
+	RseOeffnen := 25,
+	RostKippen := 26,
+	Vorwaermen_Zuenden := 27,
+	Resteinschub := 28,
+	StokerAuffuellen := 29,
+	LambdasondeAufheizen := 30,
+	GeblaesenachlaufI := 31,
+	GeblaesenachlaufII := 32,
+	Abgestellt := 33,
+	NachZuenden := 34,
+	ZuendenWarten := 35,
+	Fehlerbehebung20min := 66,
+	ReinigenMoeglich := 69
+);
+END_TYPE
+(* @END_DECLARATION := '0' *)

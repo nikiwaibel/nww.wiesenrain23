@@ -1,0 +1,268 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK FB_Froeling
+(*
+	baudrate setting: not supported by this FB yet
+		seems to be fixed at 57600 baud on froeling
+		manually configure this and the following on the terminal!
+	8N1
+	no handshake
+	--> a 3-wire connection (RX, TX, GND) on froeling COM2 should be sufficient
+	
+	set the protocol on froeling to RTU! (ASCII is not supported by this code currently)
+
+	all values are transmitted as 16bit signed integers
+*)
+
+(* register description
+	00001..00031 Read Coil Status     (FC=01) 00001-00140
+	10001..10003 Read Input Status    (FC=02) 10001-10075
+	30001..30264 Read Input Registers (FC=04) 30001-30264
+	33001..33020 Read Input Registers (FC=04) 33001-33020
+	34001..34002 Read Input Registers (FC=04) 34001-34002
+	40029..40493 Read Holding Registers (FC=03) 40001-40915
+	
+	Es können alle Parameter geschrieben werden (ab Software V50.04 B05.06).
+	Write Single Register (FC=06) 40001-40915
+*)
+VAR_INPUT
+	baudrate: UINT := 57600; (* unused yet - configure it manually on the terminal! *)
+	modbusSlaveAddress: USINT; (* can be configured on froeling from 1 to 247 *)
+	timeout: TIME := t#5s; (* TODO: default timeout should depend on the baudrate *)
+END_VAR
+VAR_OUTPUT
+	modbusMasterBusy: BOOL;
+	modbusMasterError: BOOL;
+	modbusMasterErrorId: MODBUS_ERRORS;
+	modbusMasterBytesRead: UINT;
+	values: ARRAY [0..99] OF INT;
+	Stoerung: BOOL;
+	Heizkreis0_PumpeEin: BOOL;
+	Heizkreis1_PumpeEin: BOOL;
+	Heizkreis2_PumpeEin: BOOL;
+	Heizkreis3_PumpeEin: BOOL;
+	Heizkreis4_PumpeEin: BOOL;
+	Heizkreis1_MischerAuf: BOOL;
+	Heizkreis2_MischerAuf: BOOL;
+	Heizkreis3_MischerAuf: BOOL;
+	Heizkreis4_MischerAuf: BOOL;
+	Heizkreis1_MischerZu: BOOL;
+	Heizkreis2_MischerZu: BOOL;
+	Heizkreis3_MischerZu: BOOL;
+	Heizkreis4_MischerZu: BOOL;
+	TuerOffen: BOOL;
+	STB: BOOL;
+	NotAus: BOOL;
+	KesselTemperatur: REAL;
+	AbgasTemperatur: REAL;
+	BoardTemperatur: REAL;
+	RestSauerstoff: REAL;
+	AussenTemperatur: REAL;
+	SaugzugDrehzahl: REAL;
+	StbTemperatur: REAL;
+	Fuehler2Temperatur: REAL;
+	Saugzug: REAL;
+	Kesselstellgroesse: REAL;
+	Heizkreis1_VoraufIst: REAL;
+	Heizkreis1_VoraufSoll: REAL;
+	Heizkreis1_Party: UINT;
+	Heizkreis1_RaumTemperatur: REAL;
+	Heizkreis2_VoraufIst: REAL;
+	Heizkreis2_VoraufSoll: REAL;
+	Heizkreis2_Party: UINT;
+	Heizkreis2_RaumTemperatur: REAL;
+	Heizkreis3_VoraufIst: REAL;
+	Heizkreis3_VoraufSoll: REAL;
+	Heizkreis3_Party: UINT;
+	Heizkreis3_RaumTemperatur: REAL;
+	Heizkreis4_VoraufIst: REAL;
+	Heizkreis4_VoraufSoll: REAL;
+	Heizkreis4_Party: UINT;
+	Heizkreis4_RaumTemperatur: REAL;
+
+	Boiler1_TemperaturOben: REAL;
+	Boiler1_TemperaturSolarreferenz: REAL;
+	Board_TemperaturPelletmodul: REAL;
+	Betriebsstunden: INT;
+	Boiler2_ObenTemperatur: REAL;
+	Boiler2_SolarreferenzTemperatur: REAL;
+	Boiler3_ObenTemperatur: REAL;
+	Boiler3_SolarreferenzTemperatur: REAL;
+	Boiler4_ObenTemperatur: REAL;
+	Boiler4_SolarreferenzTemperatur: REAL;
+	Puffer1_ObenTemperatur: REAL;
+	Puffer1_MitteTemperatur: REAL;
+	Puffer1_UntenTemperatur: REAL;
+	Puffer2_ObenTemperatur: REAL;
+	Puffer2_MitteTemperatur: REAL;
+	Puffer2_UntenTemperatur: REAL;
+	Puffer3_ObenTemperatur: REAL;
+	Puffer3_MitteTemperatur: REAL;
+	Puffer3_UntenTemperatur: REAL;
+	Puffer4_ObenTemperatur: REAL;
+	Puffer4_MitteTemperatur: REAL;
+	Puffer4_UntenTemperatur: REAL;
+	Kessel_SollTemperatur: REAL;
+	Solarfuehler_PufferuntenTemperatur: REAL;
+	Puffer1_Pumpe: REAL;
+	Puffer2_Pumpe: REAL;
+	Puffer3_Pumpe: REAL;
+	Puffer4_Pumpe: REAL;
+	Boiler1_Pumpe: REAL;
+	Boiler2_Pumpe: REAL;
+	Boiler3_Pumpe: REAL;
+	Boiler4_Pumpe: REAL;
+	Kollektor_Pumpe: REAL;
+	Abgas_Soll_Temperatur: REAL;
+	Kollektor_Temperatur: REAL;
+	Kollektor_Pumpe_Laufzeit: UINT;
+	Kollektor_Ruecklauf_Temperatur: REAL;
+	Kessel_Anforderung: BOOL;
+	Heizen_Stunden: UINT;
+	Solar_BoilerUnten_Temperatur: REAL;
+	Solar_Leistung: REAL;
+
+	Kessel_Soll_Temperatur: REAL;
+
+	AnlagenZustand: E_FroelingAnlagenzustand;
+	KesselZustand: E_FroelingKesselzustand;
+END_VAR
+VAR
+	initOnce: BOOL := TRUE;
+	initScan: BOOL := TRUE;
+	modbusMaster: ModbusRtuMaster_KL6x22B;
+	modbusMasterReadyTrigger: F_TRIG;
+	i: UINT;
+	j: UINT;
+	offset: UINT;
+	length: UINT;
+	n: USINT;
+	execute: BOOL;
+	setValues: BOOL;
+END_VAR
+
+VAR CONSTANT
+	addresses: ARRAY [0..7] OF ST_ModbusAddressRange :=
+		(start := 0, length := 8, accessFunction := ReadCoils),
+		(start := 8, length := 8, accessFunction := ReadCoils),
+		(start := 16, length := 8, accessFunction := ReadCoils),
+		(start := 24, length := 8, accessFunction := ReadCoils),
+		(start := 0, length := 8, accessFunction := ReadInputStatus),
+		(start := 0, length := 37, accessFunction := ReadInputRegs),
+		(start := 93, length := 12, accessFunction := ReadInputRegs),
+		(start := 4000, length := 3, accessFunction := ReadInputRegs);
+	dummyAddress: ST_ModbusAddressRange;
+END_VAR
+(* @END_DECLARATION := '0' *)
+IF initOnce THEN   (* TODO: howto detect an online change? *)
+	n := SIZEOF(addresses) / SIZEOF(dummyAddress);
+	modbusMaster.UnitID := modbusSlaveAddress;
+	modbusMaster.Timeout := timeout;
+	initOnce := FALSE;
+END_IF
+
+IF initScan THEN
+	i := 0;
+	offset := 0;
+	execute := TRUE;
+END_IF
+
+modbusMaster.Quantity := addresses[i].length;
+modbusMaster.MBAddr := addresses[i].start;
+modbusMaster.pMemoryAddr := ADR(values[offset]);
+modbusMaster.Execute := execute;
+CASE addresses[i].accessFunction OF
+ReadCoils:
+	length := (addresses[i].length + 7) / 8;
+	modbusMaster.ReadCoils(cbLength := length);
+ReadInputStatus:
+	length := (addresses[i].length + 7) / 8;
+	modbusMaster.ReadInputStatus(cbLength := length);
+ReadInputRegs:
+	length := 2 * addresses[i].length;
+	modbusMaster.ReadInputRegs(cbLength := length);
+END_CASE
+modbusMasterBusy := modbusMaster.BUSY;
+modbusMasterError := modbusMaster.Error;
+modbusMasterErrorId := modbusMaster.ErrorId;
+modbusMasterBytesRead := modbusMaster.cbRead;
+
+IF modbusMasterBusy THEN
+	execute := FALSE;
+END_IF
+modbusMasterReadyTrigger(CLK := modbusMasterBusy);
+
+IF initScan THEN
+	initScan := FALSE;
+ELSE
+	IF modbusMasterReadyTrigger.Q THEN
+		offset := offset + length;
+		i := i + 1;
+		IF i >= n THEN
+			initScan := TRUE;
+			setValues := TRUE;
+		ELSE
+			execute := TRUE;
+		END_IF
+	END_IF
+END_IF
+
+IF setValues THEN
+	j := 0;
+	Heizkreis1_PumpeEin := values[j].0;
+	Heizkreis2_PumpeEin := values[j].1;
+	Heizkreis1_MischerAuf := values[j].2;
+	Heizkreis1_MischerZu := values[j].3;
+	Heizkreis2_MischerAuf := values[j].4;
+	Heizkreis2_MischerZu := values[j].5;
+	j := j + 1;
+	Heizkreis0_PumpeEin := values[j].0;
+	j := j + 1;
+	Stoerung := values[j].4;
+	j := j + 1;
+	Heizkreis3_PumpeEin := values[j].1;
+	Heizkreis4_PumpeEin := values[j].2;
+	Heizkreis3_MischerAuf := values[j].3;
+	Heizkreis3_MischerZu := values[j].4;
+	Heizkreis4_MischerAuf := values[j].5;
+	Heizkreis4_MischerZu := values[j].6;
+	j := j + 1;
+	TuerOffen := values[j].0;
+	STB := values[j].1;
+	NotAus := values[j].2;
+	j := j + 1; KesselTemperatur := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; AbgasTemperatur := INT_TO_REAL(values[j]);
+	j := j + 1; BoardTemperatur := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; RestSauerstoff := INT_TO_REAL(values[j]) / 10;
+	j := j + 1; AussenTemperatur := INT_TO_REAL(values[j]) / 2;
+	j := j + 3; SaugzugDrehzahl := INT_TO_REAL(values[j]);
+	j := j + 1; StbTemperatur := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Fuehler2Temperatur := INT_TO_REAL(values[j]) / 2;
+	j := j + 6; Saugzug := INT_TO_REAL(values[j]);
+	j := j + 3; Kesselstellgroesse := INT_TO_REAL(values[j]);
+	j := j + 3; Heizkreis1_VoraufIst := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Heizkreis1_VoraufSoll := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Heizkreis1_Party := values[j];
+	j := j + 1; Heizkreis1_RaumTemperatur := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Heizkreis2_VoraufIst := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Heizkreis2_VoraufSoll := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Heizkreis2_Party := values[j];
+	j := j + 1; Heizkreis2_RaumTemperatur := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Heizkreis3_VoraufIst := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Heizkreis3_VoraufSoll := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Heizkreis3_Party := values[j];
+	j := j + 1; Heizkreis3_RaumTemperatur := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Heizkreis4_VoraufIst := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Heizkreis4_VoraufSoll := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Heizkreis4_Party := values[j];
+	j := j + 1; Heizkreis4_RaumTemperatur := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Boiler1_TemperaturOben := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Boiler1_TemperaturSolarreferenz := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Board_TemperaturPelletmodul := INT_TO_REAL(values[j]) / 2;
+	j := j + 1; Betriebsstunden := values[j];
+	setValues := FALSE;
+END_IF
+END_FUNCTION_BLOCK

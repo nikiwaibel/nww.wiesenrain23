@@ -31,7 +31,7 @@ _END_ELEM
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _BUTTON : ''
-_POS : 330,300,581,471,455,385
+_POS : 325,300,576,471,450,385
 _THRESH : '','','',''
 _INPUT : 262144
 _DSP : '','Heizen',''
@@ -918,7 +918,7 @@ _REF : 'vi_Temperature'
 NUM_STRINGS_IN_LIST: 1
 fb_Temperature
 NUM_STRINGS_IN_LIST: 1
-MAIN.vorratTemperatur
+MAIN.lagerTemperatur
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 180,320,201,341,190,360

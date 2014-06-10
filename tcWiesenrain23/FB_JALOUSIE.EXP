@@ -1,0 +1,40 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK FB_Jalousie
+VAR_INPUT
+	T_UD: TIME;
+	T_ANGLE: TIME;
+	PI: BYTE;
+	AI: BYTE;
+	UD: TIME := t#10s;
+	ANGLE: TIME := t#3s;
+END_VAR
+VAR_OUTPUT
+	Qu AT %Q*: BOOL;
+	Qd AT %Q*: BOOL;
+END_VAR
+VAR
+	viUp: BOOL;
+	viDown: BOOL;
+	viAuto: BOOL;
+	mInput: BLIND_INPUT;
+	(* mActuator: BLIND_ACTUATOR;  integrated in BLIND_CONTROL *)
+	mControl: BLIND_CONTROL;
+END_VAR
+(* @END_DECLARATION := '0' *)
+(* mControl.SENS := 0; *)
+mControl.T_UD := T_UD;
+mControl.T_ANGLE := T_ANGLE;
+
+mControl.PI := PI;
+
+mInput(S1 := viUp, S2 := viDown, IN := viAuto, POS := mControl.POS, ANG := mControl.ANG);
+mControl(UP := mInput.QU, DN := mInput.QD, S_IN := mInput.STATUS, PI := mInput.PO, AI := mInput.AO);
+
+Qu := mControl.MU;
+Qd := mControl.MD;
+
+END_FUNCTION_BLOCK

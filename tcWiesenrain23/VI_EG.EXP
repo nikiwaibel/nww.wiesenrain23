@@ -3,7 +3,7 @@
 VISUALISATION VI_EG _VISU_TYPES : 1,1
 _BG_BMP : ''
 _TEXT : 138
-_PAINTZOOM : 150
+_PAINTZOOM : 100
 
 _SIMPLE : 0
 _LINEWIDTH : 0
@@ -440,9 +440,9 @@ fbButton_T
 fbButton_L
 fbButton_R
 NUM_STRINGS_IN_LIST: 3
-MAIN.schlafenTasterOO
-MAIN.schlafenTasterOL
-MAIN.schlafenTasterOR
+MAIN.schlafenTasterOo
+MAIN.schlafenTasterOl
+MAIN.schlafenTasterOr
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 310,190,331,231,320,210

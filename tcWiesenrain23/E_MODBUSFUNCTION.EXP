@@ -1,0 +1,16 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE E_ModbusFunction : (
+	ReadCoils := 1,
+	ReadInputStatus := 2,
+	ReadRegs := 3,
+	ReadInputRegs := 4,
+	WriteSingleCoil := 5,
+	WriteSingleRegister := 6,
+	Diagnostics := 8,
+	WriteMultipleCoils := 15,
+	WriteRegs := 16
+);
+END_TYPE
+(* @END_DECLARATION := '0' *)
