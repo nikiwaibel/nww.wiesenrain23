@@ -1,0 +1,9 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE E_Terminal : (
+	Beckhoff_KL3468 := 1, (* 0..10V *)
+	Beckhoff_KL3208 := 2  (* PT1000, ...*)
+);
+END_TYPE
+(* @END_DECLARATION := '0' *)

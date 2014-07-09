@@ -15,6 +15,10 @@ VAR_CONFIG
 	MAIN._bwmLager AT %IX108.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A? E-Bus->K-Bus^KG-HV A5^Kanal 5^Lager BWM} *)
 	MAIN._bwmOgGang AT %IX120.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A7^Kanal 16^OG-Gang BWM} *)
 	MAIN._bwmWaschen AT %IX112.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A? E-Bus->K-Bus^KG-HV A5^Kanal 2^Waschen BWM} *)
+	MAIN._feuchteWaschen_status AT %IB424 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A? E-Bus->K-Bus^KG-HV A9a^Kanal 3^Waschen Feuchte Status} *)
+	MAIN._feuchteWaschen_dataIn AT %IB425 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A? E-Bus->K-Bus^KG-HV A9a^Kanal 3^Waschen Feuchte Daten Ein} *)
+	MAIN._feuchteEgGang_status AT %IB420 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A? E-Bus->K-Bus^KG-HV A9a^Kanal 1^EgGang Feuchte Status} *)
+	MAIN._feuchteEgGang_dataIn AT %IB421 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A? E-Bus->K-Bus^KG-HV A9a^Kanal 1^EgGang Feuchte Daten Ein} *)
 	MAIN._lichtEgGang_status AT %IB300 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A9a^Kanal 2^EgGang Licht Status} *)
 	MAIN._lichtEgGang_dataIn AT %IB301 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A9a^Kanal 2^EgGang Licht DataIn} *)
 	MAIN._lichtEgWc_status AT %IB303 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A9b^Kanal 2^EgWc Licht Status} *)
@@ -31,36 +35,36 @@ VAR_CONFIG
 	MAIN._lichtWaschen_dataIn AT %IB319 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A? E-Bus->K-Bus^KG-HV A8b^Kanal 2^Waschen Licht Daten Ein} *)
 	MAIN._temperaturArbeiten_status AT %IB324 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A74a^Kanal 2^Arbeiten Temperatur Status} *)
 	MAIN._temperaturArbeiten_dataIn AT %IB325 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A74a^Kanal 2^Arbeiten Temperatur Daten Ein} *)
-	MAIN._temperaturEgBad_status AT %IB327 : USINT;
-	MAIN._temperaturEgBad_dataIn AT %IB328 : INT;
+	MAIN._temperaturEgBad_status AT %IB327 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A10a^Kanal 4^EgBad Temperatur Status} *)
+	MAIN._temperaturEgBad_dataIn AT %IB328 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A10a^Kanal 4^EgBad Temperatur DataIn} *)
 	MAIN._temperaturEgGangSM_status AT %IB330 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A9a^Kanal 1^EgGang TemperaturSM Status} *)
 	MAIN._temperaturEgGangSM_dataIn AT %IB331 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A9a^Kanal 1^EgGang TemperaturSM DataIn} *)
-	MAIN._temperaturEgGangSO_status AT %IB333 : USINT;
-	MAIN._temperaturEgGangSO_dataIn AT %IB334 : INT;
+	MAIN._temperaturEgGangSO_status AT %IB333 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A? E-Bus->K-Bus^KG-HV A9a^Kanal 2^EgGang TemperaturSO Status} *)
+	MAIN._temperaturEgGangSO_dataIn AT %IB334 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A? E-Bus->K-Bus^KG-HV A9a^Kanal 2^EgGang TemperaturSO Daten Ein} *)
 	MAIN._temperaturEgWc_status AT %IB336 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A9b^Kanal 1^EgWc Temperatur Status} *)
 	MAIN._temperaturEgWc_dataIn AT %IB337 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A9b^Kanal 1^EgWc Temperatur Daten Ein} *)
-	MAIN._temperaturEssen_status AT %IB339 : USINT;
-	MAIN._temperaturEssen_dataIn AT %IB340 : INT;
-	MAIN._temperaturGaeste_status AT %IB342 : USINT;
-	MAIN._temperaturGaeste_dataIn AT %IB343 : INT;
+	MAIN._temperaturEssen_status AT %IB339 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A10a^Kanal 3^Essen Temperatur Status} *)
+	MAIN._temperaturEssen_dataIn AT %IB340 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A10a^Kanal 3^Essen Temperatur DataIn} *)
+	MAIN._temperaturGaeste_status AT %IB342 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A74a^Kanal 3^GaesteTemperatur Status} *)
+	MAIN._temperaturGaeste_dataIn AT %IB343 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A74a^Kanal 3^GaesteTemperatur Daten Ein} *)
 	MAIN._temperaturHobby_status AT %IB345 : USINT;
 	MAIN._temperaturHobby_dataIn AT %IB346 : INT;
 	MAIN._temperaturKochen_status AT %IB348 : USINT;
 	MAIN._temperaturKochen_dataIn AT %IB349 : INT;
 	MAIN._temperaturLager_status AT %IB351 : USINT;
 	MAIN._temperaturLager_dataIn AT %IB352 : INT;
-	MAIN._temperaturOgBad_status AT %IB354 : USINT;
-	MAIN._temperaturOgBad_dataIn AT %IB355 : INT;
+	MAIN._temperaturOgBad_status AT %IB354 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A74b^Kanal 3^OG-Bad Temperatur Status} *)
+	MAIN._temperaturOgBad_dataIn AT %IB355 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A74b^Kanal 3^OG-Bad Temperatur Daten Ein} *)
 	MAIN._temperaturOgGang_status AT %IB357 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A73a^Kanal 1^OgGang Temperatur Status} *)
 	MAIN._temperaturOgGang_dataIn AT %IB358 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A73a^Kanal 1^OgGang Temperatur Daten Ein} *)
-	MAIN._temperaturOgKind_status AT %IB360 : USINT;
-	MAIN._temperaturOgKind_dataIn AT %IB361 : INT;
-	MAIN._temperaturOgWc_status AT %IB363 : USINT;
-	MAIN._temperaturOgWc_dataIn AT %IB364 : INT;
+	MAIN._temperaturOgKind_status AT %IB360 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A74a^Kanal 1^OG-Kind Temperatur Status} *)
+	MAIN._temperaturOgKind_dataIn AT %IB361 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A74a^Kanal 1^OG-Kind Temperatur Daten Ein} *)
+	MAIN._temperaturOgWc_status AT %IB363 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A74b^Kanal 1^OG-WC Temperatur Status} *)
+	MAIN._temperaturOgWc_dataIn AT %IB364 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A74b^Kanal 1^OG-WC Temperatur Daten Ein} *)
 	MAIN._temperaturSchlafen_status AT %IB366 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A10a^Kanal 1^Schlafen Temperatur Status} *)
 	MAIN._temperaturSchlafen_dataIn AT %IB367 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A10a^Kanal 1^Schlafen Temperatur DataIn} *)
-	MAIN._temperaturVorrat_status AT %IB369 : USINT;
-	MAIN._temperaturVorrat_dataIn AT %IB370 : INT;
+	MAIN._temperaturVorrat_status AT %IB369 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A10b^Kanal 1^Vorrat Temperatur Status} *)
+	MAIN._temperaturVorrat_dataIn AT %IB370 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A? Ethercat->K-Bus [mitte rechts]^OG-UV A10b^Kanal 1^Vorrat Temperatur DataIn} *)
 	MAIN._temperaturWaschenON_status AT %IB372 : USINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A? E-Bus->K-Bus^KG-HV A8b^Kanal 1^WaschenO TemperaturN Status} *)
 	MAIN._temperaturWaschenON_dataIn AT %IB373 : INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A? E-Bus->K-Bus^KG-HV A8b^Kanal 1^WaschenO TemperaturN Daten Ein} *)
 	MAIN._temperaturWaschenOS_status AT %IB375 : USINT;
@@ -72,7 +76,7 @@ VAR_CONFIG
 	MAIN._tasterArbeitenOR AT %IX206.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A6^Kanal 5^ArbeitenO TasterR} *)
 	MAIN._tasterArbeitenSL AT %IX206.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A5^Kanal 11^ArbeitenS TasterL} *)
 	MAIN._tasterArbeitenSR AT %IX206.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A5^Kanal 12^ArbeitenS TasterR} *)
-	MAIN._tasterDgKind AT %IX206.6 : BOOL;
+	MAIN._tasterDgKind AT %IX206.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A72^Kanal 7^Eingang} *)
 	MAIN._tasterEgBadL AT %IX132.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A5^Kanal 7^EG-Bad TasterL} *)
 	MAIN._tasterEgBadR AT %IX132.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A5^Kanal 8^EG-Bad TasterR} *)
 	MAIN._tasterEgGang AT %IX80.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^KG-HV A4^Kanal 10^EG-Gang Taster} *)
@@ -141,40 +145,74 @@ VAR_CONFIG
 	MAIN.heizenHK1.pumpe AT %QB14 : INT;
 	MAIN.heizenHK2.mischer AT %QB16 : INT;
 	MAIN.heizenHK2.pumpe AT %QB18 : INT;
-	MAIN.egBadJalousie.Qu AT %QX92.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A59^Kanal 1^EG-Bad JalousieAuf} *)
-	MAIN.egBadJalousie.Qd AT %QX92.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A59^Kanal 2^EG-Bad JalousieAb} *)
-	MAIN.essenJalousie.Qu AT %QX92.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A65^Kanal 1^Essen JalousieAuf} *)
-	MAIN.essenJalousie.Qd AT %QX92.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A65^Kanal 2^Essen JalousieAb} *)
-	MAIN.kochenJalousieS.Qu AT %QX92.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A66^Kanal 1^KochenS JalousieAuf} *)
-	MAIN.kochenJalousieS.Qd AT %QX92.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A66^Kanal 2^KochenS JalousieAb} *)
-	MAIN.kochenJalousieO.Qu AT %QX92.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A67^Kanal 1^KochenO JalousieAuf} *)
-	MAIN.kochenJalousieO.Qd AT %QX92.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A67^Kanal 2^KochenO JalousieAb} *)
-	MAIN.schlafenJalousieN.Qu AT %QX88.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A60^Kanal 1^SchlafenN JalousieAuf} *)
-	MAIN.schlafenJalousieN.Qd AT %QX88.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A60^Kanal 2^SchlafenN JalousieAb} *)
-	MAIN.schlafenJalousieW.Qu AT %QX88.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A61^Kanal 1^SchlafenW JalousieAuf} *)
-	MAIN.schlafenJalousieW.Qd AT %QX88.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A61^Kanal 2^SchlafenW JalousieAb} *)
-	MAIN.wohnenJalousieS.Qu AT %QX93.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A64^Kanal 1^WohnenS JalousieAuf} *)
-	MAIN.wohnenJalousieS.Qd AT %QX93.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A64^Kanal 2^WohnenS JalousieAb} *)
-	MAIN.wohnenJalousieWa.Qu AT %QX93.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A62^Kanal 1^WohnenWa JalousieAuf} *)
-	MAIN.wohnenJalousieWa.Qd AT %QX93.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A62^Kanal 2^WohnenWa JalousieAb} *)
-	MAIN.wohnenJalousieWb.Qu AT %QX93.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A63^Kanal 1^WohnenWb JalousieAuf} *)
-	MAIN.wohnenJalousieWb.Qd AT %QX93.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A63^Kanal 2^WohnenWb JalousieAb} *)
-	MAIN.arbeitenJalousieN.Qu AT %QX100.0 : BOOL;
-	MAIN.arbeitenJalousieN.Qd AT %QX100.1 : BOOL;
-	MAIN.arbeitenJalousieW.Qu AT %QX100.2 : BOOL;
-	MAIN.arbeitenJalousieW.Qd AT %QX100.3 : BOOL;
-	MAIN.arbeitenJalousieS.Qu AT %QX100.4 : BOOL;
-	MAIN.arbeitenJalousieS.Qd AT %QX100.5 : BOOL;
-	MAIN.gaesteJalousieO.Qu AT %QX100.6 : BOOL;
-	MAIN.gaesteJalousieO.Qd AT %QX100.7 : BOOL;
-	MAIN.gaesteJalousieS.Qu AT %QX101.0 : BOOL;
-	MAIN.gaesteJalousieS.Qd AT %QX101.1 : BOOL;
-	MAIN.ogBadJalousie.Qu AT %QX96.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A82^Kanal 1^OG-Bad JalousieAuf} *)
-	MAIN.ogBadJalousie.Qd AT %QX96.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A82^Kanal 2^OG-Bad JalousieAb} *)
-	MAIN.ogKindJalousieS.Qu AT %QX101.2 : BOOL;
-	MAIN.ogKindJalousieS.Qd AT %QX101.3 : BOOL;
-	MAIN.ogKindJalousieW.Qu AT %QX101.4 : BOOL;
-	MAIN.ogKindJalousieW.Qd AT %QX101.5 : BOOL;
+	MAIN.egBadJalousie.up AT %IX416.0 : BOOL;
+	MAIN.egBadJalousie.down AT %IX416.1 : BOOL;
+	MAIN.egBadJalousie.qUp AT %QX108.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A59^Kanal 1^EG-Bad JalousieAuf} *)
+	MAIN.egBadJalousie.qDown AT %QX108.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A59^Kanal 2^EG-Bad JalousieAb} *)
+	MAIN.essenJalousie.up AT %IX416.2 : BOOL;
+	MAIN.essenJalousie.down AT %IX416.3 : BOOL;
+	MAIN.essenJalousie.qUp AT %QX108.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A65^Kanal 1^Essen JalousieAuf} *)
+	MAIN.essenJalousie.qDown AT %QX108.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A65^Kanal 2^Essen JalousieAb} *)
+	MAIN.kochenJalousieS.up AT %IX416.4 : BOOL;
+	MAIN.kochenJalousieS.down AT %IX416.5 : BOOL;
+	MAIN.kochenJalousieS.qUp AT %QX108.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A66^Kanal 1^KochenS JalousieAuf} *)
+	MAIN.kochenJalousieS.qDown AT %QX108.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A66^Kanal 2^KochenS JalousieAb} *)
+	MAIN.kochenJalousieO.up AT %IX416.6 : BOOL;
+	MAIN.kochenJalousieO.down AT %IX416.7 : BOOL;
+	MAIN.kochenJalousieO.qUp AT %QX108.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A67^Kanal 1^KochenO JalousieAuf} *)
+	MAIN.kochenJalousieO.qDown AT %QX108.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A67^Kanal 2^KochenO JalousieAb} *)
+	MAIN.schlafenJalousieN.up AT %IX412.0 : BOOL;
+	MAIN.schlafenJalousieN.down AT %IX412.1 : BOOL;
+	MAIN.schlafenJalousieN.qUp AT %QX109.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A60^Kanal 1^SchlafenN JalousieAuf} *)
+	MAIN.schlafenJalousieN.qDown AT %QX109.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A60^Kanal 2^SchlafenN JalousieAb} *)
+	MAIN.schlafenJalousieW.up AT %IX417.0 : BOOL;
+	MAIN.schlafenJalousieW.down AT %IX417.1 : BOOL;
+	MAIN.schlafenJalousieW.qUp AT %QX109.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A61^Kanal 1^SchlafenW JalousieAuf} *)
+	MAIN.schlafenJalousieW.qDown AT %QX109.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A61^Kanal 2^SchlafenW JalousieAb} *)
+	MAIN.wohnenJalousieS.up AT %IX417.2 : BOOL;
+	MAIN.wohnenJalousieS.down AT %IX417.3 : BOOL;
+	MAIN.wohnenJalousieS.qUp AT %QX109.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A64^Kanal 1^WohnenS JalousieAuf} *)
+	MAIN.wohnenJalousieS.qDown AT %QX109.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^OG-UV A1 Ethercat->K-Bus [unten links] ^OG-UV A64^Kanal 2^WohnenS JalousieAb} *)
+	MAIN.wohnenJalousieWa.up AT %IX417.4 : BOOL;
+	MAIN.wohnenJalousieWa.down AT %IX417.5 : BOOL;
+	MAIN.wohnenJalousieWa.qUp AT %QX109.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A62^Kanal 1^WohnenWa JalousieAuf} *)
+	MAIN.wohnenJalousieWa.qDown AT %QX109.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A62^Kanal 2^WohnenWa JalousieAb} *)
+	MAIN.wohnenJalousieWb.up AT %IX417.6 : BOOL;
+	MAIN.wohnenJalousieWb.down AT %IX417.7 : BOOL;
+	MAIN.wohnenJalousieWb.qUp AT %QX110.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A63^Kanal 1^WohnenWb JalousieAuf} *)
+	MAIN.wohnenJalousieWb.qDown AT %QX110.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A63^Kanal 2^WohnenWb JalousieAb} *)
+	MAIN.arbeitenJalousieN.up AT %IX418.0 : BOOL;
+	MAIN.arbeitenJalousieN.down AT %IX418.1 : BOOL;
+	MAIN.arbeitenJalousieN.qUp AT %QX110.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A83^Kanal 1^ArbeitenN JalousieAuf} *)
+	MAIN.arbeitenJalousieN.qDown AT %QX110.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A83^Kanal 2^ArbeitenN JalousieAb} *)
+	MAIN.arbeitenJalousieW.up AT %IX418.2 : BOOL;
+	MAIN.arbeitenJalousieW.down AT %IX418.3 : BOOL;
+	MAIN.arbeitenJalousieW.qUp AT %QX110.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A86^Kanal 1^ArbeitenW JalousieAuf} *)
+	MAIN.arbeitenJalousieW.qDown AT %QX110.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A86^Kanal 2^ArbeitenW JalousieAb} *)
+	MAIN.arbeitenJalousieS.up AT %IX418.4 : BOOL;
+	MAIN.arbeitenJalousieS.down AT %IX418.5 : BOOL;
+	MAIN.arbeitenJalousieS.qUp AT %QX110.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A85^Kanal 1^ArbeitenSb JalousieAuf} *)
+	MAIN.arbeitenJalousieS.qDown AT %QX110.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A85^Kanal 2^ArbeitenSb JalousieAb} *)
+	MAIN.gaesteJalousieO.up AT %IX418.6 : BOOL;
+	MAIN.gaesteJalousieO.down AT %IX418.7 : BOOL;
+	MAIN.gaesteJalousieO.qUp AT %QX111.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A90^Kanal 1^GastO JalousieAuf} *)
+	MAIN.gaesteJalousieO.qDown AT %QX111.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A90^Kanal 2^GastO JalousieAb} *)
+	MAIN.gaesteJalousieS.up AT %IX419.0 : BOOL;
+	MAIN.gaesteJalousieS.down AT %IX419.1 : BOOL;
+	MAIN.gaesteJalousieS.qUp AT %QX111.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A89^Kanal 1^GastS JalousieAuf} *)
+	MAIN.gaesteJalousieS.qDown AT %QX111.3 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A89^Kanal 2^GastS JalousieAb} *)
+	MAIN.ogBadJalousie.up AT %IX419.2 : BOOL;
+	MAIN.ogBadJalousie.down AT %IX419.3 : BOOL;
+	MAIN.ogBadJalousie.qUp AT %QX111.4 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A82^Kanal 1^OG-Bad JalousieAuf} *)
+	MAIN.ogBadJalousie.qDown AT %QX111.5 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A82^Kanal 2^OG-Bad JalousieAb} *)
+	MAIN.ogKindJalousieS.up AT %IX419.4 : BOOL;
+	MAIN.ogKindJalousieS.down AT %IX419.5 : BOOL;
+	MAIN.ogKindJalousieS.qUp AT %QX111.6 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A87^Kanal 1^KindS JalousieAuf} *)
+	MAIN.ogKindJalousieS.qDown AT %QX111.7 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A87^Kanal 2^KindS JalousieAb} *)
+	MAIN.ogKindJalousieW.up AT %IX419.6 : BOOL;
+	MAIN.ogKindJalousieW.down AT %IX419.7 : BOOL;
+	MAIN.ogKindJalousieW.qUp AT %QX112.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A88^Kanal 1^KindW JalousieAuf} *)
+	MAIN.ogKindJalousieW.qDown AT %QX112.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^OG-UV A88^Kanal 2^KindW JalousieAb} *)
 	MAIN_FAST.fbFroeling.modbusMaster.InData AT %IB384 : MB_KL6inData22B;
 	MAIN_FAST.fbFroeling.modbusMaster.OutData AT %QB56 : MB_KL6outData22B;
 	MAIN_FAST.uiStateCX5000 AT %IB224 : UINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^Eingänge^State} *)
@@ -184,6 +222,8 @@ VAR_CONFIG
 	MAIN_FAST.iVoltagePhase3 AT %IB266 : ARRAY [0..9] OF INT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A18^L3 Voltage Samples^U3 SAMPLES} *)
 	MAIN_FAST.uliStartTimeNextLatch AT %IB286 : ARRAY [0..1] OF UDINT;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A18^AI Timestamp NextSync1Time^StartTimeNextLatch} *)
 	MAIN_FAST.bWcState AT %IX294.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 X001 EtherCAT [rechts]^KG-HV A35 EtherCat->E-Bus [links]^KG-HV A18^WcState^WcState} *)
+	MAIN_FAST.fbJalousie0u.Q AT %QX104.0 : BOOL;
+	MAIN_FAST.fbJalousie0d.Q AT %QX104.1 : BOOL;
 	MAIN_FAST.fbA28CH1.bRelay AT %QX42.0 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^KG-HV A28^Kanal 1^Heizen PumpeSolar} *)
 	MAIN_FAST.fbA28CH2.bRelay AT %QX42.1 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^KG-HV A28^Kanal 2^Heizen PumpeWarmwasser} *)
 	MAIN_FAST.fbA29CH1.bRelay AT %QX42.2 : BOOL;	(*  ~ {LinkedWith:TIID^KG-HV A1 K-Bus [rechts]^KG-HV A1 (K-Bus)^KG-HV A29^Kanal 1^Heizen PumpePufferladung} *)

@@ -1,4 +1,4 @@
-(* @PATH := '\/OG' *)
+(* @PATH := '\/KG\/OG' *)
 
 VISUALISATION VI_OGGANG _VISU_TYPES : 1,1
 _BG_BMP : ''

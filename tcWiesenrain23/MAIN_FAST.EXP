@@ -26,6 +26,8 @@ VAR
 	fbAnalyseVoltagePhase1 : FB_ANALYSE_VOLTAGE;
 	fbAnalyseVoltagePhase2 : FB_ANALYSE_VOLTAGE;
 	fbAnalyseVoltagePhase3 : FB_ANALYSE_VOLTAGE;
+	fbJalousie0u: FB_SYNC_JALOUSIE_DELAY;
+	fbJalousie0d: FB_SYNC_JALOUSIE_DELAY;
 	fbA28CH1: FB_SYNC_RELAIS;
 	fbA28CH2: FB_SYNC_RELAIS;
 	fbA29CH1: FB_SYNC_RELAIS;
@@ -148,7 +150,10 @@ fbAnalyseVoltagePhase3(
 	lrFrequency => lrFrequencyPhase3,
 	bError => bErrorL3);
 
-(* Relais *)
+(* jalousie *)
+fbJalousie0u(IN := MAIN.schlafenJalousieN.up,   nextZeroVoltage := fbAnalyseVoltagePhase1.tNextZeroVoltage);
+fbJalousie0d(IN := MAIN.schlafenJalousieN.down, nextZeroVoltage := fbAnalyseVoltagePhase1.tNextZeroVoltage);
+(* relais *)
 fbA28CH1(bValue:= , udiDelayNanoSek:= 5800000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
 fbA28CH2(bValue:= , udiDelayNanoSek:= 6600000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);
 fbA29CH1(bValue:= , udiDelayNanoSek:= 6300000, tNextZeroVoltage:= fbAnalyseVoltagePhase1.tNextZeroVoltage);

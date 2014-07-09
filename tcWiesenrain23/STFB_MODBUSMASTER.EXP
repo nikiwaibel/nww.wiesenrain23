@@ -1,0 +1,15 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE stFB_ModbusMaster :
+STRUCT
+	byCurrentModbusSlaveAdress: BYTE;
+	bModbusAddressExist: BOOL;
+	bModbusCommunicationActive: BOOL;
+	stCurrentDeviceSpace:  ARRAY [0..uiMaxCurrentDeviceSpace] OF stDeviceSpace;
+	iNumberOfData: INT;
+	bError: BOOL;
+	eError: INT;
+END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

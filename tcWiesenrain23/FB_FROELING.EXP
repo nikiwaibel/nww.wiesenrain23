@@ -149,7 +149,7 @@ VAR CONSTANT
 		(start := 0, length := 8, accessFunction := ReadCoils),
 		(start := 8, length := 8, accessFunction := ReadCoils),
 		(start := 16, length := 8, accessFunction := ReadCoils),
-		(start := 24, length := 8, accessFunction := ReadCoils),
+		(start := 24, LENGTH := 8, accessFunction := ReadCoils),
 		(start := 0, length := 8, accessFunction := ReadInputStatus),
 		(start := 0, length := 37, accessFunction := ReadInputRegs),
 		(start := 93, length := 12, accessFunction := ReadInputRegs),
@@ -166,7 +166,7 @@ END_IF
 
 IF initScan THEN
 	i := 0;
-	offset := 0;
+	OFFSET := 0;
 	execute := TRUE;
 END_IF
 

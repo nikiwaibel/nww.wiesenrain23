@@ -5,85 +5,60 @@
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK FB_ButtonDouble
 VAR_INPUT
-	ROOM: STRING;
-	LOCATION: STRING;
-	IN: BOOL;
-	LONGPRESS: TIME := t#250ms; (*read by the visualisation*)
-END_VAR
-VAR_OUTPUT RETAIN PERSISTENT
-	toggleOnPress: BOOL;
-	toggleOnRelease: BOOL;
-	toggleOnLongpress: BOOL;
-	toggleOnClick: BOOL;
-	usageCounterPress: UDINT; (*overall number of press events*)
-	usageCounterRelease: UDINT; (*overall number of release events*)
-	usageCounterLongpress: UDINT; (*overall number longpress events*)
-	usageCounterClick: UDINT; (*overall number of click events*)
+	maxDelay: TIME := t#100ms;   (* needs to be smaller then the longpress delay *)
+	pulseOnClickA: BOOL;
+	pulseOnClickB: BOOL;
+	pulseOnLongpressA: BOOL;
+	pulseOnLongpressB: BOOL;
 END_VAR
 VAR_OUTPUT
-	isPressed: BOOL := FALSE;
-	isReleased: BOOL; (*NOT isPressed*)
-	isLongpressed: BOOL := FALSE;
-	isClicked: BOOL := FALSE;
-	pulseOnPress: BOOL;
-	pulseOnRelease: BOOL;
-	pulseOnLongpress: BOOL;
-	pulseOnClick: BOOL;
+	qPulseOnClickA: BOOL;
+	qPulseOnClickB: BOOL;
+	qPulseOnClickBoth: BOOL;
+	qPulseOnLongpressA: BOOL;
+	qPulseOnLongpressB: BOOL;
+	qPulseOnLongpressBoth: BOOL;
 END_VAR
 VAR
-	viIN: BOOL; (*written by the visualisation*)
-	viText: STRING; (*read by the visualisation*)
-	pTrig: R_TRIG;
-	rTrig: F_TRIG;
-	longpressTimer: TON;
-	lTrig: R_TRIG;
-	cTrig: R_TRIG;
-	t1: TOF;
-	t2: TOF;
-	myIN: BOOL;
+	timer: TOF;
+	waitFor: BYTE;
 END_VAR
 (* @END_DECLARATION := '0' *)
-(* support VIsualisations *)
-viText := CONCAT(ROOM, ' ');
-viText := CONCAT(viText, LOCATION);
-myIN := IN XOR viIN;
-
-pTrig(CLK := myIN);
-rTrig(CLK := myIN);
-pulseOnPress := pTrig.Q;
-pulseOnRelease := rTrig.Q;
-
-longpressTimer(IN := myIN, PT := LONGPRESS);
-lTrig(CLK := longpressTimer.Q);
-pulseOnLongpress := ltrig.Q;
-IF pulseOnLongpress AND NOT pulseOnRelease THEN
-	isLongpressed := TRUE;
-	usageCounterLongpress := usageCounterLongpress + 1;
-	toggleOnLongpress := fToggle(toggleOnLongpress);
-ELSIF pulseOnLongpress THEN
-	pulseOnLongpress := FALSE;
-END_IF
-
-IF pulseOnPress THEN
-	isPressed := TRUE;
-	isClicked := FALSE;
-	isLongpressed := FALSE;
-	usageCounterPress := usageCounterPress + 1;
-	toggleOnPress := fToggle(toggleOnPress);
-ELSIF pulseOnRelease THEN
-	isPressed := FALSE;
-	IF isLongpressed THEN
-		isLongpressed := FALSE;
-	ELSE
-		isClicked := TRUE;
-		usageCounterClick := usageCounterClick + 1;
-		toggleOnClick := fToggle(toggleOnClick);
+IF NOT timer.Q AND (pulseOnClickA OR pulseOnClickB OR pulseOnLongpressA OR pulseOnLongpressB) THEN
+	timer(PT := maxDelay, IN := TRUE);
+	IF pulseOnClickA THEN
+		waitFor := 1;
+	ELSIF pulseOnClickB THEN
+		waitFor := 2;
+	ELSIF pulseOnLongpressA THEN
+		waitFor := 3;
+	ELSIF pulseOnLongpressB THEN
+		waitFor := 4;
 	END_IF
-	usageCounterRelease := usageCounterRelease + 1;
-	toggleOnRelease := fToggle(toggleOnRelease);
 END_IF
-isReleased := NOT isPressed;
 
-cTrig(CLK := isClicked);
-pulseOnClick := cTrig.Q;
+IF timer.Q THEN
+	timer.IN := FALSE;
+	IF waitFor = 1 AND pulseOnClickB OR waitFor = 2 AND pulseOnClickA THEN
+		qPulseOnClickBoth := TRUE;
+		timer.PT := t#0s;
+	ELSIF waitFor = 3 AND pulseOnLongpressB OR waitFor = 4 AND pulseOnLongpressA THEN
+		qPulseOnLongpressBoth := TRUE;
+		timer.PT := t#0s;
+	END_IF
+	timer();
+ELSE (* NOT timer.Q *)
+	IF qPulseOnClickBoth THEN
+		qPulseOnClickBoth := FALSE;
+	ELSE
+		qPulseOnClickA := pulseOnClickA;
+		qPulseOnClickB := pulseOnClickB;
+	END_IF
+	IF qPulseOnLongpressBoth THEN
+		qPulseOnLongpressBoth := FALSE;
+	ELSE
+		qPulseOnLongpressA := pulseOnLongpressA;
+		qPulseOnLongpressB := pulseOnLongpressB;
+	END_IF
+END_IF
 END_FUNCTION_BLOCK

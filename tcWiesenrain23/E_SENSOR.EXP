@@ -1,0 +1,10 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE E_Sensor : (
+	Thermokon_MDS := 1,
+	Thermokon_FTW04VV := 2,
+	PT1000 := 3
+);
+END_TYPE
+(* @END_DECLARATION := '0' *)

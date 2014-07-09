@@ -2,39 +2,8 @@
 
 VISUALISATION VI_OG_JALOUSIEN _VISU_TYPES : 1,1
 _BG_BMP : ''
-_TEXT : 61
+_TEXT : 62
 _PAINTZOOM : 100
-
-_REF : 'vi_ButtonDouble_tiny'
-NUM_STRINGS_IN_LIST: 2
-fbButton_R
-fbButton_L
-NUM_STRINGS_IN_LIST: 2
-MAIN_SLOW.fbButtonDouble.fbButtonR
-MAIN_SLOW.fbButtonDouble.fbButtonL
-_LINEWIDTH : 0
-_NOCOLORS : 1,1
-_POS : 300,240,391,311,345,275
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 1,1,0
-_THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,3,0,0,0
-_FONT : ''
-_EXEC : ''
-_TEXTVARIABLES : '','','','',''
-_COLORVARIABLES : '','','','','',''
-_ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
-_THRESH2 : '','','',''
-_INPUTTYPE : '','',''
-_HIDDENINPUT : 0
-_END_ELEM
-(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
-(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 
 _REF : 'VI_Jalousie_tiny'
 NUM_STRINGS_IN_LIST: 1
@@ -52,35 +21,6 @@ _DSP : '','',''
 _ZOOM : ''
 _INPUT : 0
 _TEXT : 5,4294967285,400,0,39,0,0,0
-_FONT : ''
-_EXEC : ''
-_TEXTVARIABLES : '','','','',''
-_COLORVARIABLES : '','','','','',''
-_ACCESSLEVELS : 2,2,2,2,2,2,2,2
-_OBJECT : 0,0
-_THRESH2 : '','','',''
-_INPUTTYPE : '','',''
-_HIDDENINPUT : 0
-_END_ELEM
-(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
-(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
-
-_REF : 'VI_Jalousie_tiny'
-NUM_STRINGS_IN_LIST: 1
-FB_Jalousie
-NUM_STRINGS_IN_LIST: 1
-MAIN.arbeitenJalousieN
-_LINEWIDTH : 0
-_NOCOLORS : 0,1
-_POS : 180,320,261,411,220,365
-_COLORS : 0,16777215,0
-_VARIABLES : '','','','','','','',''
-_FRAME : 0,0,2
-_THRESH : '','','',''
-_DSP : '','',''
-_ZOOM : ''
-_INPUT : 0
-_TEXT : 5,4294967285,400,0,48,0,0,0
 _FONT : ''
 _EXEC : ''
 _TEXTVARIABLES : '','','','',''
@@ -160,7 +100,7 @@ MAIN.ogKindJalousieW
 _LINEWIDTH : 0
 _NOCOLORS : 0,1
 _POS : 440,300,521,391,480,345
-_COLORS : 0,16777215,0
+_COLORS : 255,16777215,0
 _VARIABLES : '','','','','','','',''
 _FRAME : 0,0,2
 _THRESH : '','','',''
@@ -366,6 +306,60 @@ _HIDDENINPUT : 0
 _END_ELEM
 (* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_SIMPLE : 1
+_LINEWIDTH : 0
+_NOCOLORS : 1,1
+_POS : 420,295,451,326,435,305
+_COLORS : 255,0,16777215,0,16777215
+_VARIABLES : '','','','','','','',''
+_THRESH : '','','',''
+_DSP : '','!',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967272,700,0,61,0,0,0
+_FONT : 'Times New Roman'
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
+(* @EXTENDEDSIMPLESHAPE := '_SIMPLE: 0' *)
+(* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
+
+_REF : 'VI_Jalousie_tiny'
+NUM_STRINGS_IN_LIST: 1
+FB_Jalousie
+NUM_STRINGS_IN_LIST: 1
+MAIN.arbeitenJalousieN
+_LINEWIDTH : 0
+_NOCOLORS : 0,1
+_POS : 180,320,261,411,220,365
+_COLORS : 0,16777215,0
+_VARIABLES : '','','','','','','',''
+_FRAME : 0,0,2
+_THRESH : '','','',''
+_DSP : '','',''
+_ZOOM : ''
+_INPUT : 0
+_TEXT : 5,4294967285,400,0,48,0,0,0
+_FONT : ''
+_EXEC : ''
+_TEXTVARIABLES : '','','','',''
+_COLORVARIABLES : '','','','','',''
+_ACCESSLEVELS : 2,2,2,2,2,2,2,2
+_OBJECT : 0,0
+_THRESH2 : '','','',''
+_INPUTTYPE : '','',''
+_HIDDENINPUT : 0
+_END_ELEM
+(* @TEXTSCALINGVARS := '_TEXTSCALINGVARS: $'$',$'$'' *)
 (* @INPUTTAPFALSE := '_INPUTTAPFALSE: 0' *)
 _KEYINFOLIST : 0
 END_VISUALISATION

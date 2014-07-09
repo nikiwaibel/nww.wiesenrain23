@@ -9,9 +9,12 @@ VAR CONSTANT
 	JALOUSIE_UD_TIME_BALKON: TIME := t#35s500ms;
 	JALOUSIE_UD_TIME_WINDOW_EG: TIME := t#35s500ms;
 	JALOUSIE_UD_TIME_WINDOW_OG: TIME := t#37s500ms;
+	LIGHT_THRESHHOLD: UINT := 20;
 END_VAR
 VAR
 	ups: FB_S_UPS;
+	mIsInitialized: BOOL := FALSE;
+
 (*sensoren*)
 	_bwmAussenW        AT %I*: BOOL; (* West *)
 	_bwmAussenSO       AT %I*: BOOL; (* Sued-Ost *)
@@ -23,6 +26,10 @@ VAR
 	_bwmLager          AT %I*: BOOL; (* Sued-West *)
 	_bwmOgGang         AT %I*: BOOL; (* Sued-West *)
 	_bwmWaschen        AT %I*: BOOL; (* Ost *)
+	_feuchteWaschen_status  AT %I*: USINT;
+	_feuchteWaschen_dataIn  AT %I*: INT;
+	_feuchteEgGang_status   AT %I*: USINT;
+	_feuchteEgGang_dataIn   AT %I*: INT;
 	_lichtEgGang_status  AT %I*: USINT;
 	_lichtEgGang_dataIn  AT %I*: INT;
 	_lichtEgWc_status    AT %I*: USINT;
@@ -173,6 +180,7 @@ VAR
 	vorratLampe: FB_Lamp;
 
 	waschenBwm: FB_Motion;
+	waschenFeuchte: FB_Hygrometer;
 	waschenLicht: FB_Light;
 	waschenTasterL: FB_Button;
 	waschenTasterR: FB_Button;
@@ -188,6 +196,7 @@ VAR
 
 (* EG *)
 
+	egBadTaster:     FB_ButtonDouble;
 	egBadTasterR:    FB_Button;
 	egBadTasterL:    FB_Button;
 	egBadTemperatur: FB_Temperature;
@@ -198,6 +207,7 @@ VAR
 	egBadJalousie:   FB_Jalousie;
 
 	egGangBwm:          FB_Motion;
+	egGangFeuchte:      FB_Hygrometer;
 	egGangLicht:        FB_Light;
 	egGangTaster:       FB_Button;
 	egGangTemperaturSM: FB_Temperature;
@@ -233,13 +243,16 @@ VAR
 	kochenJalousieS:  FB_Jalousie;
 	kochenJalousieO:  FB_Jalousie;
 
+	schlafenTasterWM:   FB_ButtonDouble;
+	schlafenTasterWN:   FB_ButtonDouble;
+	schlafenTasterOlr:  FB_ButtonDouble;
 	schlafenTasterOo:   FB_Button;
 	schlafenTasterOl:   FB_Button;
 	schlafenTasterOr:   FB_Button;
-	schlafenTasterWML:  FB_Button;
-	schlafenTasterWMR:  FB_Button;
-	schlafenTasterWNL:  FB_Button;
-	schlafenTasterWNR:  FB_Button;
+	schlafenTasterWMl:  FB_Button;
+	schlafenTasterWMr:  FB_Button;
+	schlafenTasterWNl:  FB_Button;
+	schlafenTasterWNr:  FB_Button;
 	schlafenTemperatur: FB_Temperature;
 	schlafenLampeS:     FB_Lamp;
 	schlafenLampeO:     FB_Lamp;
@@ -251,9 +264,11 @@ VAR
 	speisTuer:  FB_Button;
 	speisLampe: FB_Lamp;
 
+	wohnenTasterO:    FB_ButtonDouble;
 	wohnenTasterOO:   FB_Button;
 	wohnenTasterOR:   FB_Button;
 	wohnenTasterOL:   FB_Button;
+	wohnenTasterW:    FB_ButtonDouble;
 	wohnenTasterWO:   FB_Button;
 	wohnenTasterWR:   FB_Button;
 	wohnenTasterWL:   FB_Button;
@@ -336,6 +351,79 @@ END_VAR
 (* @END_DECLARATION := '0' *)
 ups();
 
+(* initialize *)
+
+IF NOT mIsInitialized THEN
+	LANGUAGE.DEFAULT := 2;   (* oscat global constant *)
+	LOCATION.DEFAULT := 2;   (* oscat global constant *)
+
+	arbeitenJalousieN.windowDirection := 0;
+	arbeitenJalousieW.windowDirection := 270;
+	arbeitenJalousieW.windowWidth := 120;
+	arbeitenJalousieS.upDownTime := t#51s;
+	arbeitenJalousieS.windowDirection := 180;
+	arbeitenTemperatur.sensor := PT1000;
+	arbeitenTemperatur.terminal := Beckhoff_KL3208;
+	egBadJalousie.windowDirection := 0;
+	egBadTemperatur.sensor := PT1000;
+	egBadTemperatur.terminal := Beckhoff_KL3208;
+	egGangTemperaturSM.sensor := Thermokon_MDS;
+	egGangTemperaturSM.terminal := Beckhoff_KL3468;
+	egGangTemperaturSO.sensor := Thermokon_FTW04VV;
+	egGangTemperaturSO.terminal := Beckhoff_KL3468;
+	egWcTemperatur.sensor := Thermokon_MDS;
+	egWcTemperatur.terminal := Beckhoff_KL3468;
+	essenJalousie.windowDirection := 180;
+	essenTemperatur.sensor := PT1000;
+	essenTemperatur.terminal := Beckhoff_KL3208;
+	gaesteJalousieO.windowDirection := 90;
+	gaesteJalousieS.windowDirection := 180;
+	gaesteTemperatur.sensor := PT1000;
+	gaesteTemperatur.terminal := Beckhoff_KL3208;
+	hobbyTemperatur.sensor := Thermokon_MDS;
+	hobbyTemperatur.terminal := Beckhoff_KL3468;
+	kochenJalousieO.windowDirection := 90;
+	kochenJalousieO.upDownTime := t#27s;
+	kochenJalousieS.windowDirection := 180;
+	kochenTemperatur.sensor := Thermokon_MDS;
+	kochenTemperatur.terminal := Beckhoff_KL3468;
+	lagerTemperatur.sensor := Thermokon_MDS;
+	lagerTemperatur.terminal := Beckhoff_KL3468;
+	ogBadJalousie.windowDirection := 0;
+	ogBadTemperatur.sensor := PT1000;
+	ogBadTemperatur.terminal := Beckhoff_KL3208;
+	ogGangTemperatur.sensor := Thermokon_MDS;
+	ogGangTemperatur.terminal := Beckhoff_KL3468;
+	ogKindJalousieW.upDownTime := t#51s;
+	ogKindJalousieW.windowDirection := 270;
+	ogKindJalousieS.windowDirection := 180;
+	ogKindTemperatur.sensor := PT1000;
+	ogKindTemperatur.terminal := Beckhoff_KL3208;
+	ogWcTemperatur.sensor := PT1000;
+	ogWcTemperatur.terminal := Beckhoff_KL3208;
+	schlafenJalousieN.windowDirection := 0;
+	schlafenJalousieW.windowDirection := 270;
+	schlafenJalousieW.windowWidth := 120;
+	schlafenTemperatur.sensor := PT1000;
+	schlafenTemperatur.terminal := Beckhoff_KL3208;
+	vorratTemperatur.sensor := PT1000;
+	vorratTemperatur.terminal := Beckhoff_KL3208;
+	waschenTemperaturON.sensor := Thermokon_MDS;
+	waschenTemperaturON.terminal := Beckhoff_KL3468;
+	waschenTemperaturOS.sensor := Thermokon_FTW04VV;
+	waschenTemperaturOS.terminal := Beckhoff_KL3468;
+	wohnenJalousieS.windowDirection := 180;
+	wohnenJalousieWa.upDownTime := t#51s;
+	wohnenJalousieWa.windowDirection := 270;
+	wohnenJalousieWa.windowWidth := 240;
+	wohnenJalousieWb.upDownTime := t#51s;
+	wohnenJalousieWb.windowDirection := 270;
+	wohnenJalousieWb.windowWidth := 240;
+	wohnenTemperatur.sensor := PT1000;
+	wohnenTemperatur.terminal := Beckhoff_KL3208;
+	mIsInitialized := TRUE;
+END_IF
+
 (* input processing *)
 
 aussenBwmW(IN := _bwmAussenW, ROOM := 'Aussen', LOCATION := 'West');
@@ -343,119 +431,223 @@ aussenBwmSO(IN := _bwmAussenSO, ROOM := 'Aussen', LOCATION := 'Sued-Ost');
 kgGangBwm(IN := _bwmKgGang, ROOM := 'KG-Gang', LOCATION := 'Ost');
 heizenTaster(IN := _tasterHeizen, ROOM := 'Heizen', LOCATION := 'Nord-West');
 hobbyBwm(IN := _bwmHobby, ROOM := 'Hobby', LOCATION := 'Sued-West');
-hobbyLicht(Status := _lichtHobby_status, DataIn := _lichtHobby_dataIn, ROOM := 'Hobby', LOCATION := 'Sued-West');
+hobbyLicht(Status := _lichtHobby_status, DataIn := _lichtHobby_dataIn);
 hobbyTasterL(IN := _tasterHobbyL, ROOM := 'Hobby', LOCATION := 'Ost');
 hobbyTasterR(IN := _tasterHobbyR, ROOM := 'Hobby', LOCATION := 'Ost');
 lagerBwm(IN := _bwmLager, ROOM := 'Lager', LOCATION := 'Sued-West');
-lagerLicht(Status := _lichtLager_status, DataIn := _lichtLager_dataIn, ROOM := 'Lager', LOCATION := 'Sued-West');
+lagerLicht(Status := _lichtLager_status, DataIn := _lichtLager_dataIn);
 lagerTasterNO(IN := _tasterLagerNO, ROOM := 'Lager', LOCATION := 'Nord-Ost');
 lagerTasterS(IN := _tasterLagerS, ROOM := 'Lager', LOCATION := 'Sued');
-vorratTemperatur(Status := _temperaturVorrat_status, DataIn := _temperaturVorrat_dataIn,
-	ROOM := 'Vorrat', LOCATION := 'Sued-West');
+vorratTemperatur(Status := _temperaturVorrat_status, DataIn := _temperaturVorrat_dataIn);
 waschenBwm(IN := _bwmWaschen, ROOM := 'Waschen', LOCATION := 'Ost');
-waschenLicht(Status := _lichtWaschen_status, DataIn := _lichtWaschen_dataIn, ROOM := 'Lager', LOCATION := 'Sued-West');
+waschenFeuchte(Status := _feuchteWaschen_status, DataIn := _feuchteWaschen_dataIn);
+waschenLicht(Status := _lichtWaschen_status, DataIn := _lichtWaschen_dataIn);
 waschenTasterL(IN := _tasterWaschenL, ROOM := 'Waschen', LOCATION := 'West-Sued');
 waschenTasterR(IN := _tasterWaschenR, ROOM := 'Waschen', LOCATION := 'West-Sued');
-waschenTemperaturON(Status := _temperaturWaschenON_status, DataIn := _temperaturWaschenON_dataIn,
-	ROOM := 'Vorrat', LOCATION := 'Sued-West');
+waschenTemperaturON(status := _temperaturWaschenON_status, dataIn := _temperaturWaschenON_dataIn);
+waschenTemperaturOS(status := _temperaturWaschenOS_status, dataIn := _temperaturWaschenOS_dataIn);
 
 egBadTasterL(IN := _tasterEgBadL, ROOM := 'EG-Bad', LOCATION := 'Sued');
 egBadTasterR(IN := _tasterEgBadR, ROOM := 'EG-Bad', LOCATION := 'Sued');
-egBadTemperatur(Status := _temperaturEgBad_status, DataIn := _temperaturEgBad_dataIn,
-	ROOM := 'EG-Bad', LOCATION := 'Sued-Ost');
+egBadTaster(
+	pulseOnClickA := egBadTasterL.pulseOnClick,
+	pulseOnClickB := egBadTasterR.pulseOnClick,
+	pulseOnLongpressA := egBadTasterL.pulseOnLongpress,
+	pulseOnLongpressB := egBadTasterR.pulseOnLongpress,
+);
+egBadTemperatur(Status := _temperaturEgBad_status, DataIn := _temperaturEgBad_dataIn);
+
 egGangBwm(IN := _bwmEgGang, ROOM := 'EG-Gang', LOCATION := 'Sued');
-egGangLicht(Status := _lichtEgGang_status, DataIn := _lichtEgGang_dataIn, ROOM := 'EG-Gang', Location := 'Sued');
+egGangFeuchte(Status := _feuchteEgGang_status, DataIn := _feuchteEgGang_dataIn);
+egGangLicht(Status := _lichtEgGang_status, DataIn := _lichtEgGang_dataIn);
 egGangTaster(IN := _tasterEgGang, ROOM := 'EG-Gang', LOCATION := 'Nord-West');
-egGangTemperaturSM(Status := _temperaturEgGangSM_status, DataIn := _temperaturEgGangSM_dataIn,
-	ROOM := 'EG-Gang', LOCATION := 'Sued-Mitte');
+egGangTemperaturSM(Status := _temperaturEgGangSM_status, DataIn := _temperaturEgGangSM_dataIn);
+
 egWcBwm(IN := _bwmEgWc, ROOM := 'EG-WC', LOCATION := 'Sued-West');
-egWcLicht(Status := _lichtEgWc_status, DataIn := _lichtEgWc_dataIn, ROOM := 'EG-WC', Location := 'Sued-West');
+egWcLicht(Status := _lichtEgWc_status, DataIn := _lichtEgWc_dataIn);
 egWcTaster(IN := _tasterEgWc, ROOM := 'EG-WC', LOCATION := 'West-Sued');
+egWcTemperatur(status := _temperaturEgWc_status, dataIn := _temperaturEgWc_dataIn);
+
 essenTasterO(IN := _tasterEssenO, ROOM := 'Essen', LOCATION := 'Nord');
 essenTasterL(IN := _tasterEssenL, ROOM := 'Essen', LOCATION := 'Nord');
 essenTasterR(IN := _tasterEssenR, ROOM := 'Essen', LOCATION := 'Nord');
-essenTemperatur(Status := _temperaturEssen_status, DataIn := _temperaturEssen_dataIn,
-	ROOM := 'Essen', LOCATION := 'Sued-West');
+essenTemperatur(Status := _temperaturEssen_status, DataIn := _temperaturEssen_dataIn);
+
 kochenBwm(IN := _bwmKochen, ROOM := 'Kochen', LOCATION := 'Sued-West');
-kochenLicht(Status := _lichtKochen_status, DataIn := _lichtKochen_dataIn, ROOM := 'Kochen', Location := 'Sued-West');
+kochenLicht(Status := _lichtKochen_status, DataIn := _lichtKochen_dataIn);
 kochenTasterWO(IN := _tasterKochenWO, ROOM := 'Kochen', Location := 'West');
 kochenTasterWL(IN := _tasterKochenWL, ROOM := 'Kochen', Location := 'West');
 kochenTasterWR(IN := _tasterKochenWR, ROOM := 'Kochen', Location := 'West');
 kochenTasterOL(IN := _tasterKochenOL, ROOM := 'Kochen', Location := 'Ost');
 kochenTasterOR(IN := _tasterKochenOR, ROOM := 'Kochen', Location := 'Ost');
-kochenTemperatur(Status := _temperaturKochen_status, DataIn := _temperaturKochen_dataIn,
-	ROOM := 'Kochen', LOCATION := 'Sued-West');
+kochenTemperatur(Status := _temperaturKochen_status, DataIn := _temperaturKochen_dataIn);
+
 schlafenTasterWML(IN := _tasterSchlafenWML, ROOM := 'Schlafen', LOCATION := 'West-Mitte');
 schlafenTasterWMR(IN := _tasterSchlafenWMR, ROOM := 'Schlafen', LOCATION := 'West-Mitte');
+schlafenTasterWM(
+	pulseOnLongpressA := schlafenTasterWMr.pulseOnLongpress,
+	pulseOnLongpressB := schlafenTasterWMl.pulseOnLongpress,
+);
 schlafenTasterWNL(IN := _tasterSchlafenWNL, ROOM := 'Schlafen', LOCATION := 'West-Nord');
 schlafenTasterWNR(IN := _tasterSchlafenWNR, ROOM := 'Schlafen', LOCATION := 'West-Nord');
+schlafenTasterWN(
+	pulseOnLongpressA := schlafenTasterWNr.pulseOnLongpress,
+	pulseOnLongpressB := schlafenTasterWNl.pulseOnLongpress,
+);
 schlafenTasterOo(IN := _tasterSchlafenOo, ROOM := 'Schlafen', LOCATION := 'Ost');
 schlafenTasterOl(IN := _tasterSchlafenOl, ROOM := 'Schlafen', LOCATION := 'Ost');
 schlafenTasterOr(IN := _tasterSchlafenOr, ROOM := 'Schlafen', LOCATION := 'Ost');
-schlafenTemperatur(Status := _temperaturSchlafen_status, DataIn := _temperaturSchlafen_dataIn,
-	ROOM := 'Schlafen', LOCATION := 'Nord-West');
+schlafenTasterOlr(
+	pulseOnLongpressA := schlafenTasterOr.pulseOnLongpress,
+	pulseOnLongpressB := schlafenTasterOl.pulseOnLongpress,
+);
+schlafenTemperatur(Status := _temperaturSchlafen_status, DataIn := _temperaturSchlafen_dataIn);
 speisTuer(IN := _tasterSpeis, ROOM := 'Speis', LOCATION := 'Tuerkontakt');
 wohnenTasterOO(IN := _tasterWohnenOO, ROOM := 'Wohnen', LOCATION := 'Ost');
 wohnenTasterOL(IN := _tasterWohnenOL, ROOM := 'Wohnen', LOCATION := 'Ost');
 wohnenTasterOR(IN := _tasterWohnenOR, ROOM := 'Wohnen', LOCATION := 'Ost');
+wohnenTasterO(
+	pulseOnClickA := wohnenTasterOL.pulseOnClick,
+	pulseOnClickB := wohnenTasterOR.pulseOnClick,
+	pulseOnLongpressA := wohnenTasterOL.pulseOnLongpress,
+	pulseOnLongpressB := wohnenTasterOR.pulseOnLongpress,
+);
 wohnenTasterWO(IN := _tasterWohnenWO, ROOM := 'Wohnen', LOCATION := 'West');
 wohnenTasterWL(IN := _tasterWohnenWL, ROOM := 'Wohnen', LOCATION := 'West');
 wohnenTasterWR(IN := _tasterWohnenWR, ROOM := 'Wohnen', LOCATION := 'West');
-wohnenTemperatur(Status := _temperaturWohnen_status, DataIn := _temperaturWohnen_dataIn,
-	ROOM := 'Wohnen', LOCATION := 'Sued-West');
+wohnenTasterW(
+	pulseOnClickA := wohnenTasterWL.pulseOnClick,
+	pulseOnClickB := wohnenTasterWR.pulseOnClick,
+	pulseOnLongpressA := wohnenTasterWL.pulseOnLongpress,
+	pulseOnLongpressB := wohnenTasterWR.pulseOnLongpress,
+);
+wohnenTemperatur(Status := _temperaturWohnen_status, DataIn := _temperaturWohnen_dataIn);
 
 arbeitenTasterOO(IN := _tasterArbeitenOO, ROOM := 'Arbeiten', LOCATION := 'Ost');
 arbeitenTasterOL(IN := _tasterArbeitenOL, ROOM := 'Arbeiten', LOCATION := 'Ost');
 arbeitenTasterOR(IN := _tasterArbeitenOR, ROOM := 'Arbeiten', LOCATION := 'Ost');
 arbeitenTasterSL(IN := _tasterArbeitenSL, ROOM := 'Arbeiten', LOCATION := 'Sued');
 arbeitenTasterSR(IN := _tasterArbeitenSR, ROOM := 'Arbeiten', LOCATION := 'Sued');
-arbeitenTemperatur(Status := _temperaturArbeiten_status, DataIn := _temperaturArbeiten_dataIn,
-	ROOM := 'Arbeiten', LOCATION := 'Nord-Ost');
+arbeitenTemperatur(Status := _temperaturArbeiten_status, DataIn := _temperaturArbeiten_dataIn);
 gaesteTasterO(IN := _tasterGaesteO, ROOM := 'Gaeste', LOCATION := 'Nord');
 gaesteTasterL(IN := _tasterGaesteL, ROOM := 'Gaeste', LOCATION := 'Nord');
 gaesteTasterR(IN := _tasterGaesteR, ROOM := 'Gaeste', LOCATION := 'Nord');
-gaesteTemperatur(Status := _temperaturGaeste_status, DataIn := _temperaturGaeste_dataIn,
-	ROOM := 'Gaeste', LOCATION := 'Ost-Nord');
+gaesteTemperatur(Status := _temperaturGaeste_status, DataIn := _temperaturGaeste_dataIn);
 ogKindTasterNO(IN := _tasterOgKindNO, ROOM := 'OG-Kind', LOCATION := 'Nord');
 ogKindTasterNL(IN := _tasterOgKindNL, ROOM := 'OG-Kind', LOCATION := 'Nord');
 ogKindTasterNR(IN := _tasterOgKindNR, ROOM := 'OG-Kind', LOCATION := 'Nord');
 ogKindTasterWL(IN := _tasterOgKindWL, ROOM := 'OG-Kind', LOCATION := 'West');
 ogKindTasterWR(IN := _tasterOgKindWR, ROOM := 'OG-Kind', LOCATION := 'West');
-ogKindTemperatur(Status := _temperaturOgKind_status, DataIn := _temperaturOgKind_dataIn,
-	ROOM := 'OG-Kind', LOCATION := 'Ost-Nord');
+ogKindTemperatur(Status := _temperaturOgKind_status, DataIn := _temperaturOgKind_dataIn);
 ogBadTasterL(IN := _tasterOgBadL, ROOM := 'OG-Bad', LOCATION := 'Sued');
 ogBadTasterR(IN := _tasterOgBadR, ROOM := 'OG-Bad', LOCATION := 'Sued');
-ogBadTemperatur(Status := _temperaturOgBad_status, DataIn := _temperaturOgBad_dataIn,
-	ROOM := 'OG-Bad', LOCATION := 'Sued-Ost');
+ogBadTemperatur(Status := _temperaturOgBad_status, DataIn := _temperaturOgBad_dataIn);
 ogGangBwm(IN := _bwmOgGang, ROOM := 'OG-Gang', LOCATION := 'Sued-West');
-ogGangLicht(ROOM := 'OG-Gang', LOCATION := 'Sued-West');
-ogGangTemperatur(Status := _temperaturOgGang_status, DataIn := _temperaturOgGang_dataIn,
-	ROOM := 'OG-Gang', LOCATION := 'Sued-West');
+ogGangLicht();
+ogGangTemperatur(Status := _temperaturOgGang_status, DataIn := _temperaturOgGang_dataIn);
 ogWcTaster(IN := _tasterOgWc, ROOM := 'OG-WC', LOCATION := 'Ost-Sued');
-ogWcTemperatur(Status := _temperaturOgWc_status, DataIn := _temperaturOgWc_dataIn,
-	ROOM := 'OG-WC', LOCATION := 'Ost-Sued');
+ogWcTemperatur(Status := _temperaturOgWc_status, DataIn := _temperaturOgWc_dataIn);
 
 dgKindTaster(IN := _tasterDgKind, Room := 'DG-Kind', LOCATION := 'West-Sued');
 
 (* control *)
 
-arbeitenJalousieN(T_UD := JALOUSIE_UD_TIME_WINDOW_OG, T_ANGLE:= t#1s);
-arbeitenJalousieW(T_UD := JALOUSIE_UD_TIME_WINDOW_OG, T_ANGLE:= t#1s);
-arbeitenJalousieS(T_UD := JALOUSIE_UD_TIME_BALKON, T_ANGLE:= t#1s);
-egBadJalousie(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE:= t#1s);
-essenJalousie(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE:= t#1s);
-gaesteJalousieS(T_UD := JALOUSIE_UD_TIME_WINDOW_OG, T_ANGLE:= t#1s);
-gaesteJalousieO(T_UD := JALOUSIE_UD_TIME_WINDOW_OG, T_ANGLE:= t#1s);
-kochenJalousieS(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE:= t#1s);
-kochenJalousieO(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE:= t#1s);
-ogBadJalousie(T_UD := JALOUSIE_UD_TIME_WINDOW_OG, T_ANGLE:= t#1s);
-ogKindJalousieW(T_UD := JALOUSIE_UD_TIME_BALKON, T_ANGLE:= t#1s);
-ogKindJalousieS(T_UD := JALOUSIE_UD_TIME_WINDOW_OG, T_ANGLE:= t#1s);
-schlafenJalousieN(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE:= t#1s);
-schlafenJalousieW(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE := t#1s);
-wohnenJalousieS(T_UD := JALOUSIE_UD_TIME_WINDOW_EG, T_ANGLE:= t#1s);
-wohnenJalousieWa(T_UD := JALOUSIE_UD_TIME_TERASSE, T_ANGLE:= t#1s);
-wohnenJalousieWb(T_UD := JALOUSIE_UD_TIME_TERASSE, T_ANGLE:= t#1s);
+IF egBadTaster.qPulseOnLongpressBoth THEN
+	IF egBadJalousie.qPosition > 127 THEN
+		egBadJalousie.position := 0;
+		egBadJalousie.angle := 0;
+	ELSE
+		egBadJalousie.position := 255;
+		egBadJalousie.angle := 255;
+	END_IF
+	egBadJalousie.force := TRUE;
+ELSE
+	egBadJalousie.force := FALSE;
+END_IF
+
+IF egGangLicht.value < LIGHT_THRESHHOLD THEN
+	egGangLampe.ON := egGangBwm.pulseOnMotion;
+END_IF
+
+IF egWcLicht.value < LIGHT_THRESHHOLD THEN
+	egWcLampe.ON := egWcBwm.pulseOnMotion;
+END_IF
+
+IF schlafenTasterOlr.qPulseOnLongpressBoth
+OR schlafenTasterWM.qPulseOnLongpressBoth
+OR schlafenTasterWN.qPulseOnLongpressBoth THEN
+	IF schlafenJalousieN.qPosition > 127 THEN
+		schlafenJalousieN.position := 0;
+		schlafenJalousieN.angle := 0;
+		schlafenJalousieW.position := 0;
+		schlafenJalousieW.angle := 0;
+	ELSE
+		schlafenJalousieN.position := 255;
+		schlafenJalousieN.angle := 255;
+		schlafenJalousieW.position := 255;
+		schlafenJalousieW.angle := 255;
+	END_IF
+	schlafenJalousieN.force := TRUE;
+	schlafenJalousieW.force := TRUE;
+ELSE
+	schlafenJalousieN.force := FALSE;
+	schlafenJalousieW.force := FALSE;
+END_IF
+
+IF wohnenTasterW.qPulseOnLongpressBoth THEN
+	IF wohnenJalousieWa.qPosition > 127 THEN
+		wohnenJalousieWa.position := 0;
+		wohnenJalousieWa.angle := 0;
+	ELSE
+		wohnenJalousieWa.position := 255;
+		wohnenJalousieWa.angle := 255;
+	END_IF
+	wohnenJalousieWa.force := TRUE;
+END_IF
+IF wohnenTasterO.qPulseOnLongpressBoth THEN
+	IF wohnenJalousieS.qPosition > 127 THEN
+		wohnenJalousieWa.position := 0;
+		wohnenJalousieWa.angle := 0;
+		wohnenJalousieWb.position := 0;
+		wohnenJalousieWb.angle := 0;
+		wohnenJalousieS.position := 0;
+		wohnenJalousieS.angle := 0;
+	ELSE
+		wohnenJalousieWa.position := 255;
+		wohnenJalousieWa.angle := 255;
+		wohnenJalousieWb.position := 255;
+		wohnenJalousieWb.angle := 255;
+		wohnenJalousieS.position := 255;
+		wohnenJalousieS.angle := 255;
+	END_IF
+	wohnenJalousieWa.force := TRUE;
+	wohnenJalousieWb.force := TRUE;
+	wohnenJalousieS.force := TRUE;
+ELSE
+	wohnenJalousieWb.force := FALSE;
+	wohnenJalousieS.force := FALSE;
+END_IF
+IF NOT wohnenTasterW.qPulseOnLongpressBoth AND NOT wohnenTasterO.qPulseOnLongpressBoth THEN
+	wohnenJalousieWa.force := FALSE;
+END_IF
+
+arbeitenJalousieN();
+arbeitenJalousieW();
+arbeitenJalousieS();
+egBadJalousie();
+essenJalousie();
+gaesteJalousieS();
+gaesteJalousieO();
+kochenJalousieS();
+kochenJalousieO();
+ogBadJalousie();
+ogKindJalousieW();
+ogKindJalousieS();
+schlafenJalousieN();
+schlafenJalousieW();
+wohnenJalousieS();
+wohnenJalousieWa();
+wohnenJalousieWb();
 
 
 (* output processing *)
@@ -473,25 +665,23 @@ waschenLampeNM(ON := waschenBwm.pulseOnMotion, ON_OFF := waschenTasterR.pulseOnC
 waschenLampeS(ON := waschenBwm.pulseOnMotion, ON_OFF := waschenTasterL.pulseOnClick, PT := t#15m, ROOM := 'Waschen', LOCATION := 'Sued');
 
 egBadLampeON(
-	ON_OFF := egBadTasterR.pulseOnLongpress
-		OR egBadTasterL.pulseOnLongpress,
-	PT := t#4h, ROOM := 'EG-Bad', LOCATION := 'Ost-Dusche');
+	ON_OFF := egBadTaster.pulseOnLongpressA
+		OR egBadTaster.pulseOnLongpressB,
+	PT := t#45m, ROOM := 'EG-Bad', LOCATION := 'Ost-Dusche');
 egBadLampeOM(
-	ON_OFF := egBadTasterL.pulseOnClick,
-	PT := t#10m, ROOM := 'EG-Bad', LOCATION := 'Ost-Spiegel');
+	ON_OFF := egBadTaster.pulseOnClickA,
+	PT := t#20m, ROOM := 'EG-Bad', LOCATION := 'Ost-Spiegel');
 egBadLampeSM(
-	ON_OFF := egBadTasterR.pulseOnClick,
-	PT := t#30m, ROOM := 'EG-Bad', LOCATION := 'Sued|Mitte');
+	ON_OFF := egBadTaster.pulseOnClickB,
+	PT := t#40m, ROOM := 'EG-Bad', LOCATION := 'Sued|Mitte');
 egBadDimmerSM(ON := egBadLampeSM.Q,
 	INTENSITY := _dimmerEgBadSM_intensity,
 	Status := _dimmerEgBadSM_status,
 	DataIn := _dimmerEgBadSM_dataIn);
-egGangLampe(ON := egGangBwm.pulseOnMotion,
-	OFF := egGangTaster.pulseOnLongpress,
+egGangLampe(OFF := egGangTaster.pulseOnLongpress,
 	OFF_BLOCK_ON := t#30s,
 	PT := t#5m, ROOM := 'EG-Gang', LOCATION := 'Sued');
 egWcLampe(
-	ON := egWcBwm.pulseOnMotion,
 	ON_OFF := egWcTaster.pulseOnClick,
 	PT := t#6m, ROOM := 'EG-WC', LOCATION := 'West');
 essenLampeM(
@@ -541,15 +731,14 @@ schlafenLampeO(
 		OR schlafenTasterWML.pulseOnClick
 		OR schlafenTasterWNR.pulseOnClick,
 	PT := t#30m, ROOM := 'Schlafen', LOCATION := 'Ost');
-schlafenJalousieN();
 
 wohnenLampeM(
 	ON_OFF := wohnenTasterOO.pulseOnClick
 		OR wohnenTasterWO.pulseOnClick,
 	PT := t#1h, ROOM := 'Wohnen', LOCATION := 'Mitte');
 wohnenLampeN(
-	ON_OFF := wohnenTasterOL.pulseOnClick
-		OR wohnenTasterWR.pulseOnClick,
+	ON_OFF := wohnenTasterO.pulseOnClickA
+		OR wohnenTasterW.pulseOnClickB,
 	PT := t#1h, ROOM := 'Wohnen', LOCATION := 'Nord');
 wohnenDimmerN(ON := wohnenLampeN.Q,
 	INTENSITY := _dimmerWohnenN_intensity,
@@ -557,8 +746,8 @@ wohnenDimmerN(ON := wohnenLampeN.Q,
 	DataIn := _dimmerWohnenN_dataIn);
 
 wohnenLampeSW(
-	ON_OFF := wohnenTasterOR.pulseOnClick
-		OR wohnenTasterWL.pulseOnClick,
+	ON_OFF := wohnenTasterO.pulseOnClickB
+		OR wohnenTasterW.pulseOnClickA,
 	PT := t#1h, ROOM := 'Wohnen', LOCATION := 'Sued-West');
 
 egOgLampe(ON := ogGangBwm.pulseOnMotion,
@@ -613,6 +802,9 @@ dgKindLampe(ON_OFF := dgKindTaster.pulseOnClick,
 	PT := t#2h, ROOM := 'DG-Kind', LOCATION := 'West-Sued');
 dachbodenLampe(ON_OFF := dgKindTaster.pulseOnLongpress,
 	PT := t#1h, ROOM := 'Dachboden', LOCATION := 'Ecke');
+
+
+(* control output *)
 
 heizenHk1(soll := 24.0, vorlauf :=, ruecklauf :=);
 heizenHk2(soll := 24.0, vorlauf :=, ruecklauf :=);

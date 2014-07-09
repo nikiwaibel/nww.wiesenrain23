@@ -3,15 +3,15 @@
 (* @PATH := '\/FBs' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION_BLOCK FB_Light
+FUNCTION_BLOCK FB_Hygrometer
 VAR_INPUT
-	sensor: E_Sensor; (* Thermokon_MDS *)
+	sensor: E_Sensor; (* Thermokon_FTW04VV *)
 	terminal: E_Terminal; (* Beckhoff_KL3468 *)
 	status: USINT;
 	dataIn: INT;
 END_VAR
 VAR_OUTPUT
-	value: LREAL; (* Lux *)
+	value: LREAL; (* % *)
 	error: BOOL;
 END_VAR
 (* @END_DECLARATION := '0' *)
@@ -19,11 +19,11 @@ END_VAR
  * Beckhoff_KL3468: 0..10V = 0x0000..0x7fff <±0.3% (12bit/4ms)
  *)
 (* sensor:
- * Thermokon_MDS: 0..10V = 0..1kLux ±50Lux
+ * Thermokon_FTW04VV: 0..10V = 0..100% ±2%(10..90%) ±4%(0%/100%)
  *)
-IF terminal = Beckhoff_KL3468 AND sensor = Thermokon_MDS THEN
-	value := INT_TO_LREAL(dataIn);
-	value := value * 1000;
+IF terminal = Beckhoff_KL3468 AND sensor = Thermokon_FTW04VV THEN
+	value := UINT_TO_LREAL(dataIn);
+	value := value * 100;
 	value := value / 16#7FFF;
 	error := FALSE;
 ELSE

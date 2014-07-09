@@ -5,28 +5,33 @@
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK FB_Temperature
 VAR_INPUT
-	Status: USINT;
-	DataIn: INT;
-	UNIT: E_TemperatureUnit;
-	ROOM: STRING;
-	LOCATION: STRING;
+	sensor: E_Sensor; (* Thermokon_MDS, PT1000 *)
+	terminal: E_Terminal; (* Beckhoff_KL3468, Beckhoff_KL3208 *)
+	status: USINT;
+	dataIn: INT;
 END_VAR
 VAR_OUTPUT
-	Value: REAL;
-	Error: BOOL;
-END_VAR
-VAR
-	viText: STRING;
+	value: REAL;
+	error: BOOL;
 END_VAR
 (* @END_DECLARATION := '0' *)
-(* support VIsualisations *)
-viText := CONCAT(ROOM, '$N');
-viText := CONCAT(viText, LOCATION);
+(* Thermokon_MDS: 0..10V = 0..50C ±0.5K *)
 
-IF Status.6 THEN
-	Error := TRUE;
+IF sensor = PT1000 AND terminal = Beckhoff_KL3208 THEN
+	IF status.6 THEN
+		error := TRUE;
+	ELSE
+		value := INT_TO_REAL(dataIn) / 100;
+		error := FALSE;
+	END_IF
+ELSIF sensor = Thermokon_MDS AND terminal = Beckhoff_KL3468 THEN
+	value := INT_TO_LREAL(dataIn);
+	value := value * 50;
+	value := value / 16#7FFF;
+	error := FALSE;
+ELSIF sensor = Thermokon_FTW04VV AND terminal = Beckhoff_KL3468 THEN
+	error := TRUE;
 ELSE
-	Error := FALSE;
-	Value := INT_TO_REAL(DataIn) / 100;
+	error := TRUE;
 END_IF
 END_FUNCTION_BLOCK

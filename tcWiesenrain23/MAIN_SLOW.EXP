@@ -4,13 +4,67 @@
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
 PROGRAM MAIN_SLOW
-VAR_OUTPUT
-
+VAR CONSTANT
+	LATITUDE: REAL := 47.40999;
+	LONGITUDE: REAL := 9.65535;
 END_VAR
 VAR
-	fbDoubleButton: FB_DoubleButton;
+	mIsInitialized: BOOL := FALSE;
+
+	mUtcFiletime: t_filetime;
+	mUtcDt: DT;
+	mUtcTimestruct: timestruct;
+	mUtcDate: DATE;
+	mUtcTime: TIME;
+	mLocalTimestruct: timestruct;
+	mLocalDt: DT;
+	mLocalFiletime: t_filetime;
+	mLocalDate: DATE;
+	mLocalTime: TIME;
+	fbNtGetTime: NT_GetTime;
+	fbGetSystemTime: GETSYSTEMTIME;
+
+	mCalendar: CALENDAR;
+	fbCalendarCalc: CALENDAR_CALC;
+	aHolidays: ARRAY [0..29] OF HOLIDAY_DATA;
+
+	mSun: BOOL := TRUE;
+	mDoor: BOOL := FALSE;
+	mRain: BOOL := FALSE;
+	mWind: BOOL := FALSE;
+	mAlarm: BOOL := FALSE;
+	mFire: BOOL := FALSE;
 END_VAR
 (* @END_DECLARATION := '0' *)
-fbDoubleButton(CLICK_A_IN := MAIN.schlafenTasterOl.isClicked, CLICK_B_IN := MAIN.schlafenTasterOr.isClicked);
+IF NOT mIsInitialized THEN
+	mCalendar.LATITUDE := LATITUDE;
+	mCalendar.LONGITUDE := LONGITUDE;
+	mCalendar.DST_EN := TRUE;
+	mCalendar.LANGUAGE := LANGUAGE.DEFAULT;
+	mCalendar.OFFSET := 60;
+	fbCalendarCalc.SPE := TRUE;
+	mIsInitialized := TRUE;
+END_IF
+
+fbGetSystemTime();
+mUtcFiletime.dwHighDateTime := fbGetSystemTime.timeHiDW;
+mUtcFiletime.dwLowDateTime := fbGetSystemTime.timeLoDW;
+mUtcDt := FILETIME_TO_DT(mUtcFiletime);
+mUtcTimestruct := FILETIME_TO_SYSTEMTIME(mUtcFiletime);
+mUtcDate := DT_TO_DATE(mUtcDt);
+mUtcTime := DT_TO_TIME(mUtcDt);
+
+fbNtGetTime(start := FALSE);
+fbNtGetTime(start := NOT fbNtGetTime.BUSY);
+IF NOT fbNtGetTime.BUSY AND NOT fbNtGetTime.ERR THEN
+	mLocalTimestruct := fbNtGetTime.TIMESTR;
+END_IF
+mLocalDt := SYSTEMTIME_TO_DT(mLocalTimestruct);
+mLocalFiletime := SYSTEMTIME_TO_FILETIME(mLocalTimestruct);
+mLocalDate := DT_TO_DATE(mLocalDt);
+mLocalTime := DT_TO_TIME(mLocalDt);
+
+mCalendar.UTC := mUtcDt;
+fbCalendarCalc(XCAL := mCalendar, HOLIDAYS := aHolidays);
 
 END_PROGRAM

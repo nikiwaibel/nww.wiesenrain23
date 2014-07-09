@@ -1,0 +1,13 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE stDeviceSpace :
+STRUCT
+	byModbusSlaveAddress : BYTE;
+	wModbusAdress : WORD;
+	iModbusFunction : INT;
+	pSPSDataSpace : DWORD;
+	wSPSDataSpaceLength : WORD;
+END_STRUCT
+END_TYPE
+(* @END_DECLARATION := '0' *)

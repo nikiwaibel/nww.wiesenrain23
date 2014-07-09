@@ -1,0 +1,63 @@
+
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '\/FBs\/fixed' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '2048' *)
+FUNCTION_BLOCK BLIND_NIGHT_FIXED
+VAR_INPUT
+        UP, DN : BOOL;
+        S_IN : BYTE;
+        PI, AI : BYTE;
+        E_NIGHT : BOOL := TRUE;
+        E_DAY   : BOOL := TRUE;
+        DTIN : DT;
+        SUNRISE, SUNSET : TOD;
+END_VAR
+VAR_INPUT CONSTANT
+        SUNRISE_OFFSET : TIME;
+        SUNSET_OFFSET : TIME;
+        NIGHT_POSITION : BYTE;
+        NIGHT_ANGLE : BYTE;
+END_VAR
+VAR_OUTPUT
+        QU, QD : BOOL;
+        STATUS : BYTE;
+        PO, AO : BYTE;
+END_VAR
+VAR
+        night : BOOL;
+        last_night, last_day : DATE;
+END_VAR
+
+(* @END_DECLARATION := '0' *)
+IF NOT (up AND dn) AND night THEN
+        (* manual operation at night will cancel operation for one night *)
+        night := FALSE;
+ELSIF ((DT_TO_TOD(dtin) > sunset + sunset_offset)
+       OR (DT_TO_TOD(dtin) < sunrise + sunrise_offset))
+      AND (last_night < DT_TO_DATE(dtin))
+      AND NOT night
+      AND e_night THEN
+        (* enable night *)
+        night := TRUE;
+        last_night := DT_TO_DATE(dtin);
+ELSIF (DT_TO_TOD(dtin) > sunrise + sunrise_offset) AND (last_day < DT_TO_DATE(dtin)) AND night AND e_day AND (last_night < DT_TO_DATE(dtin)) THEN
+        (* disable night *)
+        night := FALSE;
+        last_day := DT_TO_DATE(dtin);
+END_IF;
+
+(* shade at night only in auto mode and enable = true *)
+IF UP AND DN AND night THEN
+        status := 141;
+        po := night_position;
+        ao := night_angle;
+ELSE
+        QU := UP;
+        QD := DN;
+        po := pi;
+        ao := ai;
+        status := s_in;
+END_IF;
+
+END_FUNCTION_BLOCK

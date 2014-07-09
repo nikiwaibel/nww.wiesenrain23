@@ -1,0 +1,13 @@
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+TYPE stResultOfModbusSlaveScan :
+STRUCT
+	eModbusfunction: MODBUS_FUNCTIONS;
+	iModbusAdress: INT;
+	wValue: WORD;
+	eModbusError: MODBUS_ERRORS;
+END_STRUCT
+END_TYPE
+
+(* @END_DECLARATION := '0' *)
